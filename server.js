@@ -4,9 +4,6 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const path = require('path');
 
-// test
-//retest
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 let game = {};
