@@ -7,6 +7,7 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
   <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="/manifest.json">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -16,92 +17,106 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
+      align-items: stretch;
     }
-    .centered {
-      margin-top: 50px;
-      width: 100%;
-      max-width: 400px;
-      padding: 30px 20px;
-      background: #23272b;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px #0004;
+    .centered-vertical {
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-top: 30px;
     }
-    input[type="text"] {
-      width: 90%;
-      padding: 12px 10px;
-      border-radius: 6px;
-      border: 1px solid #888;
-      font-size: 1.2em;
-      margin-bottom: 20px;
-    }
-    button {
-      font-size: 1.2em;
-      padding: 14px 32px;
-      border-radius: 8px;
-      border: none;
-      background: #3855d6;
-      color: #fff;
-      cursor: pointer;
-      margin-bottom: 15px;
-      box-shadow: 0 2px 10px #0002;
-      transition: background 0.2s;
-    }
-    button:hover, button:focus {
-      background: #264393;
-    }
-    #qrCode {
-      margin: 18px auto 8px auto;
-      width: 160px;
-      height: 160px;
-      background: #fff;
+    .role-btn {
+      font-size: 1.5em;
+      padding: 25px 40px;
       border-radius: 12px;
+      border: none;
+      margin: 20px;
+      color: #fff;
+      transition: background 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      box-shadow: 0 2px 10px #0002;
+    }
+    #btnReset {
+      display: block;
+      margin: 20px auto 0 auto;
+    }
+    .maitre-btn { background: #273043; }
+    .maitre-btn:hover, .maitre-btn:focus { background: #444d5a; }
+    .maitre-btn[disabled] {
+      background: #888;
+      cursor: default;
+    }
+    .joueur-btn { background: #00818a; }
+    .joueur-btn:hover, .joueur-btn:focus { background: #00a0b0; }
+    #homePage {
       display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    .top-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1rem;
+    }
+    #btnMaitre {
+      margin-bottom: 18px;
+      width: 180px;
+      max-width: 80vw;
+      font-size: 1.1em;
+    }
+    #qr-container {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
       justify-content: center;
-      overflow: hidden;
     }
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 10px 0 0 0;
+    #qrcode {
+      width: 128px;
+      height: 128px;
+    }
+    #pseudoBlock {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+    }
+    .role-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 16px;
       width: 100%;
+      margin-bottom: 14px;
     }
-    li {
-      background: #23272b;
-      margin-bottom: 7px;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 1em;
-      box-shadow: 0 1px 6px #0003;
-    }
-    @media (max-width: 600px) {
-      .centered {
-        max-width: 98vw;
-        padding: 18px 6vw;
-      }
-      #qrCode {
-        width: 130px;
-        height: 130px;
-      }
-    }
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
-  <div id="homePage" class="centered">
-    <h2 style="margin-top:0;">Bienvenue sur <span style="color:#3855d6;">Fais un rand</span></h2>
-    <input type="text" id="pseudoInput" placeholder="Entrez votre pseudo...">
-    <button id="btnJouer">Jouer</button>
-    <div id="qrCode"></div>
+  <div id="homePage">
+    <div class="top-section">
+      <button id="btnMaitre" class="role-btn maitre-btn">Maître</button>
+      <div id="qr-container">
+        <div id="qrcode"></div>
+      </div>
+      <div id="pseudoBlock">
+        <label for="pseudoInput">Pseudo : </label>
+        <input type="text" id="pseudoInput" maxlength="16" spellcheck="false" autocomplete="off" />
+      </div>
+    </div>
+    <div class="role-row">
+      <button id="btnJoueur" class="role-btn joueur-btn">Jouer</button>
+    </div>
   </div>
-  <div id="lobbyPage" class="centered" style="display:none;">
-    <h3>Joueurs connectés</h3>
-    <div id="qrCode"></div>
+  <div id="maitrePage" class="hidden centered-vertical">
     <ul id="playersList"></ul>
+  </div>
+  <div id="joueurPage" class="hidden centered-vertical">
+    <label for="pseudoInput">PSEUDO </label>
   </div>
   <script src="client.js"></script>
 </body>
