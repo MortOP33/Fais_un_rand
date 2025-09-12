@@ -2,12 +2,11 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Quête ou crève</title>
+  <title>Fais un rand</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-  <link rel="stylesheet" href="style.css"><!-- Optionnel : si tu veux externaliser le CSS -->
-  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="style.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -17,538 +16,92 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: stretch;
-    }
-    .centered-vertical {
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      margin-top: 30px;
+      justify-content: flex-start;
     }
-    .role-select {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 80vh;
-    }
-    .role-btn {
-      font-size: 1.5em;
-      padding: 25px 40px;
-      border-radius: 12px;
-      border: none;
-      margin: 20px;
-      color: #fff;
-      transition: background 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-      box-shadow: 0 2px 10px #0002;
-    }
-    .maitre-panel {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
+    .centered {
+      margin-top: 50px;
       width: 100%;
-      max-width: 420px;
-      margin: 0 auto;
-      padding: 16px 0;
-      box-sizing: border-box;
-    }
-    .form-group {
+      max-width: 400px;
+      padding: 30px 20px;
+      background: #23272b;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px #0004;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
-      margin-bottom: 14px;
-      gap: 10px;
     }
-    .form-group label {
-      flex: 0 0 180px;
-      text-align: left;
-      font-weight: 500;
-      font-size: 1em;
-    }
-    .form-group input[type="number"] {
-      flex: 1 1 90px;
-      min-width: 60px;
-      max-width: 120px;
-      padding: 7px 8px;
-      font-size: 1em;
+    input[type="text"] {
+      width: 90%;
+      padding: 12px 10px;
       border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    .form-group button {
-      min-width: 170px;
-      padding: 13px 0;
-      font-size: 1.08em;
-      border-radius: 8px;
-      border: none;
-      margin: 0 auto;
-      display: block;
-    }
-    #btnReset {
-      display: block;
-      margin: 20px auto 0 auto;
-    }
-    .maitre-btn { background: #273043; }
-    .maitre-btn:hover, .maitre-btn:focus { background: #444d5a; }
-    .maitre-btn[disabled] {
-      background: #888;
-      cursor: default;
-    }
-    .maitrereturn-btn {
-      position: absolute;
-      top: 1rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-    }
-    .innocent-btn { background: #00818a; }
-    .innocent-btn:hover, .innocent-btn:focus { background: #00a0b0; }
-    .assassin-btn { background: #da0037; }
-    .assassin-btn:hover, .assassin-btn:focus { background: #ff1e56; }
-    .hacker-btn { background: #1d8f34; }
-    .hacker-btn:hover, .hacker-btn:focus { background: #35c454; }
-    .necro-btn { background: #7900a8; }
-    .necro-btn:hover, .necro-btn:focus { background: #a93fd6; }
-    #rolePage {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      box-sizing: border-box;
-    }
-    .top-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 1rem;
-    }
-    #btnMaitre {
-      margin-bottom: 18px;
-      width: 180px;
-      max-width: 80vw;
-      font-size: 1.1em;
-    }
-    #qr-container {
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-      display: flex;
-      justify-content: center;
-    }
-    #qrcode {
-      width: 128px;
-      height: 128px;
-    }
-    #pseudoBlock {
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-      display: flex;
-      justify-content: center;
-    }
-    .role-row {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      gap: 16px;
-      width: 100%;
-      margin-bottom: 14px;
-    }
-    .role-btn {
-      flex: 1 1 0;
-      font-size: 1.1em;
-      padding: 16px 0;
-      border-radius: 10px;
-      border: none;
-      margin: 0 4px;
-    }
-    .top-center { align-self: center; margin-top: 40px; }
-    .hidden { display: none !important; }
-    .input-group { margin: 16px 0; }
-    .input-group input { font-size: 1em; padding: 5px; width: 80px; }
-    .input-group input[type=number] { width: 60px; }
-    .timer-settings-container {
-      margin-top: 14px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0;
-    }
-    .timer-settings-group {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      margin-left: 2px;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
-    }
-    .timer-settings-group label {
-      margin-right: 4px;
-      font-size: 1em;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .big-btn {
-      font-size: 2em;
-      padding: 40px 60px;
-      margin-top: 60px;
-      border-radius: 20px;
-      border: none;
-      background: #da0037;
-      color: #fff;
-      box-shadow: 0 4px 15px #0004;
-      cursor: pointer;
-      transition: background 0.2s;
-      display: block;
-      width: 90vw;
-      max-width: 400px;
-    }
-    .big-btn[disabled] {
-      background: #888;
-      cursor: default;
-    }
-    .action-btn { background: #00818a; margin-top: 32px; }
-    .debuff-btn { background: #f7b801; color: #191b1f; margin-top: 32px; }
-    .dead-btn { background:#da0037; }
-    .dead-btn[disabled] {
-      background: #888;
-      cursor: default;
-    }
-    .hack-btn { background: #1d8f34; color: #fff; }
-    .hack-btn[disabled] {
-      background: #888;
-      cursor: default;
-    }
-    .zombie-btn { background: #7900a8; color: #fff; }
-    .zombie-btn[disabled] {
-      background: #888;
-      cursor: default;
-    }
-    .bottom-labels-box {
-      width: 90vw;
-      max-width: 400px;
-      min-height: 120px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      margin: 0 auto;
-      margin-bottom: 0;
-      position: relative;
-    }
-    .timer-box {
-      font-size: 2em;
-      margin-top: 0;
-      margin-bottom: 8px;
-      background: #222f;
-      padding: 20px 50px;
-      border-radius: 18px;
-      color: #fffe;
-      box-shadow: 0 2px 10px #0006;
-      letter-spacing: .09em;
-      min-height: 36px;
-      min-width: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 1;
-      transition: opacity 0.2s;
-    }
-    .timer-box.hidden {
-      opacity: 0;
-      visibility: hidden;
-      height: 0;
-      padding: 0 50px;
-      margin-bottom: 0;
-    }
-    .alert {
-      background: #da0037;
-      color: #fff;
-      border-radius: 10px;
-      padding: 14px 20px;
-      margin-top: 6px;
+      border: 1px solid #888;
       font-size: 1.2em;
-      font-weight: bold;
-      box-shadow: 0 2px 10px #0002;
-      min-height: 36px;
-      min-width: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 1;
-      transition: opacity 0.2s;
+      margin-bottom: 20px;
     }
-    .alert.hidden {
-      opacity: 0;
-      visibility: hidden;
-      height: 0;
-      padding: 0 20px;
-      margin-top: 0;
-    }
-    .popup-backdrop {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.4);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .popup-box {
-      background: #fff;
-      color: #111;
-      border-radius: 16px;
-      padding: 32px 24px 24px 24px;
-      font-size: 1.3em;
-      box-shadow: 0 6px 32px #0007;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-width: 250px;
-      min-height: 80px;
-    }
-    .popup-btn-row {
-      display: flex;
-      gap: 24px;
-      margin-top: 28px;
-    }
-    .popup-btn {
-      font-size: 1.1em;
-      padding: 10px 32px;
+    button {
+      font-size: 1.2em;
+      padding: 14px 32px;
       border-radius: 8px;
       border: none;
-      cursor: pointer;
-      background: #00818a;
+      background: #3855d6;
       color: #fff;
+      cursor: pointer;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 10px #0002;
       transition: background 0.2s;
     }
-    .popup-btn.cancel { background: #bbb; color: #222;}
-    .dual-btn-row {
+    button:hover, button:focus {
+      background: #264393;
+    }
+    #qrCode {
+      margin: 18px auto 8px auto;
+      width: 160px;
+      height: 160px;
+      background: #fff;
+      border-radius: 12px;
       display: flex;
-      width: 90vw;
-      max-width: 400px;
-      margin-bottom: 12px;
-      margin-top: 14px;
-      gap: 10px;
+      align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
-    .dual-btn-row button {
-      flex: 1 1 45%;
-      max-width: 180px;
-      min-width: 80px;
-      font-size: 1.1em !important;
-      padding: 12px 0;
-      margin: 0;
-      border-radius: 12px;
-      background: #45494e;
-      color: #fff;
-      border: none;
-      box-shadow: 0 2px 8px #0002;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .dual-btn-row button[disabled] {
-      background: #888;
-      color: #eee;
-      cursor: default;
-    }
-    .maitre-top-row {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0 0;
       width: 100%;
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 8px;
     }
-    .maitre-top-row button {
-      font-size: 1.1em;
-      padding: 10px 25px;
-      border-radius: 12px;
-      background: #45494e;
-      color: #fff;
-      border: none;
-      box-shadow: 0 2px 8px #0002;
-      cursor: pointer;
-      transition: background 0.2s;
-      margin-right: 16px;
-    }
-    .maitre-top-row button[disabled] {
-      background: #888;
-      color: #eee;
-      cursor: default;
+    li {
+      background: #23272b;
+      margin-bottom: 7px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 1em;
+      box-shadow: 0 1px 6px #0003;
     }
     @media (max-width: 600px) {
-      .big-btn, .timer-box { font-size: 1.3em; }
-      .dual-btn-row { flex-direction: column; gap: 7px; }
-      .dual-btn-row button { max-width: 100%; }
-      .bottom-labels-box { min-height: 120px; }
-      .timer-settings-container { width: 100%; }
-      .timer-settings-group { flex-direction: column; align-items: flex-start; gap: 5px; }
-    }
-    .subtitle {
-      margin-top: 22px;
-      font-size: 1.1em;
-      color: #fff8;
-      margin-bottom: 0;
-      min-height: 2.4em;
-      text-align: center;
-      transition: opacity 0.2s;
-      opacity: 0;
-      pointer-events: none;
-    }
-    .subtitle.visible {
-      opacity: 1;
-      pointer-events: auto;
+      .centered {
+        max-width: 98vw;
+        padding: 18px 6vw;
+      }
+      #qrCode {
+        width: 130px;
+        height: 130px;
+      }
     }
   </style>
 </head>
 <body>
-  <audio id="audioDebutPartie" src="debut_partie.mp3"></audio>
-  <audio id="audioInnocents" src="victoire_innocents.mp3" preload="auto"></audio>
-  <audio id="audioAssassins" src="victoire_assassins.mp3" preload="auto"></audio>
-  <audio id="audioSabotageUp" src="Sabotage_up.mp3" preload="auto"></audio>
-  <audio id="audioSabotageDown" src="Sabotage_down.mp3" preload="auto"></audio>
-  <audio id="audioPanneUp" src="Panne_up.mp3" preload="auto"></audio>
-  <audio id="audioPanneDown" src="Panne_down.mp3" preload="auto"></audio>
-  <audio id="audioHackOn" src="hack_on.mp3" preload="auto"></audio>
-  <audio id="audioHackOff" src="hack_off.mp3" preload="auto"></audio>
-  <audio id="audioHacker" src="victoire_hacker.mp3" preload="auto"></audio>
-  <audio id="audioNecromancien" src="victoire_necromancien.mp3" preload="auto"></audio>
-  <div id="rolePage">
-    <div class="top-section">
-      <button id="btnMaitre" class="role-btn maitre-btn">Maître</button>
-      <div id="qr-container">
-        <div id="qrcode"></div>
-      </div>
-      <div id="pseudoBlock">
-        <label for="pseudoInput">Pseudo : </label>
-        <input type="text" id="pseudoInput" maxlength="16" spellcheck="false" autocomplete="off" />
-      </div>
-    </div>
-    <div class="role-row">
-      <button id="btnInnocent" class="role-btn innocent-btn">Innocent</button>
-      <button id="btnAssassin" class="role-btn assassin-btn">Assassin</button>
-    </div>
-    <div class="role-row">
-      <button id="btnHacker" class="role-btn hacker-btn">Hacker</button>
-      <button id="btnNecro" class="role-btn necro-btn">Nécromancien</button>
-    </div>
+  <div id="homePage" class="centered">
+    <h2 style="margin-top:0;">Bienvenue sur <span style="color:#3855d6;">Fais un rand</span></h2>
+    <input type="text" id="pseudoInput" placeholder="Entrez votre pseudo...">
+    <button id="btnJouer">Jouer</button>
+    <div id="qrCode"></div>
   </div>
-  <div id="maitrePage" class="hidden centered-vertical">
-    <div class="maitre-top-row">
-      <button id="btnRetourMaitre" class="maitrereturn-btn" type="button">Retour</button>
-    </div>
-    <h2>Maître du jeu</h2>
-    <div id="configPanel" class="maitre-panel">
-      <div class="form-group">
-        <label for="assassinsInput">Nombre d'assassins :</label>
-        <input id="assassinsInput" type="number" min="1" value="2" />
-      </div>
-      <div class="form-group">
-        <label for="innocentsInput">Nombre d'innocents :</label>
-        <input id="innocentsInput" type="number" min="1" value="8" />
-      </div>
-      <div class="form-group">
-        <label for="zombiesToReleverInput">Nombre de zombies à relever :</label>
-        <input id="zombiesToReleverInput" type="number" min="1" value="6"/>
-      </div>
-      <div class="form-group">
-        <label for="debuffDelayInput">Délai application debuff :</label>
-        <input id="debuffDelayInput" type="number" min="1" max="60" value="10" /> s
-      </div>
-      <div class="form-group">
-        <label for="sabotageDurationInput">Durée sabotage :</label>
-        <input id="sabotageDurationInput" type="number" min="10" max="300" value="40" /> s
-      </div>
-      <div class="form-group">
-        <label for="sabotageCDInput">CD entre sabotages :</label>
-        <input id="sabotageCDInput" type="number" min="10" max="600" value="60" /> s
-      </div>
-      <div class="form-group">
-        <label for="panneDurationInput">Durée panne :</label>
-        <input id="panneDurationInput" type="number" min="10" max="300" value="30"/> s
-      </div>
-      <div class="form-group">
-        <label for="panneCDInput">CD entre pannes :</label>
-        <input id="panneCDInput" type="number" min="10" max="600" value="90"/> s
-      </div>
-      <div class="form-group">
-        <label for="hackDurationInput">Durée hack :</label>
-        <input id="hackDurationInput" type="number" min="10" max="300" value="60"/> s
-      </div>
-      <div class="form-group">
-        <label for="hackCDInput">CD entre hacks :</label>
-        <input id="hackCDInput" type="number" min="10" max="600" value="90"/> s
-      </div>
-      <div class="form-group">
-        <label for="antiHackCodeInput">Code anti-hack :</label>
-        <input id="antiHackCodeInput" type="number" min="0">
-      </div>
-      <div class="form-group" style="justify-content:center;">
-        <button id="btnStart" class="role-btn innocent-btn">Démarrer la partie</button>
-      </div>
-    </div>
-    <div id="suiviPanel" class="hidden maitre-panel">
-      <div id="maitreState" style="font-size:1.3em; margin-bottom:20px;"></div>
-      <button id="btnReset" class="role-btn assassin-btn">Fin de partie / Nouvelle partie</button>
-    </div>
-  </div>
-  <div id="joueurPage" class="hidden centered-vertical">
-    <div class="dual-btn-row">
-      <button id="btnRetourJoueur" type="button">Retour</button>
-      <button id="btnRoleToggle" type="button">Afficher rôle</button>
-    </div>
-    <div id="roleInfo" class="subtitle"></div>
-    <button id="btnDead" class="big-btn dead-btn">Je suis mort !</button>
-    <button id="btnHack" class="big-btn hack-btn hidden">Hacké !</button>
-    <button id="btnZombie" class="big-btn zombie-btn hidden">Je suis un zombie !</button>
-    <button id="btnAction" class="big-btn action-btn">Action</button>
-    <div class="bottom-labels-box">
-      <div id="timerBox" class="timer-box hidden">00:40</div>
-      <div id="alertDiv" class="alert hidden"></div>
-    </div>
-  </div>
-  <div id="confirmPopup" class="popup-backdrop hidden">
-    <div class="popup-box">
-      <div style="margin-bottom:12px;">
-        <span id="popupMessage">Confirmer la fin de vos quêtes&nbsp;?</span>
-      </div>
-      <div class="popup-btn-row">
-        <button id="popupOk" class="popup-btn">OK</button>
-        <button id="popupCancel" class="popup-btn cancel">Annuler</button>
-      </div>
-    </div>
-  </div>
-  <div id="assassinActionPopup" class="popup-backdrop hidden">
-    <div class="popup-box">
-      <div style="margin-bottom:12px;">Choix de l'action !</div>
-      <div class="popup-btn-row" style="margin-bottom:12px;"">
-        <button id="popupAssassinBombe" class="popup-btn">Bombe</button>
-        <button id="popupAssassinPanne" class="popup-btn">Panne</button>
-      </div>
-      <button id="popupAssassinCancel" class="popup-btn cancel">Annuler</button>
-    </div>
-  </div>
-  <div id="hackerPopup" class="popup-backdrop hidden">
-    <div class="popup-box">
-      <div style="margin-bottom:12px;">Choix de la cible !</div>
-      <div class="popup-btn-row" style="margin-bottom:12px;"">  
-      </div>
-      <button id="popupHackerCancel" class="popup-btn cancel">Annuler</button>
-    </div>    
-  </div>
-  <div id="popupAntiHack" class="popup-backdrop hidden">
-    <div class="popup-box">
-      <div style="margin-bottom:12px;">Saisir le code</div>
-      <div class="form-group" style="justify-content:center;">
-        <input id="popupAntiHackInput" type="number">
-      </div>
-      <div style="margin-top:12px;">
-        <button id="popupAntiHackOk" class="popup-btn" style="margin-right:12px;">OK</button>
-        <button id="popupAntiHackCancel" class="popup-btn cancel">Annuler</button>
-      </div>
-    </div>
+  <div id="lobbyPage" class="centered" style="display:none;">
+    <h3>Joueurs connectés</h3>
+    <div id="qrCode"></div>
+    <ul id="playersList"></ul>
   </div>
   <script src="client.js"></script>
 </body>
