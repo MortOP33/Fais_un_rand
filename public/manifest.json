@@ -1,6 +1,6 @@
 {
-  "name": "Quête ou crève",
-  "short_name": "QoC",
+  "name": "Fais un rand",
+  "short_name": "FuR",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#000000",
