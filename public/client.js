@@ -2,7 +2,6 @@ const socket = io();
 
 const homePage = document.getElementById('homePage');
 const pseudoInput = document.getElementById('pseudoInput');
-const labelPseudo = document.getElementById('labelPseudo');
 const btnMaitre = document.getElementById('btnMaitre');
 const btnJoueur = document.getElementById('btnJoueur');
 const qrCodeDiv = document.getElementById('qrCode');
@@ -12,10 +11,18 @@ const playersList = document.getElementById('playersList');
 const avatarsContainer = document.getElementById('avatarsContainer');
 let selectedAvatar = null;
 
-// QR code de la page en cours
-function showQRCode() {
-  qrCodeDiv.innerHTML = "";
-  new QRCode(qrCodeDiv, window.location.href);
+function showQRCode(element) {
+  element.innerHTML = "";
+  setTimeout(() => {
+    new QRCode(element, {
+      text: window.location.href,
+      width: 140,
+      height: 140,
+      colorDark: "#222",
+      colorLight: "#fff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  }, 10);
 }
 
 // Affichage page Maitre
@@ -24,8 +31,7 @@ btnMaitre.onclick = () => {
   if (pseudo.length > 0) {
     socket.emit('join', {pseudo, role: "maitre"});
     homePage.style.display = "none";
-    maitrePage.style.display = "block";
-    showQRCode();
+    maitrePage.style.display = "flex";
   }
 };
 
@@ -33,7 +39,10 @@ socket.on('players', (players) => {
   // Liste des joueurs (role "joueur" uniquement)
   const joueurs = players.filter(p => p.role === "joueur");
   playersList.innerHTML = joueurs.map(p =>
-    `<li>${p.pseudo} ${p.avatar ? `<img src="${p.avatar}" style="height:24px;">` : ""}</li>`
+    `<li class="player-item">
+      <img src="${p.avatar || ''}" class="avatar-maitre" alt="" />
+      <span class="player-name">${p.pseudo}</span>
+    </li>`
   ).join('');
 });
 
@@ -42,21 +51,21 @@ btnJoueur.onclick = () => {
   const pseudo = pseudoInput.value.trim();
   if (pseudo.length > 0) {
     homePage.style.display = "none";
-    joueurPage.style.display = "block";
-    showQRCode();
+    joueurPage.style.display = "flex";
     socket.emit('requestNormalAvatars');
   }
 };
 
+// Avatars, sélection & surbrillance
 socket.on('normalAvatars', (avatarFiles) => {
   avatarsContainer.innerHTML = avatarFiles.map(file =>
-    `<img src="${file}" class="avatar-item" style="width:64px;height:64px;margin:4px;border-radius:8px;cursor:pointer;border:2px solid #fff;">`
+    `<img src="${file}" class="avatar-item" style="margin:12px;" />`
   ).join('');
   document.querySelectorAll('.avatar-item').forEach(img => {
     img.onclick = () => {
       selectedAvatar = img.src;
-      document.querySelectorAll('.avatar-item').forEach(i => i.style.border = "2px solid #fff");
-      img.style.border = "4px solid #3855d6";
+      document.querySelectorAll('.avatar-item').forEach(i => i.classList.remove('selected'));
+      img.classList.add('selected');
       const pseudo = pseudoInput.value.trim();
       socket.emit('join', {pseudo, role:"joueur", avatar: selectedAvatar });
     };
@@ -64,9 +73,10 @@ socket.on('normalAvatars', (avatarFiles) => {
 });
 
 window.onload = () => {
-  homePage.style.display = "block";
+  homePage.style.display = "flex";
   maitrePage.style.display = "none";
   joueurPage.style.display = "none";
   pseudoInput.value = "";
   qrCodeDiv.innerHTML = "";
+  showQRCode(qrCodeDiv);
 };
