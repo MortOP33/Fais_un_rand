@@ -53,7 +53,7 @@ btnJoueur.onclick = () => {
     homePage.style.display = "none";
     joueurPage.style.display = "flex";
     socket.emit('requestNormalAvatars');
-  }
+  } else { alert("Entrez un pseudo avant de jouer !"); return; }
 };
 
 // Avatars, sélection & surbrillance
