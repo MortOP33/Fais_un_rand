@@ -40,10 +40,9 @@ socket.on('state', (state) => {
   if (btnMaitre) {
     btnMaitre.disabled = !!state.maitrePris;
   }
-});
-
-socket.on('players', (players) => {
-  playersList.innerHTML = players.map(p => `<li>${p.pseudo}</li>`).join('');
+  if (role === "maitre") {
+    playersList.innerHTML = joueursState.map(p => `<li>${p.pseudo}</li>`).join('');
+  }
 });
 
 socket.on('reset', function() {
