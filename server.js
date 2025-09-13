@@ -3,66 +3,36 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const path = require('path');
+const fs = require('fs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-let game = {};
 let players = {};
 
-function resetGame() {
-  game = {
-    started: false,
-  };
-  players = {};
-}
-resetGame();
-
-function emitState() {
-  const maitrePris = Object.values(players).some(player => player.role === 'maitre');
-  const joueurs = Object.entries(players).map(([id, data]) => ({
-    id,
-    pseudo: data.pseudo || '',
-    role: data.role || '',
-  }));
-  io.emit('state', {
-    maitrePris: maitrePris,
-    joueurs: joueurs,
-    started: game.started,
-  });
+function getNormalAvatars() {
+  const avatarDir = path.join(__dirname, 'public', 'Avatars');
+  try {
+    return fs.readdirSync(avatarDir)
+      .filter(file => file.includes('normal'))
+      .map(file => `/Avatars/${file}`);
+  } catch (e) {
+    return [];
+  }
 }
 
 io.on('connection', (socket) => {
-  socket.on('setRole', ({role, pseudo}) => {
-    if (['maitre', 'joueur'].includes(role)) {
-      players[socket.id] = {role, pseudo: (pseudo||'') };
-      emitState();
-    }
+  socket.on('join', ({pseudo, role, avatar}) => {
+    players[socket.id] = { pseudo, role, avatar };
+    io.emit('players', Object.values(players));
   });
 
-  socket.on('leaveRole', () => {
-    if (players[socket.id]) {
-      players[socket.id].role = undefined;
-      emitState();
-    }
+  socket.on('requestNormalAvatars', () => {
+    socket.emit('normalAvatars', getNormalAvatars());
   });
 
   socket.on('disconnect', () => {
     delete players[socket.id];
-    emitState();
-  });
-
-  socket.on('start', () => {
-    game.started = true;
-    emitState();
-  });
-
-  socket.on('reset', () => {
-    io.emit('end', {winner: 'none'});
-    for (const [socketId, player] of Object.entries(players)) {
-      if(player.role === 'maitre') io.to(socketId).emit('reset');
-    }
-    resetGame();
-    emitState();
+    io.emit('players', Object.values(players));
   });
 });
 

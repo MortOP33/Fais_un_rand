@@ -1,82 +1,72 @@
 const socket = io();
-let role = null;
-let partieCommencee = false;
 
 const homePage = document.getElementById('homePage');
+const pseudoInput = document.getElementById('pseudoInput');
+const labelPseudo = document.getElementById('labelPseudo');
+const btnMaitre = document.getElementById('btnMaitre');
+const btnJoueur = document.getElementById('btnJoueur');
+const qrCodeDiv = document.getElementById('qrCode');
 const maitrePage = document.getElementById('maitrePage');
 const joueurPage = document.getElementById('joueurPage');
-const btnMaitre = document.getElementById('btnMaitre');
-const btnJouer = document.getElementById('btnJouer');
 const playersList = document.getElementById('playersList');
-const btnStart = document.getElementById('btnStart');
-const btnReset = document.getElementById('btnReset');
+const avatarsContainer = document.getElementById('avatarsContainer');
+let selectedAvatar = null;
 
-btnMaitre.onclick = function() {
-  role = 'maitre';
-  showPage('maitre');
-  socket.emit('setRole', { role: 'maitre' });
-};
-
-btnJouer.onclick = function() {
-  const pseudo = document.getElementById('pseudoInput').value.trim();
-  if (!pseudo) { alert("Entrez un pseudo avant de jouer !"); return; }
-  role = 'joueur';
-  showPage('joueur');
-  socket.emit('setRole', { role: 'joueur', pseudo });
+// QR code de la page en cours
+function showQRCode() {
+  qrCodeDiv.innerHTML = "";
+  new QRCode(qrCodeDiv, window.location.href);
 }
 
-btnStart.onclick = function() {
-  socket.emit('start');
+// Affichage page Maitre
+btnMaitre.onclick = () => {
+  const pseudo = pseudoInput.value.trim();
+  if (pseudo.length > 0) {
+    socket.emit('join', {pseudo, role: "maitre"});
+    homePage.style.display = "none";
+    maitrePage.style.display = "block";
+    showQRCode();
+  }
 };
-btnReset.onclick = function() {
-  socket.emit('reset');
+
+socket.on('players', (players) => {
+  // Liste des joueurs (role "joueur" uniquement)
+  const joueurs = players.filter(p => p.role === "joueur");
+  playersList.innerHTML = joueurs.map(p =>
+    `<li>${p.pseudo} ${p.avatar ? `<img src="${p.avatar}" style="height:24px;">` : ""}</li>`
+  ).join('');
+});
+
+// Affichage page Joueur et sélection avatar
+btnJoueur.onclick = () => {
+  const pseudo = pseudoInput.value.trim();
+  if (pseudo.length > 0) {
+    homePage.style.display = "none";
+    joueurPage.style.display = "block";
+    showQRCode();
+    socket.emit('requestNormalAvatars');
+  }
 };
 
-let joueursState = [];
-socket.on('state', (state) => {
-  partieCommencee = state.started;
-  joueursState = state.joueurs || [];
-  const btnMaitre = document.getElementById('btnMaitre');
-  if (btnMaitre) {
-    btnMaitre.disabled = !!state.maitrePris;
-  }
-  if (role === "maitre") {
-    playersList.innerHTML = joueursState.map(p => `<li>${p.pseudo}</li>`).join('');
-  }
-});
-
-socket.on('reset', function() {
-  if (role === "maitre") {
-    showPage('home');
-    role = null;
-  }
-});
-
-function showPage(page) {
-  rolePage.classList.toggle('hidden', page !== 'home');
-  if (page === 'home') {
-    socket.emit('leaveRole');
-  }
-  maitrePage.classList.toggle('hidden', page !== 'maitre');
-  joueurPage.classList.toggle('hidden', page !== 'joueur');
-}
-showPage('home');
-
-// Génération du QR code avec l'URL actuelle
-const currentURL = window.location.href;
-new QRCode(document.getElementById("qrcode"), {
-  text: currentURL,
-  width: 128,
-  height: 128,
-  colorDark: "#000000",
-  colorLight: "#ffffff",
-  correctLevel: QRCode.CorrectLevel.H,
-});
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(reg => console.log("SW enregistré"))
-      .catch(err => console.error("SW erreur", err));
+socket.on('normalAvatars', (avatarFiles) => {
+  avatarsContainer.innerHTML = avatarFiles.map(file =>
+    `<img src="${file}" class="avatar-item" style="width:64px;height:64px;margin:4px;border-radius:8px;cursor:pointer;border:2px solid #fff;">`
+  ).join('');
+  document.querySelectorAll('.avatar-item').forEach(img => {
+    img.onclick = () => {
+      selectedAvatar = img.src;
+      document.querySelectorAll('.avatar-item').forEach(i => i.style.border = "2px solid #fff");
+      img.style.border = "4px solid #3855d6";
+      const pseudo = pseudoInput.value.trim();
+      socket.emit('join', {pseudo, role:"joueur", avatar: selectedAvatar });
+    };
   });
-}
+});
+
+window.onload = () => {
+  homePage.style.display = "block";
+  maitrePage.style.display = "none";
+  joueurPage.style.display = "none";
+  pseudoInput.value = "";
+  qrCodeDiv.innerHTML = "";
+};
