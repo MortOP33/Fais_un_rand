@@ -240,7 +240,7 @@ socket.on('normalAvatars', (avatarFiles) => {
     // Cache le champ code, label, bouton retour
     codeInput.style.display = "none";
     errorCodeDiv.style.display = "none";
-    document.querySelector("h3").style.display = "none";
+    document.getElementById('labelSelectionnetonavatar').style.display = "none";
     btnRetourJoueur.style.display = "none";
   }
 });
@@ -261,7 +261,7 @@ socket.on('quizz_started', () => {
   // Cache le champ code, label, bouton retour
   codeInput.style.display = "none";
   errorCodeDiv.style.display = "none";
-  document.querySelector("h3").style.display = "none";
+  document.getElementById('labelSelectionnetonavatar').style.display = "none";
   btnRetourJoueur.style.display = "none";
 });
 
