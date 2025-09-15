@@ -11,6 +11,7 @@ const playersList = document.getElementById('playersList');
 const avatarsContainer = document.getElementById('avatarsContainer');
 const codeLabel = document.getElementById('codeLabel');
 const codeInput = document.getElementById('codeInput');
+const labelInput = document.getElementById('labelSelectionnetonavatar');
 const errorCodeDiv = document.getElementById('errorCodeDiv');
 let selectedAvatar = null;
 let maitreCode = null;
@@ -193,7 +194,7 @@ btnJoueur.onclick = () => {
     btnRetourJoueur.style.display = "inline-block";
     codeInput.style.display = "";
     errorCodeDiv.style.display = "";
-    document.querySelector("h3").style.display = "";
+    labelInput.style.display = "";
   } else { alert("Entrez un pseudo avant de jouer !"); return; }
 };
 
@@ -227,7 +228,7 @@ socket.on('normalAvatars', (avatarFiles) => {
     // Affiche champs code, label et bouton retour
     codeInput.style.display = "";
     errorCodeDiv.style.display = "";
-    document.querySelector("h3").style.display = "";
+    labelInput.style.display = "";
     btnRetourJoueur.style.display = "inline-block";
   } else {
     // Affichage avatar+pseudo sur une même ligne (après début quizz)
@@ -240,7 +241,7 @@ socket.on('normalAvatars', (avatarFiles) => {
     // Cache le champ code, label, bouton retour
     codeInput.style.display = "none";
     errorCodeDiv.style.display = "none";
-    document.getElementById('labelSelectionnetonavatar').style.display = "none";
+    labelInput.style.display = "none";
     btnRetourJoueur.style.display = "none";
   }
 });
@@ -261,7 +262,7 @@ socket.on('quizz_started', () => {
   // Cache le champ code, label, bouton retour
   codeInput.style.display = "none";
   errorCodeDiv.style.display = "none";
-  document.getElementById('labelSelectionnetonavatar').style.display = "none";
+  labelInput.style.display = "none";
   btnRetourJoueur.style.display = "none";
 });
 
@@ -287,7 +288,7 @@ socket.on('param_retour_joueurs', () => {
   btnRetourJoueur.style.display = "inline-block";
   codeInput.style.display = "";
   errorCodeDiv.style.display = "";
-  document.querySelector("h3").style.display = "";
+  labelInput.style.display = "";
   socket.emit('requestNormalAvatars');
 });
 
