@@ -13,10 +13,8 @@ const codeLabel = document.getElementById('codeLabel');
 const codeInput = document.getElementById('codeInput');
 const errorCodeDiv = document.getElementById('errorCodeDiv');
 
-// Nouveaux éléments pour la page maitre
 let btnRetour, btnParametres, parametresPage;
 
-// Ajoute les boutons et la page paramètres au DOM après chargement
 window.onload = () => {
   homePage.style.display = "flex";
   maitrePage.style.display = "none";
@@ -98,31 +96,49 @@ socket.on('maitre_code', (code) => {
 });
 
 socket.on('players', (joueurs) => {
-  // Deux colonnes alternées
-  let html = `<div style="display:flex; flex-direction:column; gap:0;">`;
-  for (let i = 0; i < joueurs.length; i += 2) {
-    html += `<div style="display:flex; justify-content:center; gap:32px; margin-bottom:10px;">`;
-    // Gauche
+  // Affichage esthétique sur 2 colonnes alignées
+  let html = `<div style="display:table;width:100%;margin:0 auto;">`;
+  const total = joueurs.length;
+  for (let i = 0; i < total; i += 2) {
+    html += `<div style="display:table-row;">`;
+
+    // Colonne gauche
     if (joueurs[i]) {
-      html += `<div style="flex:1; display:flex; align-items:center; justify-content:flex-end;">
-        <li class="player-item" style="margin:0;">
+      html += `<div style="display:table-cell;vertical-align:middle;padding-bottom:10px;width:50%;text-align:right;">
+        <div style="display:inline-flex;align-items:center;gap:18px;">
           <img src="${joueurs[i].avatar || ''}" class="avatar-maitre" alt="" />
           <span class="player-name">${joueurs[i].pseudo}</span>
-        </li>
+        </div>
       </div>`;
+    } else {
+      html += `<div style="display:table-cell;width:50%;"></div>`;
     }
-    // Droite ou centré si impair et dernier
+
+    // Colonne droite
     if (joueurs[i+1]) {
-      html += `<div style="flex:1; display:flex; align-items:center; justify-content:flex-start;">
-        <li class="player-item" style="margin:0;">
+      html += `<div style="display:table-cell;vertical-align:middle;padding-bottom:10px;width:50%;text-align:left;">
+        <div style="display:inline-flex;align-items:center;gap:18px;">
           <img src="${joueurs[i+1].avatar || ''}" class="avatar-maitre" alt="" />
           <span class="player-name">${joueurs[i+1].pseudo}</span>
-        </li>
+        </div>
       </div>`;
-    } else if (!joueurs[i+1]) {
-      html += `<div style="flex:1; display:flex; align-items:center; justify-content:center;"></div>`;
+    }
+    // Si dernier joueur impair, colonne droite vide et centré
+    else if (!joueurs[i+1]) {
+      html += `<div style="display:table-cell;width:50%;text-align:center;">
+        <div style="display:inline-flex;align-items:center;gap:18px;justify-content:center;">
+          <!-- rien ici, colonne vide -->
+        </div>
+      </div>`;
     }
     html += `</div>`;
+    // Centrage du dernier joueur impair sur toute la ligne
+    if (!joueurs[i+1] && total % 2 === 1 && i === total - 1) {
+      html = html.replace(
+        `<div style="display:table-cell;vertical-align:middle;padding-bottom:10px;width:50%;text-align:right;">`,
+        `<div style="display:table-cell;vertical-align:middle;padding-bottom:10px;width:100%;text-align:center;" colspan="2">`
+      );
+    }
   }
   html += `</div>`;
   playersList.innerHTML = html;
