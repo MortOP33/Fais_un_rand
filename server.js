@@ -24,6 +24,17 @@ function getNormalAvatars() {
   }
 }
 
+function getThemes() {
+  const themesDir = path.join(__dirname, 'public', 'Themes');
+  try {
+    return fs.readdirSync(themesDir)
+      .filter(file => /\.(png|jpg|jpeg|webp)$/i.test(file))
+      .map(file => `/Themes/${file}`);
+  } catch (e) {
+    return [];
+  }
+}
+
 let lobbies = {}; // { code: { maitreId, joueurs: [{pseudo, avatar, socketId}] } }
 let socketToLobby = {}; // socketId -> code
 
@@ -42,14 +53,14 @@ io.on('connection', (socket) => {
   socket.on('maitre_delete', () => {
     const code = socketToLobby[socket.id];
     if (code && lobbies[code] && lobbies[code].maitreId === socket.id) {
-      // Prévenir les joueurs que le lobby est supprimé
       lobbies[code].joueurs.forEach(j => {
         io.to(j.socketId).emit('errorCode', 'Code non valide');
+        io.to(j.socketId).emit('joueur_logout');
       });
       delete lobbies[code];
     }
     delete socketToLobby[socket.id];
-    socket.emit('maitre_code', null); // Pour reset côté client
+    socket.emit('maitre_code', null);
   });
 
   socket.on('requestNormalAvatars', () => {
@@ -62,7 +73,6 @@ io.on('connection', (socket) => {
       socket.emit('errorCode', 'Code non valide');
       return;
     }
-    // Si le joueur existe, met à jour son avatar
     let joueurs = lobbies[code].joueurs;
     let joueur = joueurs.find(j => j.pseudo === pseudo);
     if (joueur) {
@@ -72,8 +82,18 @@ io.on('connection', (socket) => {
       joueurs.push({pseudo, avatar, socketId: socket.id});
     }
     socketToLobby[socket.id] = code;
-    // Mise à jour côté maitre
     io.to(lobbies[code].maitreId).emit('players', joueurs);
+  });
+
+  socket.on('joueur_logout', () => {
+    const code = socketToLobby[socket.id];
+    if (code && lobbies[code]) {
+      // Suppression du joueur
+      lobbies[code].joueurs = lobbies[code].joueurs.filter(j => j.socketId !== socket.id);
+      io.to(lobbies[code].maitreId).emit('players', lobbies[code].joueurs);
+    }
+    delete socketToLobby[socket.id];
+    socket.emit('joueur_logout');
   });
 
   socket.on('disconnect', () => {
@@ -83,6 +103,7 @@ io.on('connection', (socket) => {
         // Si le maitre quitte, supprime le lobby
         lobbies[code].joueurs.forEach(j => {
           io.to(j.socketId).emit('errorCode', 'Code non valide');
+          io.to(j.socketId).emit('joueur_logout');
         });
         delete lobbies[code];
       } else {
@@ -91,6 +112,15 @@ io.on('connection', (socket) => {
         io.to(lobbies[code].maitreId).emit('players', lobbies[code].joueurs);
       }
       delete socketToLobby[socket.id];
+    }
+  });
+
+  // Quand le maitre lance la partie
+  socket.on('quizz_started', ({ code }) => {
+    if (lobbies[code]) {
+      lobbies[code].joueurs.forEach(j => {
+        io.to(j.socketId).emit('quizz_started');
+      });
     }
   });
 });
