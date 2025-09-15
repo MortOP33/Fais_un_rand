@@ -24,17 +24,6 @@ function getNormalAvatars() {
   }
 }
 
-function getThemes() {
-  const themesDir = path.join(__dirname, 'public', 'Themes');
-  try {
-    return fs.readdirSync(themesDir)
-      .filter(file => /\.(png|jpg|jpeg|webp)$/i.test(file))
-      .map(file => `/Themes/${file}`);
-  } catch (e) {
-    return [];
-  }
-}
-
 let lobbies = {}; // { code: { maitreId, joueurs: [{pseudo, avatar, socketId}] } }
 let socketToLobby = {}; // socketId -> code
 
@@ -88,7 +77,6 @@ io.on('connection', (socket) => {
   socket.on('joueur_logout', () => {
     const code = socketToLobby[socket.id];
     if (code && lobbies[code]) {
-      // Suppression du joueur
       lobbies[code].joueurs = lobbies[code].joueurs.filter(j => j.socketId !== socket.id);
       io.to(lobbies[code].maitreId).emit('players', lobbies[code].joueurs);
     }
@@ -100,14 +88,12 @@ io.on('connection', (socket) => {
     const code = socketToLobby[socket.id];
     if (code && lobbies[code]) {
       if (lobbies[code].maitreId === socket.id) {
-        // Si le maitre quitte, supprime le lobby
         lobbies[code].joueurs.forEach(j => {
           io.to(j.socketId).emit('errorCode', 'Code non valide');
           io.to(j.socketId).emit('joueur_logout');
         });
         delete lobbies[code];
       } else {
-        // Sinon, supprime le joueur
         lobbies[code].joueurs = lobbies[code].joueurs.filter(j => j.socketId !== socket.id);
         io.to(lobbies[code].maitreId).emit('players', lobbies[code].joueurs);
       }
@@ -115,11 +101,19 @@ io.on('connection', (socket) => {
     }
   });
 
-  // Quand le maitre lance la partie
   socket.on('quizz_started', ({ code }) => {
     if (lobbies[code]) {
       lobbies[code].joueurs.forEach(j => {
         io.to(j.socketId).emit('quizz_started');
+      });
+    }
+  });
+
+  // RETOUR depuis la page paramètres (ramène tout le monde à la sélection d'avatar)
+  socket.on('param_retour', ({ code }) => {
+    if (lobbies[code]) {
+      lobbies[code].joueurs.forEach(j => {
+        io.to(j.socketId).emit('param_retour_joueurs');
       });
     }
   });
@@ -128,5 +122,4 @@ io.on('connection', (socket) => {
 const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-
 });
