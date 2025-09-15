@@ -109,9 +109,12 @@ io.on('connection', (socket) => {
     }
   });
 
-  // RETOUR depuis la page paramètres (ramène tout le monde à la sélection d'avatar)
+  // RETOUR depuis la page paramètres (ramène tout le monde à la sélection d'avatar, sauf le maitre)
   socket.on('param_retour', ({ code }) => {
     if (lobbies[code]) {
+      // Pour le maitre, renvoyer seulement à sa page maitre
+      io.to(lobbies[code].maitreId).emit('param_retour_maitre');
+      // Pour les joueurs, renvoyer à la sélection d'avatar
       lobbies[code].joueurs.forEach(j => {
         io.to(j.socketId).emit('param_retour_joueurs');
       });

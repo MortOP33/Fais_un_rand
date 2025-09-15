@@ -91,7 +91,6 @@ window.onload = () => {
     `;
     document.body.appendChild(parametresPage);
 
-    // Ajout des thèmes sans images
     const themes = [
       "Dates", "Géographie", "Monde vivant", "Economie", "Sciences",
       "Divertissement", "Sondages", "Records", "Improbable"
@@ -104,27 +103,18 @@ window.onload = () => {
       </div>
     `).join('');
 
-    // Boutons RETOUR et DEMARRER
     btnDemarrer = parametresPage.querySelector('#btnDemarrer');
     btnDemarrer.onclick = () => {
-      // TODO: démarrer le quiz
-      // Par défaut, on reste sur la page paramètres ou on peut afficher une notification
       alert('Le quiz va démarrer (fonction à définir)');
     };
     const btnRetourParam = parametresPage.querySelector('#btnRetourParam');
     btnRetourParam.onclick = () => {
       parametresPage.style.display = "none";
-      maitrePage.style.display = "none";
+      // Correction: le maitre revient sur sa page maitre, joueurs sur sélection avatar
       socket.emit('param_retour', { code: maitreCode });
+      // Pour le maitre : on affiche la page maitre (code inchangé, joueurs, boutons)
+      maitrePage.style.display = "flex";
       homePage.style.display = "none";
-      joueurPage.style.display = "flex";
-      // On demande à tous les joueurs de revenir à la page de sélection d'avatar
-      socket.emit('requestNormalAvatars');
-      isQuizzStarted = false;
-      btnRetourJoueur.style.display = "inline-block";
-      // Réaffiche les champs code + avatar sur page joueur
-      avatarsContainer.innerHTML = "";
-      errorCodeDiv.innerText = "";
     };
   }
 
@@ -299,6 +289,14 @@ socket.on('param_retour_joueurs', () => {
   errorCodeDiv.style.display = "";
   document.querySelector("h3").style.display = "";
   socket.emit('requestNormalAvatars');
+});
+
+// Nouvel event côté maitre pour RETOUR depuis paramètres
+socket.on('param_retour_maitre', () => {
+  parametresPage.style.display = "none";
+  maitrePage.style.display = "flex";
+  // On ne touche pas au code ni à la liste des joueurs ni aux boutons
+  homePage.style.display = "none";
 });
 
 // Déconnexion joueur côté serveur
