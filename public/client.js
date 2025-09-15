@@ -13,6 +13,7 @@ const codeLabel = document.getElementById('codeLabel');
 const codeInput = document.getElementById('codeInput');
 const errorCodeDiv = document.getElementById('errorCodeDiv');
 
+// Actions et page paramètres inchangés
 let btnRetour, btnParametres, parametresPage;
 
 window.onload = () => {
@@ -57,7 +58,6 @@ window.onload = () => {
 
     maitrePage.appendChild(actionsDiv);
 
-    // Ajout de la page paramètres
     parametresPage = document.createElement('div');
     parametresPage.className = "center-vertical";
     parametresPage.id = "parametresPage";
@@ -96,48 +96,55 @@ socket.on('maitre_code', (code) => {
 });
 
 socket.on('players', (joueurs) => {
-  // Affichage esthétique sur 2 colonnes alignées
-  let html = `<div style="display:table;width:100%;margin:0 auto;">`;
-  const total = joueurs.length;
-  for (let i = 0; i < total; i += 2) {
-    html += `<div style="display:table-row;">`;
+  // 1. Séparation en deux colonnes
+  let colG = [], colD = [];
+  for (let i = 0; i < joueurs.length; i += 2) {
+    colG.push(joueurs[i]);
+    if (joueurs[i+1]) colD.push(joueurs[i+1]);
+  }
 
-    // Colonne gauche
-    if (joueurs[i]) {
-      html += `<div style="display:table-cell;vertical-align:middle;padding-bottom:10px;width:50%;text-align:right;">
-        <div style="display:inline-flex;align-items:center;gap:18px;">
-          <img src="${joueurs[i].avatar || ''}" class="avatar-maitre" alt="" />
-          <span class="player-name">${joueurs[i].pseudo}</span>
+  // 2. Calcul de la largeur max pseudo gauche (on utilise canvas pour mesurer en police .player-name)
+  let maxPseudo = "";
+  colG.forEach(j => { if (j && j.pseudo.length > maxPseudo.length) maxPseudo = j.pseudo; });
+  let pseudoWidth = 0;
+  if (maxPseudo) {
+    let canvas = document.createElement("canvas");
+    let ctx = canvas.getContext("2d");
+    ctx.font = "700 1.3em Arial";
+    pseudoWidth = ctx.measureText(maxPseudo).width;
+  }
+  // 3. Espacement horizontal
+  const avatarSize = 64, avatarMargin = 18; // comme dans .avatar-maitre
+  const gapBetween = avatarMargin * 2; // espace entre nom le + long et avatar de droite
+
+  // 4. Génération du HTML
+  let html = `<div style="display:flex; flex-direction:column; width:100%; align-items:center;">`;
+  for (let row = 0; row < colG.length; row++) {
+    // Si dernier impair
+    if (!colD[row]) {
+      html += `<div style="width:100%; display:flex; justify-content:center; margin-bottom:10px;">
+        <div style="display:inline-flex; align-items:center;">
+          <img src="${colG[row]?.avatar || ''}" class="avatar-maitre" alt="" />
+          <span class="player-name" style="font-size:1.3em; font-weight:700; letter-spacing:1px; margin-left:18px;">${colG[row]?.pseudo}</span>
         </div>
       </div>`;
     } else {
-      html += `<div style="display:table-cell;width:50%;"></div>`;
-    }
-
-    // Colonne droite
-    if (joueurs[i+1]) {
-      html += `<div style="display:table-cell;vertical-align:middle;padding-bottom:10px;width:50%;text-align:left;">
-        <div style="display:inline-flex;align-items:center;gap:18px;">
-          <img src="${joueurs[i+1].avatar || ''}" class="avatar-maitre" alt="" />
-          <span class="player-name">${joueurs[i+1].pseudo}</span>
+      html += `<div style="width:100%; display:flex; justify-content:center; margin-bottom:10px;">
+        <div style="display:flex; flex-direction:row;">
+          <!-- Colonne gauche -->
+          <div style="display:inline-flex; align-items:center; min-width:${avatarSize+pseudoWidth+avatarMargin}px;">
+            <img src="${colG[row]?.avatar || ''}" class="avatar-maitre" alt="" />
+            <span class="player-name" style="font-size:1.3em; font-weight:700; letter-spacing:1px; margin-left:18px;">${colG[row]?.pseudo}</span>
+          </div>
+          <!-- Espace entre colonnes -->
+          <div style="width:${gapBetween}px;"></div>
+          <!-- Colonne droite -->
+          <div style="display:inline-flex; align-items:center;">
+            <img src="${colD[row]?.avatar || ''}" class="avatar-maitre" alt="" />
+            <span class="player-name" style="font-size:1.3em; font-weight:700; letter-spacing:1px; margin-left:18px;">${colD[row]?.pseudo}</span>
+          </div>
         </div>
       </div>`;
-    }
-    // Si dernier joueur impair, colonne droite vide et centré
-    else if (!joueurs[i+1]) {
-      html += `<div style="display:table-cell;width:50%;text-align:center;">
-        <div style="display:inline-flex;align-items:center;gap:18px;justify-content:center;">
-          <!-- rien ici, colonne vide -->
-        </div>
-      </div>`;
-    }
-    html += `</div>`;
-    // Centrage du dernier joueur impair sur toute la ligne
-    if (!joueurs[i+1] && total % 2 === 1 && i === total - 1) {
-      html = html.replace(
-        `<div style="display:table-cell;vertical-align:middle;padding-bottom:10px;width:50%;text-align:right;">`,
-        `<div style="display:table-cell;vertical-align:middle;padding-bottom:10px;width:100%;text-align:center;" colspan="2">`
-      );
     }
   }
   html += `</div>`;
