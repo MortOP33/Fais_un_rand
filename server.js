@@ -7,9 +7,6 @@ const fs = require('fs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-let lobbies = {}; // { code: { maitreId, joueurs: [{pseudo, avatar, socketId}] } }
-let socketToLobby = {}; // socketId -> code
-
 function generateCode() {
   return Array.from({length: 6}, () =>
     String.fromCharCode(65 + Math.floor(Math.random() * 26))
@@ -27,6 +24,9 @@ function getNormalAvatars() {
   }
 }
 
+let lobbies = {}; // { code: { maitreId, joueurs: [{pseudo, avatar, socketId}] } }
+let socketToLobby = {}; // socketId -> code
+
 io.on('connection', (socket) => {
   socket.on('maitre_create', () => {
     let code;
@@ -39,6 +39,19 @@ io.on('connection', (socket) => {
     io.to(socket.id).emit('players', []);
   });
 
+  socket.on('maitre_delete', () => {
+    const code = socketToLobby[socket.id];
+    if (code && lobbies[code] && lobbies[code].maitreId === socket.id) {
+      // Prévenir les joueurs que le lobby est supprimé
+      lobbies[code].joueurs.forEach(j => {
+        io.to(j.socketId).emit('errorCode', 'Code non valide');
+      });
+      delete lobbies[code];
+    }
+    delete socketToLobby[socket.id];
+    socket.emit('maitre_code', null); // Pour reset côté client
+  });
+
   socket.on('requestNormalAvatars', () => {
     socket.emit('normalAvatars', getNormalAvatars());
   });
@@ -46,7 +59,7 @@ io.on('connection', (socket) => {
   socket.on('joueur_join', ({pseudo, code, avatar}) => {
     code = code.toUpperCase();
     if (!lobbies[code]) {
-      socket.emit('errorCode', 'Code invalide.');
+      socket.emit('errorCode', 'Code non valide');
       return;
     }
     // Si le joueur existe, met à jour son avatar
@@ -68,6 +81,9 @@ io.on('connection', (socket) => {
     if (code && lobbies[code]) {
       if (lobbies[code].maitreId === socket.id) {
         // Si le maitre quitte, supprime le lobby
+        lobbies[code].joueurs.forEach(j => {
+          io.to(j.socketId).emit('errorCode', 'Code non valide');
+        });
         delete lobbies[code];
       } else {
         // Sinon, supprime le joueur
@@ -82,4 +98,5 @@ io.on('connection', (socket) => {
 const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+
 });

@@ -12,8 +12,11 @@ const avatarsContainer = document.getElementById('avatarsContainer');
 const codeLabel = document.getElementById('codeLabel');
 const codeInput = document.getElementById('codeInput');
 const errorCodeDiv = document.getElementById('errorCodeDiv');
+let selectedAvatar = null;
+let maitreCode = null;
 
-let btnRetour, btnParametres, parametresPage;
+// Ajout des boutons et page paramètres dynamiquement
+let btnRetour, btnCreerPartie, parametresPage;
 
 window.onload = () => {
   homePage.style.display = "flex";
@@ -25,8 +28,9 @@ window.onload = () => {
   qrCodeDiv.innerHTML = "";
   showQRCode(qrCodeDiv);
 
-  // Ajout des boutons si pas déjà présents
+  // Ajout dynamique si pas déjà présents
   if (!document.getElementById('maitreActions')) {
+    // Actions
     const actionsDiv = document.createElement('div');
     actionsDiv.id = 'maitreActions';
     actionsDiv.style.display = 'flex';
@@ -38,25 +42,28 @@ window.onload = () => {
     btnRetour.innerText = "Retour";
     btnRetour.style.flex = "1";
     btnRetour.onclick = () => {
+      socket.emit('maitre_delete');
       maitrePage.style.display = "none";
       homePage.style.display = "flex";
       codeLabel.innerText = "";
       playersList.innerHTML = "";
+      maitreCode = null;
     };
 
-    btnParametres = document.createElement('button');
-    btnParametres.innerText = "Créer partie";
-    btnParametres.style.flex = "1";
-    btnParametres.onclick = () => {
+    btnCreerPartie = document.createElement('button');
+    btnCreerPartie.innerText = "Créer partie";
+    btnCreerPartie.style.flex = "1";
+    btnCreerPartie.disabled = true;
+    btnCreerPartie.onclick = () => {
       maitrePage.style.display = "none";
       parametresPage.style.display = "flex";
     };
 
     actionsDiv.appendChild(btnRetour);
-    actionsDiv.appendChild(btnParametres);
-
+    actionsDiv.appendChild(btnCreerPartie);
     maitrePage.appendChild(actionsDiv);
 
+    // Page paramètres
     parametresPage = document.createElement('div');
     parametresPage.className = "center-vertical";
     parametresPage.id = "parametresPage";
@@ -90,75 +97,26 @@ btnMaitre.onclick = () => {
 };
 
 socket.on('maitre_code', (code) => {
-  codeLabel.innerText = "CODE : " + code;
+  maitreCode = code;
+  if (code) {
+    codeLabel.innerText = "CODE : " + code;
+  } else {
+    codeLabel.innerText = "";
+  }
 });
 
 socket.on('players', (joueurs) => {
-  // Structure en lignes, chaque ligne = 2 colonnes
-  let html = `<div class="players-grid">`;
-  for (let i = 0; i < joueurs.length; i += 2) {
-    // Si dernier impair, centré
-    if (!joueurs[i+1]) {
-      html += `
-        <div class="players-row">
-          <div class="player-col player-col-center" colspan="2">
-            <div class="player-item">
-              <img src="${joueurs[i].avatar || ''}" class="avatar-maitre" alt="" />
-              <span class="player-name">${joueurs[i].pseudo}</span>
-            </div>
-          </div>
-        </div>
-      `;
-    } else {
-      html += `
-        <div class="players-row">
-          <div class="player-col player-col-left">
-            <div class="player-item">
-              <img src="${joueurs[i].avatar || ''}" class="avatar-maitre" alt="" />
-              <span class="player-name">${joueurs[i].pseudo}</span>
-            </div>
-          </div>
-          <div class="player-col player-col-right">
-            <div class="player-item">
-              <img src="${joueurs[i+1].avatar || ''}" class="avatar-maitre" alt="" />
-              <span class="player-name">${joueurs[i+1].pseudo}</span>
-            </div>
-          </div>
-        </div>
-      `;
-    }
+  // Colonne unique, format avatar + pseudo
+  playersList.innerHTML = joueurs.map(p =>
+    `<li class="player-item">
+      <img src="${p.avatar || ''}" class="avatar-maitre" alt="" />
+      <span class="player-name">${p.pseudo}</span>
+    </li>`
+  ).join('');
+  // Activer bouton "Créer partie" si ≥2 joueurs
+  if (btnCreerPartie) {
+    btnCreerPartie.disabled = joueurs.length < 2;
   }
-  html += `</div>`;
-  playersList.innerHTML = html;
-
-  // Calcul largeur pseudo max colonne gauche
-  let maxWidth = 0;
-  let itemsLeft = document.querySelectorAll('.player-col-left .player-name');
-  itemsLeft.forEach(span => {
-    let width = span.offsetWidth;
-    if (width > maxWidth) maxWidth = width;
-  });
-  // Applique la largeur min à la colonne gauche pour aligner les avatars de droite
-  document.querySelectorAll('.player-col-left').forEach(col => {
-    col.style.minWidth = (64 + 18 + maxWidth + 18) + "px"; // avatar + gap + pseudo + espace
-    col.style.textAlign = "right";
-  });
-  // Espace constant entre les deux colonnes
-  document.querySelectorAll('.players-row').forEach(row => {
-    row.style.display = "flex";
-    row.style.justifyContent = "center";
-    row.style.gap = "36px";
-  });
-  document.querySelectorAll('.player-col-right').forEach(col => {
-    col.style.textAlign = "left";
-    col.style.display = "flex";
-  });
-  document.querySelectorAll('.player-col-center').forEach(col => {
-    col.style.textAlign = "center";
-    col.style.justifyContent = "center";
-    col.style.width = "100%";
-    col.style.display = "flex";
-  });
 });
 
 btnJoueur.onclick = () => {
