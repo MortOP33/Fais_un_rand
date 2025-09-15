@@ -51,9 +51,12 @@ socket.on('players', (joueurs) => {
 });
 
 btnJoueur.onclick = () => {
-  homePage.style.display = "none";
-  joueurPage.style.display = "flex";
-  socket.emit('requestNormalAvatars');
+  const pseudo = pseudoInput.value.trim();
+  if (pseudo.length > 0) {
+    homePage.style.display = "none";
+    joueurPage.style.display = "flex";
+    socket.emit('requestNormalAvatars');
+  } else { alert("Entrez un pseudo avant de jouer !"); return; }
 };
 
 socket.on('normalAvatars', (avatarFiles) => {
