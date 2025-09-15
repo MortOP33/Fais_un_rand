@@ -1,30 +1,26 @@
 const socket = io();
 
-// Commun
 const homePage = document.getElementById('homePage');
 const pseudoInput = document.getElementById('pseudoInput');
 const btnMaitre = document.getElementById('btnMaitre');
 const btnJoueur = document.getElementById('btnJoueur');
 const qrCodeDiv = document.getElementById('qrCode');
-
-// MAITRE
 const maitrePage = document.getElementById('maitrePage');
-const codeLabel = document.getElementById('codeLabel');
-const maitrePlayersList = document.getElementById('maitrePlayersList');
-
-// JOUEUR
 const joueurPage = document.getElementById('joueurPage');
-const codeInput = document.getElementById('codeInput');
+const playersList = document.getElementById('playersList');
 const avatarsContainer = document.getElementById('avatarsContainer');
+const codeLabel = document.getElementById('codeLabel');
+const codeInput = document.getElementById('codeInput');
 const errorCodeDiv = document.getElementById('errorCodeDiv');
 let selectedAvatar = null;
-let joinedCode = null;
+let maitreCode = null;
 
+// Affiche le QR code sur le home
 function showQRCode(element) {
   element.innerHTML = "";
   setTimeout(() => {
     new QRCode(element, {
-      text: window.location.origin + "?code=" + code,
+      text: window.location.href,
       width: 140,
       height: 140,
       colorDark: "#222",
@@ -34,23 +30,19 @@ function showQRCode(element) {
   }, 10);
 }
 
-// Affichage page Maitre
 btnMaitre.onclick = () => {
-  const pseudo = pseudoInput.value.trim();
-  if (pseudo.length > 0) {
-    socket.emit('createLobby', pseudo);
-  }
-};
-
-socket.on('lobbyCreated', (code) => {
+  socket.emit('maitre_create');
   homePage.style.display = "none";
   maitrePage.style.display = "flex";
+};
+
+socket.on('maitre_code', (code) => {
+  maitreCode = code;
   codeLabel.innerText = "CODE : " + code;
-  showQRCode(qrCodeDivMaitre, code);
 });
 
-socket.on('lobbyUpdate', ({code, joueurs, maitrePseudo}) => {
-  maitrePlayersList.innerHTML = joueurs.map(p =>
+socket.on('players', (joueurs) => {
+  playersList.innerHTML = joueurs.map(p =>
     `<li class="player-item">
       <img src="${p.avatar || ''}" class="avatar-maitre" alt="" />
       <span class="player-name">${p.pseudo}</span>
@@ -58,17 +50,12 @@ socket.on('lobbyUpdate', ({code, joueurs, maitrePseudo}) => {
   ).join('');
 });
 
-// Affichage page Joueur et sélection avatar
 btnJoueur.onclick = () => {
-  const pseudo = pseudoInput.value.trim();
-  if (pseudo.length > 0) {
-    homePage.style.display = "none";
-    joueurPage.style.display = "flex";
-    socket.emit('requestNormalAvatars');
-  } else { alert("Entrez un pseudo avant de jouer !"); return; }
+  homePage.style.display = "none";
+  joueurPage.style.display = "flex";
+  socket.emit('requestNormalAvatars');
 };
 
-// Avatars, sélection & surbrillance
 socket.on('normalAvatars', (avatarFiles) => {
   avatarsContainer.innerHTML = avatarFiles.map(file =>
     `<img src="${file}" class="avatar-item" style="margin:12px;" />`
@@ -80,27 +67,22 @@ socket.on('normalAvatars', (avatarFiles) => {
       img.classList.add('selected');
       const pseudo = pseudoInput.value.trim();
       const code = codeInput.value.trim().toUpperCase();
-      if (code.length === 6 && pseudo.length > 0) {
-        socket.emit('joinLobby', {pseudo, code, avatar: selectedAvatar});
+      if (pseudo.length === 0) {
+        errorCodeDiv.innerText = "Entrez un pseudo avant de jouer !";
+        return;
       }
+      if (code.length !== 6) {
+        errorCodeDiv.innerText = "Entrez un code de 6 lettres.";
+        return;
+      }
+      socket.emit('joueur_join', {pseudo, code, avatar: selectedAvatar});
+      errorCodeDiv.innerText = "";
     };
   });
 });
 
-socket.on('lobbyJoined', (code) => {
-  joinedCode = code;
-  errorCodeDiv.innerText = "";
-  showQRCode(qrCodeDivJoueur, code);
-});
-
-socket.on('errorLobby', (msg) => {
+socket.on('errorCode', (msg) => {
   errorCodeDiv.innerText = msg;
-});
-
-socket.on('lobbyClosed', () => {
-  joueurPage.style.display = "none";
-  homePage.style.display = "flex";
-  alert("La partie a été fermée par le maitre.");
 });
 
 window.onload = () => {
@@ -108,6 +90,8 @@ window.onload = () => {
   maitrePage.style.display = "none";
   joueurPage.style.display = "none";
   pseudoInput.value = "";
+  codeInput.value = "";
+  errorCodeDiv.innerText = "";
   qrCodeDiv.innerHTML = "";
   showQRCode(qrCodeDiv);
 };

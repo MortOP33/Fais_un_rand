@@ -7,9 +7,13 @@ const fs = require('fs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+let lobbies = {}; // { code: { maitreId, joueurs: [{pseudo, avatar, socketId}] } }
+let socketToLobby = {}; // socketId -> code
+
 function generateCode() {
-  // Lettres majuscules uniquement
-  return Array.from({length: 6}, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join('');
+  return Array.from({length: 6}, () =>
+    String.fromCharCode(65 + Math.floor(Math.random() * 26))
+  ).join('');
 }
 
 function getNormalAvatars() {
@@ -23,75 +27,54 @@ function getNormalAvatars() {
   }
 }
 
-let lobbies = {}; // { code: { maitreId, joueurs: [{pseudo, avatar, socketId}], maitrePseudo } }
-
 io.on('connection', (socket) => {
-  // Créer une partie (Maitre)
-  socket.on('createLobby', (maitrePseudo) => {
+  socket.on('maitre_create', () => {
     let code;
     do {
       code = generateCode();
     } while (lobbies[code]);
-    lobbies[code] = {
-      maitreId: socket.id,
-      joueurs: [],
-      maitrePseudo
-    };
-    socket.join(code);
-    socket.emit('lobbyCreated', code);
-    io.to(code).emit('lobbyUpdate', {
-      code,
-      joueurs: lobbies[code].joueurs,
-      maitrePseudo
-    });
+    lobbies[code] = { maitreId: socket.id, joueurs: [] };
+    socketToLobby[socket.id] = code;
+    socket.emit('maitre_code', code);
+    io.to(socket.id).emit('players', []);
   });
 
-  // Rejoindre une partie (Joueur)
-  socket.on('joinLobby', ({pseudo, code, avatar}) => {
-    code = code.toUpperCase();
-    if (lobbies[code]) {
-      // Empêcher doubles pseudos dans le lobby
-      if (!lobbies[code].joueurs.some(j => j.pseudo === pseudo)) {
-        lobbies[code].joueurs.push({pseudo, avatar, socketId: socket.id});
-        socket.join(code);
-        io.to(code).emit('lobbyUpdate', {
-          code,
-          joueurs: lobbies[code].joueurs,
-          maitrePseudo: lobbies[code].maitrePseudo
-        });
-        socket.emit('lobbyJoined', code);
-      } else {
-        socket.emit('errorLobby', 'Pseudo déjà utilisé dans cette partie.');
-      }
-    } else {
-      socket.emit('errorLobby', 'Code de partie invalide.');
-    }
-  });
-
-  // Liste des avatars
   socket.on('requestNormalAvatars', () => {
     socket.emit('normalAvatars', getNormalAvatars());
   });
 
-  // Déconnexion
+  socket.on('joueur_join', ({pseudo, code, avatar}) => {
+    code = code.toUpperCase();
+    if (!lobbies[code]) {
+      socket.emit('errorCode', 'Code invalide.');
+      return;
+    }
+    // Si le joueur existe, met à jour son avatar
+    let joueurs = lobbies[code].joueurs;
+    let joueur = joueurs.find(j => j.pseudo === pseudo);
+    if (joueur) {
+      joueur.avatar = avatar;
+      joueur.socketId = socket.id;
+    } else {
+      joueurs.push({pseudo, avatar, socketId: socket.id});
+    }
+    socketToLobby[socket.id] = code;
+    // Mise à jour côté maitre
+    io.to(lobbies[code].maitreId).emit('players', joueurs);
+  });
+
   socket.on('disconnect', () => {
-    // Retirer le joueur ou le maitre du lobby concerné
-    for (const code in lobbies) {
+    const code = socketToLobby[socket.id];
+    if (code && lobbies[code]) {
       if (lobbies[code].maitreId === socket.id) {
-        // Suppression du lobby si le maitre quitte
-        io.to(code).emit('lobbyClosed');
+        // Si le maitre quitte, supprime le lobby
         delete lobbies[code];
       } else {
-        const idx = lobbies[code].joueurs.findIndex(j => j.socketId === socket.id);
-        if (idx !== -1) {
-          lobbies[code].joueurs.splice(idx, 1);
-          io.to(code).emit('lobbyUpdate', {
-            code,
-            joueurs: lobbies[code].joueurs,
-            maitrePseudo: lobbies[code].maitrePseudo
-          });
-        }
+        // Sinon, supprime le joueur
+        lobbies[code].joueurs = lobbies[code].joueurs.filter(j => j.socketId !== socket.id);
+        io.to(lobbies[code].maitreId).emit('players', lobbies[code].joueurs);
       }
+      delete socketToLobby[socket.id];
     }
   });
 });
