@@ -12,8 +12,65 @@ const avatarsContainer = document.getElementById('avatarsContainer');
 const codeLabel = document.getElementById('codeLabel');
 const codeInput = document.getElementById('codeInput');
 const errorCodeDiv = document.getElementById('errorCodeDiv');
-let selectedAvatar = null;
-let maitreCode = null;
+
+// Nouveaux éléments pour la page maitre
+let btnRetour, btnParametres, parametresPage;
+
+// Ajoute les boutons et la page paramètres au DOM après chargement
+window.onload = () => {
+  homePage.style.display = "flex";
+  maitrePage.style.display = "none";
+  joueurPage.style.display = "none";
+  pseudoInput.value = "";
+  codeInput.value = "";
+  errorCodeDiv.innerText = "";
+  qrCodeDiv.innerHTML = "";
+  showQRCode(qrCodeDiv);
+
+  // Ajout des boutons si pas déjà présents
+  if (!document.getElementById('maitreActions')) {
+    const actionsDiv = document.createElement('div');
+    actionsDiv.id = 'maitreActions';
+    actionsDiv.style.display = 'flex';
+    actionsDiv.style.justifyContent = 'center';
+    actionsDiv.style.gap = '24px';
+    actionsDiv.style.marginTop = '24px';
+
+    btnRetour = document.createElement('button');
+    btnRetour.innerText = "Retour";
+    btnRetour.style.flex = "1";
+    btnRetour.onclick = () => {
+      maitrePage.style.display = "none";
+      homePage.style.display = "flex";
+      codeLabel.innerText = "";
+      playersList.innerHTML = "";
+    };
+
+    btnParametres = document.createElement('button');
+    btnParametres.innerText = "Créer partie";
+    btnParametres.style.flex = "1";
+    btnParametres.onclick = () => {
+      maitrePage.style.display = "none";
+      parametresPage.style.display = "flex";
+    };
+
+    actionsDiv.appendChild(btnRetour);
+    actionsDiv.appendChild(btnParametres);
+
+    maitrePage.appendChild(actionsDiv);
+
+    // Ajout de la page paramètres
+    parametresPage = document.createElement('div');
+    parametresPage.className = "center-vertical";
+    parametresPage.id = "parametresPage";
+    parametresPage.style.display = "none";
+    parametresPage.innerHTML = `
+      <h2 style="text-align:center; margin-bottom:0;">Paramètres de partie</h2>
+      <button style="margin-top:32px;" onclick="document.getElementById('parametresPage').style.display='none'; document.getElementById('maitrePage').style.display='flex';">Retour</button>
+    `;
+    document.body.appendChild(parametresPage);
+  }
+};
 
 // Affiche le QR code sur le home
 function showQRCode(element) {
@@ -37,17 +94,38 @@ btnMaitre.onclick = () => {
 };
 
 socket.on('maitre_code', (code) => {
-  maitreCode = code;
   codeLabel.innerText = "CODE : " + code;
 });
 
 socket.on('players', (joueurs) => {
-  playersList.innerHTML = joueurs.map(p =>
-    `<li class="player-item">
-      <img src="${p.avatar || ''}" class="avatar-maitre" alt="" />
-      <span class="player-name">${p.pseudo}</span>
-    </li>`
-  ).join('');
+  // Deux colonnes alternées
+  let html = `<div style="display:flex; flex-direction:column; gap:0;">`;
+  for (let i = 0; i < joueurs.length; i += 2) {
+    html += `<div style="display:flex; justify-content:center; gap:32px; margin-bottom:10px;">`;
+    // Gauche
+    if (joueurs[i]) {
+      html += `<div style="flex:1; display:flex; align-items:center; justify-content:flex-end;">
+        <li class="player-item" style="margin:0;">
+          <img src="${joueurs[i].avatar || ''}" class="avatar-maitre" alt="" />
+          <span class="player-name">${joueurs[i].pseudo}</span>
+        </li>
+      </div>`;
+    }
+    // Droite ou centré si impair et dernier
+    if (joueurs[i+1]) {
+      html += `<div style="flex:1; display:flex; align-items:center; justify-content:flex-start;">
+        <li class="player-item" style="margin:0;">
+          <img src="${joueurs[i+1].avatar || ''}" class="avatar-maitre" alt="" />
+          <span class="player-name">${joueurs[i+1].pseudo}</span>
+        </li>
+      </div>`;
+    } else if (!joueurs[i+1]) {
+      html += `<div style="flex:1; display:flex; align-items:center; justify-content:center;"></div>`;
+    }
+    html += `</div>`;
+  }
+  html += `</div>`;
+  playersList.innerHTML = html;
 });
 
 btnJoueur.onclick = () => {
@@ -87,14 +165,3 @@ socket.on('normalAvatars', (avatarFiles) => {
 socket.on('errorCode', (msg) => {
   errorCodeDiv.innerText = msg;
 });
-
-window.onload = () => {
-  homePage.style.display = "flex";
-  maitrePage.style.display = "none";
-  joueurPage.style.display = "none";
-  pseudoInput.value = "";
-  codeInput.value = "";
-  errorCodeDiv.innerText = "";
-  qrCodeDiv.innerHTML = "";
-  showQRCode(qrCodeDiv);
-};
