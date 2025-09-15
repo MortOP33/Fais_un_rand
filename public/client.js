@@ -13,7 +13,6 @@ const codeLabel = document.getElementById('codeLabel');
 const codeInput = document.getElementById('codeInput');
 const errorCodeDiv = document.getElementById('errorCodeDiv');
 
-// Actions et page paramètres inchangés
 let btnRetour, btnParametres, parametresPage;
 
 window.onload = () => {
@@ -70,7 +69,6 @@ window.onload = () => {
   }
 };
 
-// Affiche le QR code sur le home
 function showQRCode(element) {
   element.innerHTML = "";
   setTimeout(() => {
@@ -96,59 +94,71 @@ socket.on('maitre_code', (code) => {
 });
 
 socket.on('players', (joueurs) => {
-  // 1. Séparation en deux colonnes
-  let colG = [], colD = [];
+  // Structure en lignes, chaque ligne = 2 colonnes
+  let html = `<div class="players-grid">`;
   for (let i = 0; i < joueurs.length; i += 2) {
-    colG.push(joueurs[i]);
-    if (joueurs[i+1]) colD.push(joueurs[i+1]);
-  }
-
-  // 2. Calcul de la largeur max pseudo gauche (on utilise canvas pour mesurer en police .player-name)
-  let maxPseudo = "";
-  colG.forEach(j => { if (j && j.pseudo.length > maxPseudo.length) maxPseudo = j.pseudo; });
-  let pseudoWidth = 0;
-  if (maxPseudo) {
-    let canvas = document.createElement("canvas");
-    let ctx = canvas.getContext("2d");
-    ctx.font = "700 1.3em Arial";
-    pseudoWidth = ctx.measureText(maxPseudo).width;
-  }
-  // 3. Espacement horizontal
-  const avatarSize = 64, avatarMargin = 18; // comme dans .avatar-maitre
-  const gapBetween = avatarMargin * 2; // espace entre nom le + long et avatar de droite
-
-  // 4. Génération du HTML
-  let html = `<div style="display:flex; flex-direction:column; width:100%; align-items:center;">`;
-  for (let row = 0; row < colG.length; row++) {
-    // Si dernier impair
-    if (!colD[row]) {
-      html += `<div style="width:100%; display:flex; justify-content:center; margin-bottom:10px;">
-        <div style="display:inline-flex; align-items:center;">
-          <img src="${colG[row]?.avatar || ''}" class="avatar-maitre" alt="" />
-          <span class="player-name" style="font-size:1.3em; font-weight:700; letter-spacing:1px; margin-left:18px;">${colG[row]?.pseudo}</span>
+    // Si dernier impair, centré
+    if (!joueurs[i+1]) {
+      html += `
+        <div class="players-row">
+          <div class="player-col player-col-center" colspan="2">
+            <div class="player-item">
+              <img src="${joueurs[i].avatar || ''}" class="avatar-maitre" alt="" />
+              <span class="player-name">${joueurs[i].pseudo}</span>
+            </div>
+          </div>
         </div>
-      </div>`;
+      `;
     } else {
-      html += `<div style="width:100%; display:flex; justify-content:center; margin-bottom:10px;">
-        <div style="display:flex; flex-direction:row;">
-          <!-- Colonne gauche -->
-          <div style="display:inline-flex; align-items:center; min-width:${avatarSize+pseudoWidth+avatarMargin}px;">
-            <img src="${colG[row]?.avatar || ''}" class="avatar-maitre" alt="" />
-            <span class="player-name" style="font-size:1.3em; font-weight:700; letter-spacing:1px; margin-left:18px;">${colG[row]?.pseudo}</span>
+      html += `
+        <div class="players-row">
+          <div class="player-col player-col-left">
+            <div class="player-item">
+              <img src="${joueurs[i].avatar || ''}" class="avatar-maitre" alt="" />
+              <span class="player-name">${joueurs[i].pseudo}</span>
+            </div>
           </div>
-          <!-- Espace entre colonnes -->
-          <div style="width:${gapBetween}px;"></div>
-          <!-- Colonne droite -->
-          <div style="display:inline-flex; align-items:center;">
-            <img src="${colD[row]?.avatar || ''}" class="avatar-maitre" alt="" />
-            <span class="player-name" style="font-size:1.3em; font-weight:700; letter-spacing:1px; margin-left:18px;">${colD[row]?.pseudo}</span>
+          <div class="player-col player-col-right">
+            <div class="player-item">
+              <img src="${joueurs[i+1].avatar || ''}" class="avatar-maitre" alt="" />
+              <span class="player-name">${joueurs[i+1].pseudo}</span>
+            </div>
           </div>
         </div>
-      </div>`;
+      `;
     }
   }
   html += `</div>`;
   playersList.innerHTML = html;
+
+  // Calcul largeur pseudo max colonne gauche
+  let maxWidth = 0;
+  let itemsLeft = document.querySelectorAll('.player-col-left .player-name');
+  itemsLeft.forEach(span => {
+    let width = span.offsetWidth;
+    if (width > maxWidth) maxWidth = width;
+  });
+  // Applique la largeur min à la colonne gauche pour aligner les avatars de droite
+  document.querySelectorAll('.player-col-left').forEach(col => {
+    col.style.minWidth = (64 + 18 + maxWidth + 18) + "px"; // avatar + gap + pseudo + espace
+    col.style.textAlign = "right";
+  });
+  // Espace constant entre les deux colonnes
+  document.querySelectorAll('.players-row').forEach(row => {
+    row.style.display = "flex";
+    row.style.justifyContent = "center";
+    row.style.gap = "36px";
+  });
+  document.querySelectorAll('.player-col-right').forEach(col => {
+    col.style.textAlign = "left";
+    col.style.display = "flex";
+  });
+  document.querySelectorAll('.player-col-center').forEach(col => {
+    col.style.textAlign = "center";
+    col.style.justifyContent = "center";
+    col.style.width = "100%";
+    col.style.display = "flex";
+  });
 });
 
 btnJoueur.onclick = () => {
