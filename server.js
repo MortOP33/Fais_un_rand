@@ -24,6 +24,30 @@ function getNormalAvatars() {
   }
 }
 
+const QUESTIONS_PATH = path.join(__dirname, 'public', 'Questions', 'questions.json');
+
+// Fonction pour charger les questions
+function loadQuestions() {
+  try {
+    const raw = fs.readFileSync(QUESTIONS_PATH, 'utf8');
+    const arr = JSON.parse(raw);
+    // Transforme chaque ligne en objet question
+    return arr.map(line => {
+      const parts = line.split('#');
+      if (parts.length !== 5) return null;
+      return {
+        id: parts[0],
+        theme: parts[1],
+        question: parts[2],
+        reponse: parts[3],
+        complement: parts[4]
+      };
+    }).filter(Boolean);
+  } catch (e) {
+    return [];
+  }
+}
+
 let lobbies = {}; // { code: { maitreId, joueurs: [{pseudo, avatar, socketId}] } }
 let socketToLobby = {}; // socketId -> code
 
@@ -120,6 +144,29 @@ io.on('connection', (socket) => {
       });
     }
   });
+
+  // Quand le maitre clique sur DEMARRER
+  socket.on('demarrer_quizz', ({ code, nbQuestions, themes }) => {
+    const allQuestions = loadQuestions();
+    // Filtre par thèmes cochés
+    const filtered = allQuestions.filter(q => themes.includes(q.theme));
+    // Mélange et prend les nbQuestions premières
+    const selected = filtered.sort(() => 0.5 - Math.random()).slice(0, nbQuestions);
+    // Stocke les questions dans le lobby
+    if (lobbies[code]) {
+      lobbies[code].questions = selected;
+      lobbies[code].questionIndex = 0;
+      // Envoie la première question au maitre
+      if (selected.length > 0) {
+        io.to(lobbies[code].maitreId).emit('afficher_question', {
+          question: selected[0],
+          index: 0,
+          total: selected.length
+        });
+      }
+    }
+  });
+
 });
 
 const PORT = process.env.PORT || 3000;
