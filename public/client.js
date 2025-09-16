@@ -20,6 +20,7 @@ let joueurAvatar = null;
 let isQuizzStarted = false;
 
 let btnRetour, btnCreerPartie, parametresPage, btnRetourJoueur, btnDemarrer, pageJeuMaitre;
+let themeImages = {}; // mapping {THEME: url}
 
 window.onload = () => {
   homePage.style.display = "flex";
@@ -31,7 +32,6 @@ window.onload = () => {
   qrCodeDiv.innerHTML = "";
   showQRCode(qrCodeDiv);
 
-  // Ajout dynamique si pas déjà présents
   if (!document.getElementById('maitreActions')) {
     const actionsDiv = document.createElement('div');
     actionsDiv.id = 'maitreActions';
@@ -70,7 +70,6 @@ window.onload = () => {
     actionsDiv.appendChild(btnCreerPartie);
     maitrePage.appendChild(actionsDiv);
 
-    // Page paramètres
     parametresPage = document.createElement('div');
     parametresPage.className = "center-vertical";
     parametresPage.id = "parametresPage";
@@ -179,9 +178,9 @@ function createPageJeuMaitre() {
       <thead>
         <tr>
           <th style="text-align:left;">Joueur</th>
-          <th>Réponse</th>
-          <th>Score question</th>
-          <th>Score total</th>
+          <th style="text-align:center;">Réponse</th>
+          <th style="text-align:center;">Score question</th>
+          <th style="text-align:center;">Score total</th>
         </tr>
       </thead>
       <tbody id="jeuJoueursTbody"></tbody>
@@ -197,7 +196,13 @@ btnMaitre.onclick = () => {
   socket.emit('maitre_create');
   homePage.style.display = "none";
   maitrePage.style.display = "flex";
+  // Demander le mapping des thèmes images
+  socket.emit('request_theme_images');
 };
+
+socket.on('theme_images', (mapping) => {
+  themeImages = mapping || {};
+});
 
 socket.on('maitre_code', (code) => {
   maitreCode = code;
@@ -327,9 +332,12 @@ socket.on('param_retour_maitre', () => {
   homePage.style.display = "none";
 });
 
-socket.on('afficher_question', ({ question, index, total, joueurs }) => {
+socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }) => {
   pageJeuMaitre.style.display = "flex";
-  document.getElementById('jeuThemeImg').innerHTML = `<img src="/Themes/${question.theme.toLowerCase()}.jpg" style="width:350px; height:140px; object-fit:cover; border-radius:18px;">`;
+  // Utilise le mapping reçu
+  let imgUrl = (themeImages && themeImages[question.theme]) || (themeImages && themeImages[question.theme.toUpperCase()]) || (themeImages && themeImages[question.theme.toLowerCase()]) || "";
+  if (!imgUrl) imgUrl = themeImages && themeImages[Object.keys(themeImages)[0]]; // fallback
+  document.getElementById('jeuThemeImg').innerHTML = imgUrl ? `<img src="${imgUrl}" style="width:350px; height:140px; object-fit:cover; border-radius:18px;">` : "";
   document.getElementById('jeuQuestionLabel').innerText = `Question ${index+1}/${total} : ${question.question}`;
   document.getElementById('jeuReponseCadre').style.display = 'none';
   document.getElementById('jeuComplementCadre').style.display = 'none';
@@ -348,9 +356,9 @@ socket.on('afficher_question', ({ question, index, total, joueurs }) => {
         <img src="${j.avatar}" class="avatar-maitre" style="width:40px;height:40px;margin:0;">
         <span>${j.pseudo}</span>
       </td>
-      <td><input type="text" style="width:60px;text-align:center;" disabled></td>
-      <td>0</td>
-      <td>0</td>
+      <td style="text-align:center;"><input type="text" style="width:60px;text-align:center;" disabled></td>
+      <td style="text-align:center;">0</td>
+      <td style="text-align:center;">0</td>
     </tr>`
   ).join('');
 });
@@ -358,15 +366,16 @@ socket.on('afficher_question', ({ question, index, total, joueurs }) => {
 function displayTimer(seconds, onFinish) {
   const timerDiv = document.getElementById('jeuTimerCadre');
   let time = seconds;
-  timerDiv.innerHTML = `<svg width="100" height="100"><circle id="timerCircle" r="45" cx="50" cy="50" fill="none" stroke="#3855d6" stroke-width="7" stroke-dasharray="282" stroke-dashoffset="0"/></svg>
+  // Barre pleine au départ, se vide dans le sens horaire
+  timerDiv.innerHTML = `<svg width="100" height="100"><circle id="timerCircle" r="45" cx="50" cy="50" fill="none" stroke="#3855d6" stroke-width="7" stroke-dasharray="282" stroke-dashoffset="0" style="transform: rotate(-90deg); transform-origin: 50% 50%;" /></svg>
     <div id="timerText" style="position:absolute;left:0;top:0;width:100px;height:100px;display:flex;align-items:center;justify-content:center;font-size:2em;font-weight:bold;color:#fff;">${time}</div>`;
   const circle = timerDiv.querySelector('#timerCircle');
   const timerText = timerDiv.querySelector('#timerText');
   let interval = setInterval(() => {
     time--;
     timerText.innerText = time;
-    let offset = (seconds-time)*282/seconds; // offset s'inverse
-    circle.setAttribute('stroke-dashoffset', `${offset}`);
+    let offset = (time/seconds)*282; // offset part vers le bas
+    circle.setAttribute('stroke-dashoffset', `${282-offset}`);
     if (time <= 0) {
       clearInterval(interval);
       if (onFinish) onFinish();

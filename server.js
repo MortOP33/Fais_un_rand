@@ -24,14 +24,27 @@ function getNormalAvatars() {
   }
 }
 
+function getThemeImages() {
+  const themeDir = path.join(__dirname, 'public', 'Themes');
+  const files = fs.existsSync(themeDir) ? fs.readdirSync(themeDir) : [];
+  // Map: {THEME: url}
+  const result = {};
+  files.forEach(file => {
+    // Ex : "economie.png" => THEME: "ECONOMIE"
+    const m = /^([^.]+)\.(png|jpg|jpeg|webp)$/i.exec(file);
+    if (m) {
+      result[m[1].toUpperCase()] = `/Themes/${file}`;
+    }
+  });
+  return result;
+}
+
 const QUESTIONS_PATH = path.join(__dirname, 'public', 'Questions', 'questions.json');
 
-// Fonction pour charger les questions
 function loadQuestions() {
   try {
     const raw = fs.readFileSync(QUESTIONS_PATH, 'utf8');
     const arr = JSON.parse(raw);
-    // Transforme chaque ligne en objet question
     return arr.map(line => {
       const parts = line.split('#');
       if (parts.length !== 5) return null;
@@ -61,6 +74,12 @@ io.on('connection', (socket) => {
     socketToLobby[socket.id] = code;
     socket.emit('maitre_code', code);
     io.to(socket.id).emit('players', []);
+    // Envoi du mapping des thèmes images
+    socket.emit('theme_images', getThemeImages());
+  });
+
+  socket.on('request_theme_images', () => {
+    socket.emit('theme_images', getThemeImages());
   });
 
   socket.on('maitre_delete', () => {
@@ -133,36 +152,29 @@ io.on('connection', (socket) => {
     }
   });
 
-  // RETOUR depuis la page paramètres (ramène tout le monde à la sélection d'avatar, sauf le maitre)
   socket.on('param_retour', ({ code }) => {
     if (lobbies[code]) {
-      // Pour le maitre, renvoyer seulement à sa page maitre
       io.to(lobbies[code].maitreId).emit('param_retour_maitre');
-      // Pour les joueurs, renvoyer à la sélection d'avatar
       lobbies[code].joueurs.forEach(j => {
         io.to(j.socketId).emit('param_retour_joueurs');
       });
     }
   });
 
-  // Quand le maitre clique sur DEMARRER
   socket.on('demarrer_quizz', ({ code, nbQuestions, themes }) => {
     const allQuestions = loadQuestions();
-    // Filtre par thèmes cochés
     const filtered = allQuestions.filter(q => themes.includes(q.theme));
-    // Mélange et prend les nbQuestions premières
     const selected = filtered.sort(() => 0.5 - Math.random()).slice(0, nbQuestions);
-    // Stocke les questions et joueurs dans le lobby
     if (lobbies[code]) {
       lobbies[code].questions = selected;
       lobbies[code].questionIndex = 0;
-      // Envoie la première question au maitre, avec liste joueurs
       if (selected.length > 0) {
         io.to(lobbies[code].maitreId).emit('afficher_question', {
           question: selected[0],
           index: 0,
           total: selected.length,
-          joueurs: lobbies[code].joueurs  // Ajout des joueurs
+          joueurs: lobbies[code].joueurs,
+          themeImages: getThemeImages()
         });
       }
     }
