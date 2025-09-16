@@ -329,7 +329,7 @@ socket.on('param_retour_maitre', () => {
 
 socket.on('afficher_question', ({ question, index, total, joueurs }) => {
   pageJeuMaitre.style.display = "flex";
-  document.getElementById('jeuThemeImg').innerHTML = `<img src="/Themes/${question.theme.toLowerCase()}.jpg" style="width:350px; height:140px; object-fit:cover; border-radius:18px;">`;
+  document.getElementById('jeuThemeImg').innerHTML = `<img src="public/Themes/${question.theme.toLowerCase()}.jpg" style="width:350px; height:140px; object-fit:cover; border-radius:18px;">`;
   document.getElementById('jeuQuestionLabel').innerText = `Question ${index+1}/${total} : ${question.question}`;
   document.getElementById('jeuReponseCadre').style.display = 'none';
   document.getElementById('jeuComplementCadre').style.display = 'none';
@@ -340,7 +340,6 @@ socket.on('afficher_question', ({ question, index, total, joueurs }) => {
   document.getElementById('btnAfficher').disabled = true;
   document.getElementById('btnSuivant').disabled = true;
 
-  // Table joueurs : une ligne par joueur
   const tbody = document.getElementById('jeuJoueursTbody');
   tbody.innerHTML = joueurs.map(j =>
     `<tr>
