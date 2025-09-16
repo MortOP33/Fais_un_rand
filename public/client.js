@@ -105,9 +105,7 @@ window.onload = () => {
     `).join('');
 
     btnDemarrer = parametresPage.querySelector('#btnDemarrer');
-    // Quand le maitre clique sur DEMARRER
     btnDemarrer.onclick = () => {
-      // Récupère le nombre de questions et les thèmes cochés
       const nbQuestions = parseInt(document.getElementById('nbQuestions').value) || 10;
       const themesChecked = Array.from(document.querySelectorAll('#themesList input[type="checkbox"]:checked')).map((input, i) =>
         ["DATES","GEOGRAPHIE","MONDE VIVANT","ECONOMIE","SCIENCES","DIVERTISSEMENT","SONDAGES","RECORDS","IMPROBABLE"][i]
@@ -120,15 +118,12 @@ window.onload = () => {
     const btnRetourParam = parametresPage.querySelector('#btnRetourParam');
     btnRetourParam.onclick = () => {
       parametresPage.style.display = "none";
-      // Correction: le maitre revient sur sa page maitre, joueurs sur sélection avatar
       socket.emit('param_retour', { code: maitreCode });
-      // Pour le maitre : on affiche la page maitre (code inchangé, joueurs, boutons)
       maitrePage.style.display = "flex";
       homePage.style.display = "none";
     };
   }
 
-  // Ajout du bouton retour sur page joueur si pas déjà présent
   if (!document.getElementById('btnRetourJoueur')) {
     btnRetourJoueur = document.createElement('button');
     btnRetourJoueur.id = "btnRetourJoueur";
@@ -226,7 +221,6 @@ socket.on('players', (joueurs) => {
   }
 });
 
-// Page joueur : sélection avatar ou affichage avatar+nom si quizz démarré
 btnJoueur.onclick = () => {
   const pseudo = pseudoInput.value.trim();
   if (pseudo.length > 0) {
@@ -242,7 +236,6 @@ btnJoueur.onclick = () => {
 };
 
 socket.on('normalAvatars', (avatarFiles) => {
-  // Sélection avatar ou affichage avatar+nom selon état quizz
   if (!isQuizzStarted) {
     avatarsContainer.innerHTML = avatarFiles.map(file =>
       `<img src="${file}" class="avatar-item" style="margin:12px;" />`
@@ -268,20 +261,17 @@ socket.on('normalAvatars', (avatarFiles) => {
         errorCodeDiv.innerText = "";
       };
     });
-    // Affiche champs code, label et bouton retour
     codeInput.style.display = "";
     errorCodeDiv.style.display = "";
     labelInput.style.display = "";
     btnRetourJoueur.style.display = "inline-block";
   } else {
-    // Affichage avatar+pseudo sur une même ligne (après début quizz)
     avatarsContainer.innerHTML = `
       <div style="display:flex; align-items:center; justify-content:center; gap:18px; margin-top:24px;">
         <img src="${joueurAvatar || ''}" class="avatar-maitre" alt="" />
         <span class="player-name">${joueurPseudo || ''}</span>
       </div>
     `;
-    // Cache le champ code, label, bouton retour
     codeInput.style.display = "none";
     errorCodeDiv.style.display = "none";
     labelInput.style.display = "none";
@@ -293,7 +283,6 @@ socket.on('errorCode', (msg) => {
   errorCodeDiv.innerText = msg;
 });
 
-// Quand le maitre lance la partie, tous les joueurs doivent passer à l'affichage avatar+nom
 socket.on('quizz_started', () => {
   isQuizzStarted = true;
   avatarsContainer.innerHTML = `
@@ -302,14 +291,12 @@ socket.on('quizz_started', () => {
       <span class="player-name">${joueurPseudo || ''}</span>
     </div>
   `;
-  // Cache le champ code, label, bouton retour
   codeInput.style.display = "none";
   errorCodeDiv.style.display = "none";
   labelInput.style.display = "none";
   btnRetourJoueur.style.display = "none";
 });
 
-// Déconnexion joueur
 socket.on('disconnect', () => {
   joueurPage.style.display = "none";
   homePage.style.display = "flex";
@@ -322,7 +309,6 @@ socket.on('disconnect', () => {
   errorCodeDiv.innerText = "";
 });
 
-// Lorsque le maitre clique sur RETOUR dans la page paramètres, tous les joueurs reviennent à la page de sélection d'avatar
 socket.on('param_retour_joueurs', () => {
   isQuizzStarted = false;
   joueurPage.style.display = "flex";
@@ -335,21 +321,16 @@ socket.on('param_retour_joueurs', () => {
   socket.emit('requestNormalAvatars');
 });
 
-// Nouvel event côté maitre pour RETOUR depuis paramètres
 socket.on('param_retour_maitre', () => {
   parametresPage.style.display = "none";
   maitrePage.style.display = "flex";
-  // On ne touche pas au code ni à la liste des joueurs ni aux boutons
   homePage.style.display = "none";
 });
 
-socket.on('afficher_question', ({ question, index, total }) => {
+socket.on('afficher_question', ({ question, index, total, joueurs }) => {
   pageJeuMaitre.style.display = "flex";
-  // Image du thème
-  document.getElementById('jeuThemeImg').innerHTML = `<img src="/Themes/${question.theme.toLowerCase()}.png" style="width:350px; height:140px; object-fit:cover; border-radius:18px;">`;
-  // Label question
+  document.getElementById('jeuThemeImg').innerHTML = `<img src="/Themes/${question.theme.toLowerCase()}.jpg" style="width:350px; height:140px; object-fit:cover; border-radius:18px;">`;
   document.getElementById('jeuQuestionLabel').innerText = `Question ${index+1}/${total} : ${question.question}`;
-  // Cadres réponse & complément masqués, timer affiché
   document.getElementById('jeuReponseCadre').style.display = 'none';
   document.getElementById('jeuComplementCadre').style.display = 'none';
   displayTimer(30, () => {
@@ -358,30 +339,42 @@ socket.on('afficher_question', ({ question, index, total }) => {
   });
   document.getElementById('btnAfficher').disabled = true;
   document.getElementById('btnSuivant').disabled = true;
-  // Remplir la table joueurs (à compléter selon ta structure joueurs)
-  // TODO: remplir jeuJoueursTbody
+
+  // Table joueurs : une ligne par joueur
+  const tbody = document.getElementById('jeuJoueursTbody');
+  tbody.innerHTML = joueurs.map(j =>
+    `<tr>
+      <td style="display:flex;align-items:center;gap:12px;">
+        <img src="${j.avatar}" class="avatar-maitre" style="width:40px;height:40px;margin:0;">
+        <span>${j.pseudo}</span>
+      </td>
+      <td><input type="text" style="width:60px;text-align:center;" disabled></td>
+      <td>0</td>
+      <td>0</td>
+    </tr>`
+  ).join('');
 });
 
 function displayTimer(seconds, onFinish) {
   const timerDiv = document.getElementById('jeuTimerCadre');
   let time = seconds;
-  timerDiv.innerHTML = `<svg width="100" height="100"><circle id="timerCircle" r="45" cx="50" cy="50" fill="none" stroke="#3855d6" stroke-width="7"/></svg>
+  timerDiv.innerHTML = `<svg width="100" height="100"><circle id="timerCircle" r="45" cx="50" cy="50" fill="none" stroke="#3855d6" stroke-width="7" stroke-dasharray="282" stroke-dashoffset="0"/></svg>
     <div id="timerText" style="position:absolute;left:0;top:0;width:100px;height:100px;display:flex;align-items:center;justify-content:center;font-size:2em;font-weight:bold;color:#fff;">${time}</div>`;
   const circle = timerDiv.querySelector('#timerCircle');
   const timerText = timerDiv.querySelector('#timerText');
   let interval = setInterval(() => {
     time--;
     timerText.innerText = time;
-    circle.setAttribute('stroke-dasharray', `${(seconds-time)*282/seconds},282`);
+    let offset = (seconds-time)*282/seconds; // offset s'inverse
+    circle.setAttribute('stroke-dashoffset', `${offset}`);
     if (time <= 0) {
       clearInterval(interval);
       if (onFinish) onFinish();
     }
   }, 1000);
-  circle.setAttribute('stroke-dasharray', `0,282`);
+  circle.setAttribute('stroke-dashoffset', `0`);
 }
 
-// Déconnexion joueur côté serveur
 socket.on('joueur_logout', () => {
   joueurPage.style.display = "none";
   homePage.style.display = "flex";
@@ -392,4 +385,5 @@ socket.on('joueur_logout', () => {
   isQuizzStarted = false;
   codeInput.value = "";
   errorCodeDiv.innerText = "";
+
 });

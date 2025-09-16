@@ -152,16 +152,17 @@ io.on('connection', (socket) => {
     const filtered = allQuestions.filter(q => themes.includes(q.theme));
     // Mélange et prend les nbQuestions premières
     const selected = filtered.sort(() => 0.5 - Math.random()).slice(0, nbQuestions);
-    // Stocke les questions dans le lobby
+    // Stocke les questions et joueurs dans le lobby
     if (lobbies[code]) {
       lobbies[code].questions = selected;
       lobbies[code].questionIndex = 0;
-      // Envoie la première question au maitre
+      // Envoie la première question au maitre, avec liste joueurs
       if (selected.length > 0) {
         io.to(lobbies[code].maitreId).emit('afficher_question', {
           question: selected[0],
           index: 0,
-          total: selected.length
+          total: selected.length,
+          joueurs: lobbies[code].joueurs  // Ajout des joueurs
         });
       }
     }
@@ -172,4 +173,5 @@ io.on('connection', (socket) => {
 const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+
 });
