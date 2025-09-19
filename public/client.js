@@ -346,7 +346,6 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
   document.getElementById('jeuReponseCadre').style.display = 'none';
   document.getElementById('jeuComplementCadre').style.display = 'none';
 
-  // pendant timer : cache "Réponse" et "Score question", bouton "Afficher" désactivé, "Annuler question" caché
   setTimeout(() => {
     let btnAfficher = document.getElementById('btnAfficher');
     let btnAnnuler = document.getElementById('btnAnnulerQuestion');
@@ -357,10 +356,10 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
     document.getElementById('btnSuivant').disabled = true;
     Array.from(document.querySelectorAll('.label-reponse')).forEach(lbl => lbl.style.display = "none");
     Array.from(document.querySelectorAll('.score-manche')).forEach(td => td.style.display = "none");
+    Array.from(document.querySelectorAll('.score-total')).forEach(td => td.style.display = "");
   }, 100);
 
   displayTimer(30, () => {
-    // fin timer : bouton "Afficher" activé, "Réponse" visible, "Score question" caché
     let btnAfficher = document.getElementById('btnAfficher');
     let btnAnnuler = document.getElementById('btnAnnulerQuestion');
     btnAfficher.style.display = "";
@@ -370,6 +369,7 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
     document.getElementById('btnSuivant').disabled = true;
     Array.from(document.querySelectorAll('.label-reponse')).forEach(lbl => lbl.style.display = "");
     Array.from(document.querySelectorAll('.score-manche')).forEach(td => td.style.display = "none");
+    Array.from(document.querySelectorAll('.score-total')).forEach(td => td.style.display = "");
   });
 
   const tbody = document.getElementById('jeuJoueursTbody');
