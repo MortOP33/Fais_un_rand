@@ -27,10 +27,8 @@ function getNormalAvatars() {
 function getThemeImages() {
   const themeDir = path.join(__dirname, 'public', 'Themes');
   const files = fs.existsSync(themeDir) ? fs.readdirSync(themeDir) : [];
-  // Map: {THEME: url}
   const result = {};
   files.forEach(file => {
-    // Ex : "economie.png" => THEME: "ECONOMIE"
     const m = /^([^.]+)\.(png|jpg|jpeg|webp)$/i.exec(file);
     if (m) {
       result[m[1].toUpperCase()] = `/Themes/${file}`;
@@ -74,7 +72,6 @@ io.on('connection', (socket) => {
     socketToLobby[socket.id] = code;
     socket.emit('maitre_code', code);
     io.to(socket.id).emit('players', []);
-    // Envoi du mapping des thèmes images
     socket.emit('theme_images', getThemeImages());
   });
 
@@ -179,7 +176,6 @@ io.on('connection', (socket) => {
       }
     }
   });
-
 });
 
 const PORT = process.env.PORT || 3000;

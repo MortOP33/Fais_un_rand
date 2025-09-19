@@ -21,6 +21,8 @@ let isQuizzStarted = false;
 
 let btnRetour, btnCreerPartie, parametresPage, btnRetourJoueur, btnDemarrer, pageJeuMaitre;
 let themeImages = {}; // mapping {THEME: url}
+let roundAnswer = "";
+let roundComplement = "";
 
 window.onload = () => {
   homePage.style.display = "flex";
@@ -196,7 +198,6 @@ btnMaitre.onclick = () => {
   socket.emit('maitre_create');
   homePage.style.display = "none";
   maitrePage.style.display = "flex";
-  // Demander le mapping des thèmes images
   socket.emit('request_theme_images');
 };
 
@@ -220,8 +221,9 @@ socket.on('players', (joueurs) => {
       <span class="player-name">${p.pseudo}</span>
     </li>`
   ).join('');
+  // MODIF : minimum 3 joueurs
   if (btnCreerPartie) {
-    btnCreerPartie.disabled = joueurs.length < 2;
+    btnCreerPartie.disabled = joueurs.length < 3;
     btnCreerPartie.classList.toggle('disabled-btn', btnCreerPartie.disabled);
   }
 });
@@ -334,30 +336,35 @@ socket.on('param_retour_maitre', () => {
 
 socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }) => {
   pageJeuMaitre.style.display = "flex";
-  // Utilise le mapping reçu
+  roundAnswer = question.reponse;
+  roundComplement = question.complement;
+
   let imgUrl = (themeImages && themeImages[question.theme]) || (themeImages && themeImages[question.theme.toUpperCase()]) || (themeImages && themeImages[question.theme.toLowerCase()]) || "";
   if (!imgUrl) imgUrl = themeImages && themeImages[Object.keys(themeImages)[0]]; // fallback
   document.getElementById('jeuThemeImg').innerHTML = imgUrl ? `<img src="${imgUrl}" style="width:350px; height:140px; object-fit:cover; border-radius:18px;">` : "";
   document.getElementById('jeuQuestionLabel').innerText = `Question ${index+1}/${total} : ${question.question}`;
   document.getElementById('jeuReponseCadre').style.display = 'none';
   document.getElementById('jeuComplementCadre').style.display = 'none';
+
   displayTimer(30, () => {
     document.getElementById('jeuTimerCadre').innerHTML = '';
     document.getElementById('btnAfficher').disabled = false;
+    Array.from(document.querySelectorAll('.input-reponse')).forEach(input => input.style.display = "");
   });
   document.getElementById('btnAfficher').disabled = true;
   document.getElementById('btnSuivant').disabled = true;
 
-  // Table joueurs : une ligne par joueur
   const tbody = document.getElementById('jeuJoueursTbody');
-  tbody.innerHTML = joueurs.map(j =>
+  tbody.innerHTML = joueurs.map((j, idx) =>
     `<tr>
       <td style="display:flex;align-items:center;gap:12px;">
-        <img src="${j.avatar}" class="avatar-maitre" style="width:40px;height:40px;margin:0;">
+        <img src="${j.avatar}" class="avatar-maitre" style="width:54px;height:54px;margin:0;">
         <span>${j.pseudo}</span>
       </td>
-      <td style="text-align:center;"><input type="text" style="width:60px;text-align:center;" disabled></td>
-      <td style="text-align:center;">0</td>
+      <td style="text-align:center;">
+        <input class="input-reponse" type="text" style="width:60px;text-align:center;display:none;" id="reponse${idx}">
+      </td>
+      <td class="score-manche" style="text-align:center;display:none;">0</td>
       <td style="text-align:center;">0</td>
     </tr>`
   ).join('');
@@ -366,15 +373,18 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
 function displayTimer(seconds, onFinish) {
   const timerDiv = document.getElementById('jeuTimerCadre');
   let time = seconds;
-  // Barre pleine au départ, se vide dans le sens horaire
-  timerDiv.innerHTML = `<svg width="100" height="100"><circle id="timerCircle" r="45" cx="50" cy="50" fill="none" stroke="#3855d6" stroke-width="7" stroke-dasharray="282" stroke-dashoffset="0" style="transform: rotate(-90deg); transform-origin: 50% 50%;" /></svg>
+  timerDiv.innerHTML = `<svg width="100" height="100">
+      <circle id="timerCircle" r="45" cx="50" cy="50" fill="none" stroke="#3855d6" stroke-width="7"
+        stroke-dasharray="282" stroke-dashoffset="0"
+        style="transform: rotate(-90deg); transform-origin: 50% 50%;" />
+    </svg>
     <div id="timerText" style="position:absolute;left:0;top:0;width:100px;height:100px;display:flex;align-items:center;justify-content:center;font-size:2em;font-weight:bold;color:#fff;">${time}</div>`;
   const circle = timerDiv.querySelector('#timerCircle');
   const timerText = timerDiv.querySelector('#timerText');
   let interval = setInterval(() => {
     time--;
     timerText.innerText = time;
-    let offset = (time/seconds)*282; // offset part vers le bas
+    let offset = (time/seconds)*282;
     circle.setAttribute('stroke-dashoffset', `${282-offset}`);
     if (time <= 0) {
       clearInterval(interval);
@@ -383,6 +393,25 @@ function displayTimer(seconds, onFinish) {
   }, 1000);
   circle.setAttribute('stroke-dashoffset', `0`);
 }
+
+// Bouton "Afficher"
+document.addEventListener('click', function(e) {
+  if (e.target && e.target.id === "btnAfficher") {
+    Array.from(document.querySelectorAll('.score-manche')).forEach(td => td.style.display = "");
+    document.getElementById('btnSuivant').disabled = false;
+    const timerDiv = document.getElementById('jeuTimerCadre');
+    timerDiv.innerHTML = `
+      <div style="display:flex;align-items:center;gap:24px;">
+        <div style="background:#23272b;border-radius:10px;padding:18px 28px;font-size:2em;font-weight:bold;min-width:90px;text-align:center;box-shadow:0 2px 9px #0003;">
+          ${roundAnswer}
+        </div>
+        <div style="background:#191b1f;border-radius:10px;padding:16px 22px;font-size:1.13em;min-width:220px;text-align:left;box-shadow:0 2px 9px #0002;">
+          ${roundComplement}
+        </div>
+      </div>
+    `;
+  }
+});
 
 socket.on('joueur_logout', () => {
   joueurPage.style.display = "none";
@@ -394,5 +423,4 @@ socket.on('joueur_logout', () => {
   isQuizzStarted = false;
   codeInput.value = "";
   errorCodeDiv.innerText = "";
-
 });
