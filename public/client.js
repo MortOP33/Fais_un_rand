@@ -173,7 +173,7 @@ function createPageJeuMaitre() {
     <div id="jeuQuestionLabel" style="font-size:1.3em; font-weight:700; text-align:center; margin-bottom:18px;"></div>
     <div id="jeuCadres" style="display:flex; gap:24px; justify-content:center; margin-bottom:24px;">
       <div id="jeuReponseCadre" style="background:#222; border-radius:10px; padding:12px 22px; min-width:110px; font-size:1.5em; text-align:center; display:none;"></div>
-      <div id="jeuComplementCadre" style="background:#191b1f; border-radius:10px; padding:12px 22px; min-width:320px; font-size:1.13em; text-align:left; display:none;"></div>
+      <div id="jeuComplementCadre" style="background:#191b1f; border-radius:10px; padding:12px 22px; min-width:340px; font-size:1.13em; text-align:left; display:none;"></div>
       <div id="jeuTimerCadre" style="width:100px; height:100px; position:relative; display:flex; align-items:center; justify-content:center;"></div>
     </div>
     <table id="jeuJoueursTable" style="width:100%; max-width:700px; margin-bottom:22px;">
@@ -188,7 +188,8 @@ function createPageJeuMaitre() {
       <tbody id="jeuJoueursTbody"></tbody>
     </table>
     <div style="display:flex; gap:24px; justify-content:center;">
-      <button id="btnAnnulerQuestion" disabled style="flex:1;">Annuler question</button>
+      <button id="btnAfficher" disabled style="flex:1;">Afficher</button>
+      <button id="btnAnnulerQuestion" style="flex:1;display:none;">Annuler question</button>
       <button id="btnSuivant" disabled style="flex:1;">Suivant</button>
     </div>
   `;
@@ -221,7 +222,6 @@ socket.on('players', (joueurs) => {
       <span class="player-name">${p.pseudo}</span>
     </li>`
   ).join('');
-  // MODIF : minimum 3 joueurs
   if (btnCreerPartie) {
     btnCreerPartie.disabled = joueurs.length < 3;
     btnCreerPartie.classList.toggle('disabled-btn', btnCreerPartie.disabled);
@@ -346,14 +346,31 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
   document.getElementById('jeuReponseCadre').style.display = 'none';
   document.getElementById('jeuComplementCadre').style.display = 'none';
 
-  displayTimer(30, () => {
-    document.getElementById('jeuTimerCadre').innerHTML = '';
-    document.getElementById('btnAnnulerQuestion').disabled = false;
+  // pendant timer : cache "Réponse" et "Score question", bouton "Afficher" désactivé, "Annuler question" caché
+  setTimeout(() => {
+    let btnAfficher = document.getElementById('btnAfficher');
+    let btnAnnuler = document.getElementById('btnAnnulerQuestion');
+    btnAfficher.style.display = "";
+    btnAfficher.disabled = true;
+    btnAnnuler.style.display = "none";
+    btnAnnuler.disabled = true;
+    document.getElementById('btnSuivant').disabled = true;
+    Array.from(document.querySelectorAll('.label-reponse')).forEach(lbl => lbl.style.display = "none");
     Array.from(document.querySelectorAll('.score-manche')).forEach(td => td.style.display = "none");
+  }, 100);
+
+  displayTimer(30, () => {
+    // fin timer : bouton "Afficher" activé, "Réponse" visible, "Score question" caché
+    let btnAfficher = document.getElementById('btnAfficher');
+    let btnAnnuler = document.getElementById('btnAnnulerQuestion');
+    btnAfficher.style.display = "";
+    btnAfficher.disabled = false;
+    btnAnnuler.style.display = "none";
+    btnAnnuler.disabled = true;
+    document.getElementById('btnSuivant').disabled = true;
     Array.from(document.querySelectorAll('.label-reponse')).forEach(lbl => lbl.style.display = "");
+    Array.from(document.querySelectorAll('.score-manche')).forEach(td => td.style.display = "none");
   });
-  document.getElementById('btnAnnulerQuestion').disabled = true;
-  document.getElementById('btnSuivant').disabled = true;
 
   const tbody = document.getElementById('jeuJoueursTbody');
   tbody.innerHTML = joueurs.map((j, idx) =>
@@ -395,10 +412,16 @@ function displayTimer(seconds, onFinish) {
   circle.setAttribute('stroke-dashoffset', `0`);
 }
 
-// Bouton "Annuler question"
+// Bouton "Afficher"
 document.addEventListener('click', function(e) {
-  if (e.target && e.target.id === "btnAnnulerQuestion") {
+  if (e.target && e.target.id === "btnAfficher") {
+    // Affiche "score question", bouton "Annuler question" visible, bouton "Afficher" caché
     Array.from(document.querySelectorAll('.score-manche')).forEach(td => td.style.display = "");
+    let btnAfficher = document.getElementById('btnAfficher');
+    let btnAnnuler = document.getElementById('btnAnnulerQuestion');
+    btnAfficher.style.display = "none";
+    btnAnnuler.style.display = "";
+    btnAnnuler.disabled = false;
     document.getElementById('btnSuivant').disabled = false;
     const timerDiv = document.getElementById('jeuTimerCadre');
     timerDiv.innerHTML = `
@@ -406,11 +429,18 @@ document.addEventListener('click', function(e) {
         <div style="background:#23272b;border-radius:10px;padding:18px 28px;font-size:2.1em;font-weight:bold;min-width:110px;text-align:center;box-shadow:0 2px 9px #0003;">
           ${roundAnswer}
         </div>
-        <div style="background:#191b1f;border-radius:10px;padding:16px 22px;font-size:1.13em;min-width:320px;text-align:left;box-shadow:0 2px 9px #0002;">
+        <div style="background:#191b1f;border-radius:10px;padding:16px 22px;font-size:1.13em;min-width:340px;text-align:left;box-shadow:0 2px 9px #0002;">
           ${roundComplement}
         </div>
       </div>
     `;
+  }
+});
+
+// Bouton "Annuler question" (fonction à définir plus tard)
+document.addEventListener('click', function(e) {
+  if (e.target && e.target.id === "btnAnnulerQuestion") {
+    alert("Annulation à définir");
   }
 });
 
