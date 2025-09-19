@@ -334,6 +334,7 @@ socket.on('param_retour_maitre', () => {
   homePage.style.display = "none";
 });
 
+// ----------- TABLEAU MODIFIÉ AVEC CLASSES POUR FACILITER L'AFFICHAGE ----------
 socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }) => {
   pageJeuMaitre.style.display = "flex";
   roundAnswer = question.reponse;
@@ -346,6 +347,7 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
   document.getElementById('jeuReponseCadre').style.display = 'none';
   document.getElementById('jeuComplementCadre').style.display = 'none';
 
+  // Affichage initial (pendant timer)
   setTimeout(() => {
     let btnAfficher = document.getElementById('btnAfficher');
     let btnAnnuler = document.getElementById('btnAnnulerQuestion');
@@ -354,12 +356,13 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
     btnAnnuler.style.display = "none";
     btnAnnuler.disabled = true;
     document.getElementById('btnSuivant').disabled = true;
-    Array.from(document.querySelectorAll('.label-reponse')).forEach(lbl => lbl.style.display = "none");
-    Array.from(document.querySelectorAll('.score-manche')).forEach(td => td.style.display = "none");
-    Array.from(document.querySelectorAll('.score-total')).forEach(td => td.style.display = "");
+    Array.from(document.querySelectorAll('.col-reponse')).forEach(td => td.style.display = "none");
+    Array.from(document.querySelectorAll('.col-score-manche')).forEach(td => td.style.display = "none");
+    Array.from(document.querySelectorAll('.col-score-total')).forEach(td => td.style.display = "");
   }, 100);
 
   displayTimer(30, () => {
+    // Fin timer : colonne 2 (réponse) affichée, colonne 3 (score question) cachée, colonne 4 (score total) affichée
     let btnAfficher = document.getElementById('btnAfficher');
     let btnAnnuler = document.getElementById('btnAnnulerQuestion');
     btnAfficher.style.display = "";
@@ -367,9 +370,9 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
     btnAnnuler.style.display = "none";
     btnAnnuler.disabled = true;
     document.getElementById('btnSuivant').disabled = true;
-    Array.from(document.querySelectorAll('.label-reponse')).forEach(lbl => lbl.style.display = "");
-    Array.from(document.querySelectorAll('.score-manche')).forEach(td => td.style.display = "none");
-    Array.from(document.querySelectorAll('.score-total')).forEach(td => td.style.display = "");
+    Array.from(document.querySelectorAll('.col-reponse')).forEach(td => td.style.display = "");
+    Array.from(document.querySelectorAll('.col-score-manche')).forEach(td => td.style.display = "none");
+    Array.from(document.querySelectorAll('.col-score-total')).forEach(td => td.style.display = "");
   });
 
   const tbody = document.getElementById('jeuJoueursTbody');
@@ -379,11 +382,11 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
         <img src="${j.avatar}" class="avatar-maitre" style="width:54px;height:54px;margin:0;">
         <span>${j.pseudo}</span>
       </td>
-      <td class="label-reponse" style="text-align:center;display:none;">
+      <td class="col-reponse" style="text-align:center;">
         <span id="reponse${idx}"></span>
       </td>
-      <td class="score-manche" style="text-align:center;display:none;">0</td>
-      <td style="text-align:center;">0</td>
+      <td class="col-score-manche" style="text-align:center;">0</td>
+      <td class="col-score-total" style="text-align:center;">0</td>
     </tr>`
   ).join('');
 });
@@ -415,8 +418,10 @@ function displayTimer(seconds, onFinish) {
 // Bouton "Afficher"
 document.addEventListener('click', function(e) {
   if (e.target && e.target.id === "btnAfficher") {
-    // Affiche "score question", bouton "Annuler question" visible, bouton "Afficher" caché
-    Array.from(document.querySelectorAll('.score-manche')).forEach(td => td.style.display = "");
+    // Clic sur afficher : colonne 2, 3, 4 affichées
+    Array.from(document.querySelectorAll('.col-reponse')).forEach(td => td.style.display = "");
+    Array.from(document.querySelectorAll('.col-score-manche')).forEach(td => td.style.display = "");
+    Array.from(document.querySelectorAll('.col-score-total')).forEach(td => td.style.display = "");
     let btnAfficher = document.getElementById('btnAfficher');
     let btnAnnuler = document.getElementById('btnAnnulerQuestion');
     btnAfficher.style.display = "none";
@@ -454,5 +459,4 @@ socket.on('joueur_logout', () => {
   isQuizzStarted = false;
   codeInput.value = "";
   errorCodeDiv.innerText = "";
-
 });
