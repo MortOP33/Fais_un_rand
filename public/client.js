@@ -172,8 +172,8 @@ function createPageJeuMaitre() {
     <div id="jeuThemeImg" style="text-align:center; margin-bottom:24px;"></div>
     <div id="jeuQuestionLabel" style="font-size:1.3em; font-weight:700; text-align:center; margin-bottom:18px;"></div>
     <div id="jeuCadres" style="display:flex; gap:24px; justify-content:center; margin-bottom:24px;">
-      <div id="jeuReponseCadre" style="background:#222; border-radius:10px; padding:12px 22px; min-width:90px; font-size:1.2em; text-align:center; display:none;"></div>
-      <div id="jeuComplementCadre" style="background:#191b1f; border-radius:10px; padding:12px 22px; min-width:260px; font-size:1.1em; text-align:left; display:none;"></div>
+      <div id="jeuReponseCadre" style="background:#222; border-radius:10px; padding:12px 22px; min-width:110px; font-size:1.5em; text-align:center; display:none;"></div>
+      <div id="jeuComplementCadre" style="background:#191b1f; border-radius:10px; padding:12px 22px; min-width:320px; font-size:1.13em; text-align:left; display:none;"></div>
       <div id="jeuTimerCadre" style="width:100px; height:100px; position:relative; display:flex; align-items:center; justify-content:center;"></div>
     </div>
     <table id="jeuJoueursTable" style="width:100%; max-width:700px; margin-bottom:22px;">
@@ -188,7 +188,7 @@ function createPageJeuMaitre() {
       <tbody id="jeuJoueursTbody"></tbody>
     </table>
     <div style="display:flex; gap:24px; justify-content:center;">
-      <button id="btnAfficher" disabled style="flex:1;">Afficher</button>
+      <button id="btnAnnulerQuestion" disabled style="flex:1;">Annuler question</button>
       <button id="btnSuivant" disabled style="flex:1;">Suivant</button>
     </div>
   `;
@@ -340,7 +340,7 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
   roundComplement = question.complement;
 
   let imgUrl = (themeImages && themeImages[question.theme]) || (themeImages && themeImages[question.theme.toUpperCase()]) || (themeImages && themeImages[question.theme.toLowerCase()]) || "";
-  if (!imgUrl) imgUrl = themeImages && themeImages[Object.keys(themeImages)[0]]; // fallback
+  if (!imgUrl) imgUrl = themeImages && themeImages[Object.keys(themeImages)[0]];
   document.getElementById('jeuThemeImg').innerHTML = imgUrl ? `<img src="${imgUrl}" style="width:350px; height:140px; object-fit:cover; border-radius:18px;">` : "";
   document.getElementById('jeuQuestionLabel').innerText = `Question ${index+1}/${total} : ${question.question}`;
   document.getElementById('jeuReponseCadre').style.display = 'none';
@@ -348,10 +348,11 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
 
   displayTimer(30, () => {
     document.getElementById('jeuTimerCadre').innerHTML = '';
-    document.getElementById('btnAfficher').disabled = false;
-    Array.from(document.querySelectorAll('.input-reponse')).forEach(input => input.style.display = "");
+    document.getElementById('btnAnnulerQuestion').disabled = false;
+    Array.from(document.querySelectorAll('.score-manche')).forEach(td => td.style.display = "none");
+    Array.from(document.querySelectorAll('.label-reponse')).forEach(lbl => lbl.style.display = "");
   });
-  document.getElementById('btnAfficher').disabled = true;
+  document.getElementById('btnAnnulerQuestion').disabled = true;
   document.getElementById('btnSuivant').disabled = true;
 
   const tbody = document.getElementById('jeuJoueursTbody');
@@ -361,8 +362,8 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
         <img src="${j.avatar}" class="avatar-maitre" style="width:54px;height:54px;margin:0;">
         <span>${j.pseudo}</span>
       </td>
-      <td style="text-align:center;">
-        <input class="input-reponse" type="text" style="width:60px;text-align:center;display:none;" id="reponse${idx}">
+      <td class="label-reponse" style="text-align:center;display:none;">
+        <span id="reponse${idx}"></span>
       </td>
       <td class="score-manche" style="text-align:center;display:none;">0</td>
       <td style="text-align:center;">0</td>
@@ -394,18 +395,18 @@ function displayTimer(seconds, onFinish) {
   circle.setAttribute('stroke-dashoffset', `0`);
 }
 
-// Bouton "Afficher"
+// Bouton "Annuler question"
 document.addEventListener('click', function(e) {
-  if (e.target && e.target.id === "btnAfficher") {
+  if (e.target && e.target.id === "btnAnnulerQuestion") {
     Array.from(document.querySelectorAll('.score-manche')).forEach(td => td.style.display = "");
     document.getElementById('btnSuivant').disabled = false;
     const timerDiv = document.getElementById('jeuTimerCadre');
     timerDiv.innerHTML = `
-      <div style="display:flex;align-items:center;gap:24px;">
-        <div style="background:#23272b;border-radius:10px;padding:18px 28px;font-size:2em;font-weight:bold;min-width:90px;text-align:center;box-shadow:0 2px 9px #0003;">
+      <div style="display:flex;align-items:center;gap:48px;">
+        <div style="background:#23272b;border-radius:10px;padding:18px 28px;font-size:2.1em;font-weight:bold;min-width:110px;text-align:center;box-shadow:0 2px 9px #0003;">
           ${roundAnswer}
         </div>
-        <div style="background:#191b1f;border-radius:10px;padding:16px 22px;font-size:1.13em;min-width:220px;text-align:left;box-shadow:0 2px 9px #0002;">
+        <div style="background:#191b1f;border-radius:10px;padding:16px 22px;font-size:1.13em;min-width:320px;text-align:left;box-shadow:0 2px 9px #0002;">
           ${roundComplement}
         </div>
       </div>
@@ -423,4 +424,5 @@ socket.on('joueur_logout', () => {
   isQuizzStarted = false;
   codeInput.value = "";
   errorCodeDiv.innerText = "";
+
 });
