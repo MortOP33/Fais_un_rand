@@ -173,7 +173,7 @@ function createPageJeuMaitre() {
   pageJeuMaitre.innerHTML = `
     <div id="jeuThemeImg" style="text-align:center; margin-bottom:24px;"></div>
     <div id="jeuQuestionLabel" style="font-size:1.3em; font-weight:700; text-align:center; margin-bottom:18px;"></div>
-    <div id="jeuCadres" style="display:flex; align-items:center; gap:0; justify-content:center; margin-bottom:24px;">
+    <div id="jeuCadres" style="display:flex; gap:0; justify-content:center; margin-bottom:24px;">
       <div id="jeuReponseCadre" style="display:none;"></div>
       <div id="jeuComplementCadre" style="display:none;"></div>
       <div id="jeuTimerCadre" style="width:100px; height:100px; position:relative; display:flex; align-items:center; justify-content:center;"></div>
