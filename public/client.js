@@ -361,7 +361,7 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
         <span id="reponse${idx}"></span>
       </td>
       <td class="col-score-manche" style="text-align:center; display:none;">0</td>
-      <td class="col-score-total" style="text-align:center;">0</td>
+      <td class="col-score-total" style="text-align:center; display:none;">0</td>
     </tr>`
   ).join('');
 
