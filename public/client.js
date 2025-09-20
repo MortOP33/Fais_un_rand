@@ -347,7 +347,25 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
   document.getElementById('jeuReponseCadre').style.display = 'none';
   document.getElementById('jeuComplementCadre').style.display = 'none';
 
-  // Affichage initial (pendant timer)
+  // Génération du tableau avec les bonnes classes pour chaque colonne
+  const tbody = document.getElementById('jeuJoueursTbody');
+  tbody.innerHTML = joueurs.map((j, idx) =>
+    `<tr>
+      <td class="col-joueur" style="display:table-cell; text-align:left;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <img src="${j.avatar}" class="avatar-maitre" style="width:54px;height:54px;margin:0;">
+          <span>${j.pseudo}</span>
+        </div>
+      </td>
+      <td class="col-reponse" style="text-align:center; display:none;">
+        <span id="reponse${idx}"></span>
+      </td>
+      <td class="col-score-manche" style="text-align:center; display:none;">0</td>
+      <td class="col-score-total" style="text-align:center;">0</td>
+    </tr>`
+  ).join('');
+
+  // Etat initial : pendant le timer
   setTimeout(() => {
     let btnAfficher = document.getElementById('btnAfficher');
     let btnAnnuler = document.getElementById('btnAnnulerQuestion');
@@ -375,20 +393,6 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
     Array.from(document.querySelectorAll('.col-score-total')).forEach(td => td.style.display = "");
   });
 
-  const tbody = document.getElementById('jeuJoueursTbody');
-  tbody.innerHTML = joueurs.map((j, idx) =>
-    `<tr>
-      <td style="display:flex;align-items:center;gap:12px;">
-        <img src="${j.avatar}" class="avatar-maitre" style="width:54px;height:54px;margin:0;">
-        <span>${j.pseudo}</span>
-      </td>
-      <td class="col-reponse" style="text-align:center;">
-        <span id="reponse${idx}"></span>
-      </td>
-      <td class="col-score-manche" style="text-align:center;">0</td>
-      <td class="col-score-total" style="text-align:center;">0</td>
-    </tr>`
-  ).join('');
 });
 
 function displayTimer(seconds, onFinish) {
