@@ -479,7 +479,7 @@ document.addEventListener('click', function(e) {
     timerDiv.innerHTML = `
       <div style="display:flex;align-items:center;gap:48px;">
         <div style="background:#2b2c32;border-radius:16px;padding:18px 38px;font-size:2.2em;font-weight:bold;min-width:120px;text-align:center;box-shadow:0 2px 13px #0005;border:4px solid #3855d6;color:#fff;">${roundAnswer}</div>
-        <div style="font-size:1.18em;font-weight:500;text-align:center;color:#ececec;">${roundComplement}</div>
+        <div style="font-size:1.18em;font-weight:500;text-align:left;color:#ececec;">${roundComplement}</div>
       </div>
     `;
   }
