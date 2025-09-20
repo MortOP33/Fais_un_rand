@@ -374,9 +374,7 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
     btnAnnuler.style.display = "none";
     btnAnnuler.disabled = true;
     document.getElementById('btnSuivant').disabled = true;
-    Array.from(document.querySelectorAll('.col-reponse')).forEach(td => td.style.display = "");
-    Array.from(document.querySelectorAll('.col-score-manche')).forEach(td => td.style.display = "");
-    Array.from(document.querySelectorAll('.col-score-total')).forEach(td => td.style.display = "none");
+    Array.from(document.querySelectorAll('.col-reponse')).forEach(td => td.style.display = "none");
   }, 100);
 
   displayTimer(30, () => {
@@ -388,9 +386,7 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
     btnAnnuler.style.display = "none";
     btnAnnuler.disabled = true;
     document.getElementById('btnSuivant').disabled = true;
-    Array.from(document.querySelectorAll('.col-reponse')).forEach(td => td.style.display = "none");
-    Array.from(document.querySelectorAll('.col-score-manche')).forEach(td => td.style.display = "");
-    Array.from(document.querySelectorAll('.col-score-total')).forEach(td => td.style.display = "none");
+    Array.from(document.querySelectorAll('.col-reponse')).forEach(td => td.style.display = "");
   });
 
 });
@@ -422,9 +418,6 @@ function displayTimer(seconds, onFinish) {
 // Bouton "Afficher"
 document.addEventListener('click', function(e) {
   if (e.target && e.target.id === "btnAfficher") {
-    Array.from(document.querySelectorAll('.col-reponse')).forEach(td => td.style.display = "none");
-    Array.from(document.querySelectorAll('.col-score-manche')).forEach(td => td.style.display = "");
-    Array.from(document.querySelectorAll('.col-score-total')).forEach(td => td.style.display = "");
     let btnAfficher = document.getElementById('btnAfficher');
     let btnAnnuler = document.getElementById('btnAnnulerQuestion');
     btnAfficher.style.display = "none";
