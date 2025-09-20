@@ -399,13 +399,13 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
 socket.on('afficher_saisie_joueur', ({ code }) => {
   if (codeInput.value.trim().toUpperCase() === code && joueurAvatar && joueurPseudo) {
     avatarsContainer.innerHTML = `
-      <div style="display:flex; align-items:center; justify-content:center; gap:18px; margin-top:32px; margin-bottom:18px;">
+      <div style="display:flex; align-items:center; justify-content:center; gap:18px; margin-top:24px;">
         <img src="${joueurAvatar}" class="avatar-maitre" alt="" />
         <span class="player-name">${joueurPseudo}</span>
       </div>
-      <div id="reponseForm" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
-        <input id="champReponseJoueur" type="text" style="width:120px;padding:10px 14px;font-size:1.25em;text-align:center;border-radius:8px;border:2px solid #3855d6;" placeholder="Votre réponse" autocomplete="off" value="${joueurResponse}">
-        <button id="btnEnvoyerReponse" style="padding:8px 18px; font-size:1.1em; border-radius:8px; background:#3855d6; color:#fff; border:none; cursor:pointer;">ENVOYER</button>
+      <div id="reponseForm" style="margin-top:32px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <input id="champReponseJoueur" type="text" style="width:120px;padding:10px 14px;font-size:1.25em;text-align:center;border-radius:8px;border:2px solid #3855d6;" placeholder="Votre réponse" autocomplete="off">
+        <button id="btnEnvoyerReponse" style="margin-top:5px; padding:8px 18px; font-size:1.1em; border-radius:8px; background:#3855d6; color:#fff; border:none; cursor:pointer;">ENVOYER</button>
       </div>
     `;
     document.getElementById('btnEnvoyerReponse').onclick = function() {
