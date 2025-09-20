@@ -173,9 +173,9 @@ function createPageJeuMaitre() {
   pageJeuMaitre.innerHTML = `
     <div id="jeuThemeImg" style="text-align:center; margin-bottom:24px;"></div>
     <div id="jeuQuestionLabel" style="font-size:1.3em; font-weight:700; text-align:center; margin-bottom:18px;"></div>
-    <div id="jeuCadres" style="width:100%;display:flex;flex-direction:row;justify-content:space-between;align-items:center;margin-bottom:24px;">
-      <div id="jeuReponseCadre" style="display:none; min-width:220px; max-width:220px;"></div>
-      <div id="jeuComplementCadre" style="display:none; flex:1;"></div>
+    <div id="jeuCadres" style="width:100%;display:flex;flex-direction:row;justify-content:center;align-items:center;gap:0;margin-bottom:24px;">
+      <div id="jeuReponseCadre" style="display:none;"></div>
+      <div id="jeuComplementCadre" style="display:none;"></div>
       <div id="jeuTimerCadre" style="width:100px; height:100px; position:relative;display:flex;align-items:center;justify-content:center;"></div>
     </div>
     <table id="jeuJoueursTable" style="width:100%; max-width:700px; margin-bottom:22px;">
@@ -342,13 +342,14 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
   roundAnswer = question.reponse;
   roundComplement = question.complement;
 
-  // Cadre réponse et complément cachés par défaut
+  // Par défaut, les cadres sont cachés
   document.getElementById('jeuReponseCadre').style.display = "none";
   document.getElementById('jeuComplementCadre').style.display = "none";
 
-  // Cadre réponse aligné sur colonne "Joueur", complément occupe le reste
-  document.getElementById('jeuReponseCadre').innerHTML = `<div style="background:#2b2c32;border-radius:16px;padding:18px 38px;font-size:2.2em;font-weight:bold;min-width:220px;max-width:220px;text-align:center;box-shadow:0 2px 13px #0005;border:4px solid #3855d6;color:#fff;">${roundAnswer}</div>`;
-  document.getElementById('jeuComplementCadre').innerHTML = `<div style="font-size:1.18em;font-weight:500;text-align:left;color:#ececec; margin-left:36px; width:100%; max-width:650px;">${roundComplement}</div>`;
+  // Le contenu est prêt mais caché
+  document.getElementById('jeuReponseCadre').innerHTML = `<div style="background:#2b2c32;border-radius:16px;padding:18px 38px;font-size:2.2em;font-weight:bold;min-width:120px;text-align:center;box-shadow:0 2px 13px #0005;border:4px solid #3855d6;color:#fff;max-width:220px;">${roundAnswer}</div>`;
+
+  document.getElementById('jeuComplementCadre').innerHTML = `<div style="font-size:1.18em;font-weight:500;text-align:center;color:#ececec; margin-left:32px; margin-top:0; width:70%; min-width:340px; max-width:700px;">${roundComplement}</div>`;
 
   document.getElementById('jeuThemeImg').innerHTML = "";
   if (themeImages && question.theme && themeImages[question.theme.toUpperCase()]) {
@@ -390,11 +391,12 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
     socket.emit('reset_affichage_joueur', { code: maitreCode });
   });
 
+  // Demande de champ de saisie aux joueurs du lobby
   currentLobbyCode = maitreCode;
   socket.emit('demande_saisie_joueur', { code: maitreCode, joueurs: joueurs.map(j => j.pseudo) });
 });
 
-// ----------- PAGE JOUEUR : champ de saisie sous avatar -----------
+// ----- PAGE JOUEUR : champ de saisie sous avatar ----
 socket.on('afficher_saisie_joueur', ({ code }) => {
   if (codeInput.value.trim().toUpperCase() === code && joueurAvatar && joueurPseudo) {
     avatarsContainer.innerHTML = `
@@ -406,24 +408,20 @@ socket.on('afficher_saisie_joueur', ({ code }) => {
         <div id="reponseForm" style="margin-top:24px; display:flex; flex-direction:column; align-items:center; gap:12px; width:100%;">
           <input id="champReponseJoueur" type="text" style="width:120px;padding:10px 14px;font-size:1.25em;text-align:center;border-radius:8px;border:2px solid #3855d6;" placeholder="Votre réponse" autocomplete="off">
           <button id="btnEnvoyerReponse" style="padding:8px 18px; font-size:1.1em; border-radius:8px; background:#3855d6; color:#fff; border:none; cursor:pointer;">ENVOYER</button>
-          <div id="joueurErreur" style="color:#d23c3c;font-size:1em;margin-top:2px;"></div>
         </div>
       </div>
     `;
     document.getElementById('champReponseJoueur').value = joueurResponse || "";
     document.getElementById('btnEnvoyerReponse').onclick = function() {
       let val = document.getElementById('champReponseJoueur').value.replace(',', '.');
-      if (!/^[-+]?\d*\.?\d+$/.test(val)) {
-        document.getElementById('joueurErreur').textContent = "Réponse numérique attendue.";
-        return;
-      }
-      document.getElementById('joueurErreur').textContent = "";
+      if (!/^[-+]?\d*\.?\d+$/.test(val)) { alert("Réponse numérique attendue."); return; }
       joueurResponse = val;
       socket.emit('envoi_reponse_joueur', { code: code, pseudo: joueurPseudo, reponse: val });
     };
   }
 });
 
+// --- Retour à l'affichage initial à la fin du timer sur la page joueur ---
 socket.on('reset_affichage_joueur', () => {
   if (joueurAvatar && joueurPseudo) {
     avatarsContainer.innerHTML = `
@@ -436,6 +434,7 @@ socket.on('reset_affichage_joueur', () => {
   }
 });
 
+// --- Réception de la réponse côté maître : mise à jour du tableau ---
 socket.on('update_reponse_maitre', ({ pseudo, reponse }) => {
   const tds = Array.from(document.querySelectorAll('.col-joueur'));
   for (let i = 0; i < tds.length; ++i) {
