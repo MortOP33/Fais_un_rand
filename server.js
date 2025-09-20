@@ -176,10 +176,33 @@ io.on('connection', (socket) => {
       }
     }
   });
+
+  // --- Ajout pour la saisie et envoi des réponses joueurs ---
+  socket.on('demande_saisie_joueur', ({ code, joueurs }) => {
+    if (lobbies[code]) {
+      lobbies[code].joueurs.forEach(j => {
+        io.to(j.socketId).emit('afficher_saisie_joueur', { code });
+      });
+    }
+  });
+
+  socket.on('envoi_reponse_joueur', ({ code, pseudo, reponse }) => {
+    if (lobbies[code]) {
+      io.to(lobbies[code].maitreId).emit('update_reponse_maitre', { pseudo, reponse });
+    }
+  });
+
+  socket.on('reset_affichage_joueur', ({ code }) => {
+    if (lobbies[code]) {
+      lobbies[code].joueurs.forEach(j => {
+        io.to(j.socketId).emit('reset_affichage_joueur');
+      });
+    }
+  });
+
 });
 
 const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-
 });

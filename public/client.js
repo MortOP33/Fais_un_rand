@@ -20,9 +20,11 @@ let joueurAvatar = null;
 let isQuizzStarted = false;
 
 let btnRetour, btnCreerPartie, parametresPage, btnRetourJoueur, btnDemarrer, pageJeuMaitre;
-let themeImages = {}; // mapping {THEME: url}
+let themeImages = {};
 let roundAnswer = "";
 let roundComplement = "";
+let currentLobbyCode = null; // Pour page joueur
+let joueurResponseSent = false;
 
 window.onload = () => {
   homePage.style.display = "flex";
@@ -172,8 +174,8 @@ function createPageJeuMaitre() {
     <div id="jeuThemeImg" style="text-align:center; margin-bottom:24px;"></div>
     <div id="jeuQuestionLabel" style="font-size:1.3em; font-weight:700; text-align:center; margin-bottom:18px;"></div>
     <div id="jeuCadres" style="display:flex; gap:24px; justify-content:center; margin-bottom:24px;">
-      <div id="jeuReponseCadre" style="background:#222; border-radius:10px; padding:12px 22px; min-width:110px; font-size:1.5em; text-align:center; display:none;"></div>
-      <div id="jeuComplementCadre" style="background:#191b1f; border-radius:10px; padding:12px 22px; min-width:340px; font-size:1.13em; text-align:left; display:none;"></div>
+      <div id="jeuReponseCadre"></div>
+      <div id="jeuComplementCadre"></div>
       <div id="jeuTimerCadre" style="width:100px; height:100px; position:relative; display:flex; align-items:center; justify-content:center;"></div>
     </div>
     <table id="jeuJoueursTable" style="width:100%; max-width:700px; margin-bottom:22px;">
@@ -334,27 +336,31 @@ socket.on('param_retour_maitre', () => {
   homePage.style.display = "none";
 });
 
-// ----------- TABLEAU MODIFIÉ AVEC CLASSES POUR FACILITER L'AFFICHAGE ----------
+// ----------- TABLEAU + CADRES MODIFIÉS ET GESTION ENVOI DE REPONSE JOUEUR ----------
 socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }) => {
   pageJeuMaitre.style.display = "flex";
   roundAnswer = question.reponse;
   roundComplement = question.complement;
 
-  let imgUrl = (themeImages && themeImages[question.theme]) || (themeImages && themeImages[question.theme.toUpperCase()]) || (themeImages && themeImages[question.theme.toLowerCase()]) || "";
-  if (!imgUrl) imgUrl = themeImages && themeImages[Object.keys(themeImages)[0]];
-  document.getElementById('jeuThemeImg').innerHTML = imgUrl ? `<img src="${imgUrl}" style="width:350px; height:140px; object-fit:cover; border-radius:18px;">` : "";
-  document.getElementById('jeuQuestionLabel').innerText = `Question ${index+1}/${total} : ${question.question}`;
-  document.getElementById('jeuReponseCadre').style.display = 'none';
-  document.getElementById('jeuComplementCadre').style.display = 'none';
+  // Cadre de réponse plus épais et visible
+  document.getElementById('jeuReponseCadre').innerHTML = `<div style="background:#2b2c32;border-radius:16px;padding:18px 38px;font-size:2.2em;font-weight:bold;min-width:120px;text-align:center;box-shadow:0 2px 13px #0005;border:4px solid #3855d6;color:#fff;">${roundAnswer}</div>`;
+  // Complément : même style que la question
+  document.getElementById('jeuComplementCadre').innerHTML = `<div style="font-size:1.18em;font-weight:500;text-align:center;color:#ececec;">${roundComplement}</div>`;
 
-  // Génération du tableau avec les bonnes classes pour chaque colonne
+  document.getElementById('jeuThemeImg').innerHTML = "";
+  if (themeImages && question.theme && themeImages[question.theme.toUpperCase()]) {
+    document.getElementById('jeuThemeImg').innerHTML = `<img src="${themeImages[question.theme.toUpperCase()]}" style="width:350px; height:140px; object-fit:cover; border-radius:18px;">`;
+  }
+  document.getElementById('jeuQuestionLabel').innerText = `Question ${index+1}/${total} : ${question.question}`;
+
+  // Génération du tableau joueurs
   const tbody = document.getElementById('jeuJoueursTbody');
   tbody.innerHTML = joueurs.map((j, idx) =>
     `<tr>
-      <td class="col-joueur" style="display:table-cell; text-align:left;">
+      <td class="col-joueur" style="text-align:left;">
         <div style="display:flex;align-items:center;gap:12px;">
           <img src="${j.avatar}" class="avatar-maitre" style="width:54px;height:54px;margin:0;">
-          <span>${j.pseudo}</span>
+          <span class="player-name">${j.pseudo}</span>
         </div>
       </td>
       <td class="col-reponse" style="text-align:center;">
@@ -366,25 +372,74 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
   ).join('');
 
   setTimeout(() => {
-    let btnAfficher = document.getElementById('btnAfficher');
-    let btnAnnuler = document.getElementById('btnAnnulerQuestion');
-    btnAfficher.style.display = "";
-    btnAfficher.disabled = true;
-    btnAnnuler.style.display = "none";
-    btnAnnuler.disabled = true;
+    document.getElementById('btnAfficher').style.display = "";
+    document.getElementById('btnAfficher').disabled = true;
+    document.getElementById('btnAnnulerQuestion').style.display = "none";
+    document.getElementById('btnAnnulerQuestion').disabled = true;
     document.getElementById('btnSuivant').disabled = true;
   }, 100);
 
   displayTimer(30, () => {
-    let btnAfficher = document.getElementById('btnAfficher');
-    let btnAnnuler = document.getElementById('btnAnnulerQuestion');
-    btnAfficher.style.display = "";
-    btnAfficher.disabled = false;
-    btnAnnuler.style.display = "none";
-    btnAnnuler.disabled = true;
+    document.getElementById('btnAfficher').disabled = false;
+    document.getElementById('btnAnnulerQuestion').style.display = "none";
+    document.getElementById('btnAnnulerQuestion').disabled = true;
     document.getElementById('btnSuivant').disabled = true;
+    socket.emit('reset_affichage_joueur', { code: maitreCode });
   });
 
+  // Demander aux joueurs connectés de ce lobby d'afficher le champ de saisie
+  currentLobbyCode = maitreCode;
+  socket.emit('demande_saisie_joueur', { code: maitreCode, joueurs: joueurs.map(j => j.pseudo) });
+});
+
+// --- Partie joueur : affichage du champ de saisie pendant le timer ---
+socket.on('afficher_saisie_joueur', ({ code }) => {
+  if (codeInput.value.trim().toUpperCase() === code && joueurAvatar && joueurPseudo) {
+    joueurResponseSent = false;
+    avatarsContainer.innerHTML = `
+      <div style="display:flex; align-items:center; justify-content:center; gap:18px; margin-top:24px;">
+        <img src="${joueurAvatar}" class="avatar-maitre" alt="" />
+        <span class="player-name">${joueurPseudo}</span>
+      </div>
+      <div id="reponseForm" style="margin-top:32px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <input id="champReponseJoueur" type="text" style="width:120px;padding:10px 14px;font-size:1.25em;text-align:center;border-radius:8px;border:2px solid #3855d6;" placeholder="Votre réponse" autocomplete="off">
+        <button id="btnEnvoyerReponse" style="margin-top:5px; padding:8px 18px; font-size:1.1em; border-radius:8px; background:#3855d6; color:#fff; border:none; cursor:pointer;">ENVOYER</button>
+      </div>
+    `;
+    document.getElementById('btnEnvoyerReponse').onclick = function() {
+      if (joueurResponseSent) return;
+      let val = document.getElementById('champReponseJoueur').value.replace(',', '.');
+      if (!/^[-+]?\d*\.?\d+$/.test(val)) { alert("Réponse numérique attendue."); return; }
+      socket.emit('envoi_reponse_joueur', { code: code, pseudo: joueurPseudo, reponse: val });
+      joueurResponseSent = true;
+      document.getElementById('champReponseJoueur').disabled = true;
+      document.getElementById('btnEnvoyerReponse').disabled = true;
+    };
+  }
+});
+
+// --- Retour à l'affichage initial à la fin du timer sur la page joueur ---
+socket.on('reset_affichage_joueur', () => {
+  if (joueurAvatar && joueurPseudo) {
+    avatarsContainer.innerHTML = `
+      <div style="display:flex; align-items:center; justify-content:center; gap:18px; margin-top:24px;">
+        <img src="${joueurAvatar}" class="avatar-maitre" alt="" />
+        <span class="player-name">${joueurPseudo}</span>
+      </div>
+    `;
+  }
+});
+
+// --- Réception de la réponse côté maître : mise à jour du tableau ---
+socket.on('update_reponse_maitre', ({ pseudo, reponse }) => {
+  const tds = Array.from(document.querySelectorAll('.col-joueur'));
+  for (let i = 0; i < tds.length; ++i) {
+    const name = tds[i].querySelector('.player-name')?.textContent;
+    if (name === pseudo) {
+      document.getElementById(`reponse${i}`).textContent = reponse;
+      break;
+    }
+  }
 });
 
 function displayTimer(seconds, onFinish) {
@@ -406,12 +461,12 @@ function displayTimer(seconds, onFinish) {
     if (time <= 0) {
       clearInterval(interval);
       if (onFinish) onFinish();
+      if (currentLobbyCode) socket.emit('reset_affichage_joueur', { code: currentLobbyCode });
     }
   }, 1000);
   circle.setAttribute('stroke-dashoffset', `0`);
 }
 
-// Bouton "Afficher"
 document.addEventListener('click', function(e) {
   if (e.target && e.target.id === "btnAfficher") {
     let btnAfficher = document.getElementById('btnAfficher');
@@ -423,18 +478,13 @@ document.addEventListener('click', function(e) {
     const timerDiv = document.getElementById('jeuTimerCadre');
     timerDiv.innerHTML = `
       <div style="display:flex;align-items:center;gap:48px;">
-        <div style="background:#23272b;border-radius:10px;padding:18px 28px;font-size:2.1em;font-weight:bold;min-width:110px;text-align:center;box-shadow:0 2px 9px #0003;">
-          ${roundAnswer}
-        </div>
-        <div style="background:#191b1f;border-radius:10px;padding:16px 22px;font-size:1.13em;min-width:340px;text-align:left;box-shadow:0 2px 9px #0002;">
-          ${roundComplement}
-        </div>
+        <div style="background:#2b2c32;border-radius:16px;padding:18px 38px;font-size:2.2em;font-weight:bold;min-width:120px;text-align:center;box-shadow:0 2px 13px #0005;border:4px solid #3855d6;color:#fff;">${roundAnswer}</div>
+        <div style="font-size:1.18em;font-weight:500;text-align:center;color:#ececec;">${roundComplement}</div>
       </div>
     `;
   }
 });
 
-// Bouton "Annuler question" (fonction à définir plus tard)
 document.addEventListener('click', function(e) {
   if (e.target && e.target.id === "btnAnnulerQuestion") {
     alert("Annulation à définir");
