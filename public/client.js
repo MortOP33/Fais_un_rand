@@ -357,11 +357,11 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
           <span>${j.pseudo}</span>
         </div>
       </td>
-      <td class="col-reponse" style="text-align:center; display:none;">
+      <td class="col-reponse" style="text-align:center;">
         <span id="reponse${idx}"></span>
       </td>
-      <td class="col-score-manche" style="text-align:center; display:none;">0</td>
-      <td class="col-score-total" style="text-align:center; display:none;">0</td>
+      <td class="col-score-manche" style="text-align:center;">0</td>
+      <td class="col-score-total" style="text-align:center;">0</td>
     </tr>`
   ).join('');
 
@@ -374,9 +374,9 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
     btnAnnuler.style.display = "none";
     btnAnnuler.disabled = true;
     document.getElementById('btnSuivant').disabled = true;
-    //Array.from(document.querySelectorAll('.col-reponse')).forEach(td => td.style.display = "none");
-    //Array.from(document.querySelectorAll('.col-score-manche')).forEach(td => td.style.display = "none");
-    //Array.from(document.querySelectorAll('.col-score-total')).forEach(td => td.style.display = "");
+    Array.from(document.querySelectorAll('.col-reponse')).forEach(td => td.style.display = "none");
+    Array.from(document.querySelectorAll('.col-score-manche')).forEach(td => td.style.display = "none");
+    Array.from(document.querySelectorAll('.col-score-total')).forEach(td => td.style.display = "");
   }, 100);
 
   displayTimer(30, () => {
@@ -388,9 +388,9 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
     btnAnnuler.style.display = "none";
     btnAnnuler.disabled = true;
     document.getElementById('btnSuivant').disabled = true;
-    //Array.from(document.querySelectorAll('.col-reponse')).forEach(td => td.style.display = "");
-    //Array.from(document.querySelectorAll('.col-score-manche')).forEach(td => td.style.display = "none");
-    //Array.from(document.querySelectorAll('.col-score-total')).forEach(td => td.style.display = "");
+    Array.from(document.querySelectorAll('.col-reponse')).forEach(td => td.style.display = "");
+    Array.from(document.querySelectorAll('.col-score-manche')).forEach(td => td.style.display = "none");
+    Array.from(document.querySelectorAll('.col-score-total')).forEach(td => td.style.display = "");
   });
 
 });
@@ -422,10 +422,9 @@ function displayTimer(seconds, onFinish) {
 // Bouton "Afficher"
 document.addEventListener('click', function(e) {
   if (e.target && e.target.id === "btnAfficher") {
-    // Clic sur afficher : colonne 2, 3, 4 affichées
-    //Array.from(document.querySelectorAll('.col-reponse')).forEach(td => td.style.display = "");
-    //Array.from(document.querySelectorAll('.col-score-manche')).forEach(td => td.style.display = "");
-    //Array.from(document.querySelectorAll('.col-score-total')).forEach(td => td.style.display = "");
+    Array.from(document.querySelectorAll('.col-reponse')).forEach(td => td.style.display = "");
+    Array.from(document.querySelectorAll('.col-score-manche')).forEach(td => td.style.display = "");
+    Array.from(document.querySelectorAll('.col-score-total')).forEach(td => td.style.display = "");
     let btnAfficher = document.getElementById('btnAfficher');
     let btnAnnuler = document.getElementById('btnAnnulerQuestion');
     btnAfficher.style.display = "none";
