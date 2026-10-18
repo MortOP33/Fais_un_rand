@@ -429,10 +429,25 @@ socket.on('afficher_saisie_joueur', ({ code }) => {
       </div>
     `;
     document.getElementById('btnEnvoyerReponse').onclick = function() {
-      let val = document.getElementById('champReponseJoueur').value.replace(',', '.');
-      if (!/^[-+]?\d*\.?\d+$/.test(val)) { alert("Réponse numérique attendue."); return; }
+      const champReponse = document.getElementById('champReponseJoueur');
+      let val = champReponse.value.trim().replace(',', '.');
+
+      if (!/^[-+]?\d*\.?\d+$/.test(val)) {
+        alert("Réponse numérique attendue.");
+        return;
+      }
+
       joueurResponseSent = val;
-      socket.emit('envoi_reponse_joueur', { code: code, pseudo: joueurPseudo, reponse: val });
+      socket.emit('envoi_reponse_joueur', {
+        code: code,
+        pseudo: joueurPseudo,
+        reponse: val
+      });
+
+      // Effacer le champ pour confirmer visuellement l'envoi
+      // et permettre immédiatement une nouvelle saisie.
+      champReponse.value = '';
+      champReponse.focus();
     };
   }
 });

@@ -171,8 +171,8 @@ function calculerScoresManche(lobby, reponseCorrecte) {
       finGroupe++;
     }
 
-    // Le groupe reçoit le score correspondant à sa dernière position.
-    const score = scorePourRang(nbJoueurs, finGroupe);
+    // Le groupe reçoit le score correspondant à sa première position.
+    const score = scorePourRang(nbJoueurs, debutGroupe);
 
     for (let i = debutGroupe; i <= finGroupe; i++) {
       scores[valides[i].joueur.socketId] = score;
@@ -182,12 +182,14 @@ function calculerScoresManche(lobby, reponseCorrecte) {
   }
 
   // Les réponses invalides ou absentes reçoivent le score
-  // du dernier groupe ayant fourni une réponse valide.
-  const dernierScoreValide =
-    scores[valides[valides.length - 1].joueur.socketId];
+  // après le dernier groupe ayant fourni une réponse valide.
+  const scoreSansReponse = scorePourRang(
+    nbJoueurs,
+    valides.length
+  );
 
   invalides.forEach(joueur => {
-    scores[joueur.socketId] = dernierScoreValide;
+    scores[joueur.socketId] = scoreSansReponse;
   });
 
   return scores;
