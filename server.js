@@ -417,7 +417,7 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('demarrer_quizz', ({ code, nbQuestions, themes }) => {
+  socket.on('demarrer_quizz', ({ code, nbQuestions, themes, historiqueIds }) => {
 
     const allQuestions = loadQuestions();
     const themesSelectionnes = Array.isArray(themes) ? themes : [];
@@ -440,6 +440,24 @@ io.on('connection', (socket) => {
 
     if (lobbies[code]) {
       const lobby = lobbies[code];
+      
+      // Initialiser l'historique avec les identifiants importés.
+      // Les identifiants sont convertis en texte, nettoyés et dédoublonnés.
+      lobby.historiqueQuestions = Array.isArray(historiqueIds)
+        ? [
+            ...new Set(
+              historiqueIds
+                .filter(id => typeof id === 'string' || typeof id === 'number')
+                .map(id => String(id).trim())
+                .filter(id => id !== '')
+            )
+          ]
+        : [];
+
+      console.log(
+        `Historique importé pour le lobby ${code} : ` +
+        `${lobby.historiqueQuestions.length} identifiant(s)`
+      );
 
       // Réinitialiser les scores au lancement d'une nouvelle partie.
       lobby.scoresTotaux = {};

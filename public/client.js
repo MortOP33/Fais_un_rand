@@ -26,6 +26,7 @@ let roundComplement = "";
 let currentLobbyCode = null; // Pour page joueur
 let joueurResponseSent = "";
 let timerInterval = null;
+let historiqueImporte = [];
 
 window.onload = () => {
   homePage.style.display = "flex";
@@ -89,10 +90,31 @@ window.onload = () => {
         <div style="font-size:1.15em; font-weight:bold; margin-bottom:12px;">Choix des thèmes</div>
         <div id="themesList"></div>
       </div>
+      <div id="zoneHistorique" style="border:2px dashed #6478d8; border-radius:12px; padding:16px; max-width:340px; margin-top:20px; text-align:center;">
+        <div style="font-size:1.1em; font-weight:bold; margin-bottom:8px;">
+          Historique des questions
+        </div>
+        <p style="margin:8px 0 14px;">
+          Facultatif : importe un historique existant.
+        </p>
+        <input
+          type="file"
+          id="fichierHistorique"
+          accept=".txt,.csv,text/plain,text/csv"
+          style="max-width:100%;"
+        >
+        <p style="margin:10px 0 0; font-size:0.9em;">
+          Ou dépose ton fichier dans cette zone.
+        </p>
+        <div id="statutHistorique" style="margin-top:10px; font-size:0.95em;">
+          Aucun historique importé.
+        </div>
+      </div>
       <div style="display:flex; gap:24px; justify-content:center; margin-top:32px;">
         <button id="btnRetourParam" style="flex:1;">Retour</button>
         <button id="btnDemarrer" style="flex:1;">Démarrer</button>
       </div>
+
     `;
     document.body.appendChild(parametresPage);
 
@@ -108,6 +130,73 @@ window.onload = () => {
       </div>
     `).join('');
 
+    const zoneHistorique = parametresPage.querySelector('#zoneHistorique');
+    const fichierHistorique = parametresPage.querySelector('#fichierHistorique');
+    const statutHistorique = parametresPage.querySelector('#statutHistorique');
+
+    // Lire et interpréter un fichier d'identifiants séparés par des points-virgules.
+    function lireFichierHistorique(fichier) {
+      if (!fichier) return;
+
+      const lecteur = new FileReader();
+
+      lecteur.onload = () => {
+        const contenu = String(lecteur.result || '');
+
+        historiqueImporte = [
+          ...new Set(
+            contenu
+              .split(';')
+              .map(id => id.trim())
+              .filter(id => id !== '')
+          )
+        ];
+
+        statutHistorique.textContent = historiqueImporte.length > 0
+          ? `${historiqueImporte.length} identifiant(s) importé(s).`
+          : 'Fichier lu, mais aucun identifiant trouvé.';
+
+        statutHistorique.style.color = historiqueImporte.length > 0
+          ? '#45d483'
+          : '#ffb84d';
+      };
+
+      lecteur.onerror = () => {
+        historiqueImporte = [];
+        statutHistorique.textContent = 'Impossible de lire ce fichier.';
+        statutHistorique.style.color = '#ff5c5c';
+      };
+
+      lecteur.readAsText(fichier);
+    }
+
+    fichierHistorique.addEventListener('change', () => {
+      const fichier = fichierHistorique.files[0];
+      lireFichierHistorique(fichier);
+    });
+
+    // Autoriser le glisser-déposer du fichier.
+    zoneHistorique.addEventListener('dragover', evenement => {
+      evenement.preventDefault();
+      zoneHistorique.style.background = '#292e45';
+    });
+
+    zoneHistorique.addEventListener('dragleave', () => {
+      zoneHistorique.style.background = '';
+    });
+
+    zoneHistorique.addEventListener('drop', evenement => {
+      evenement.preventDefault();
+      zoneHistorique.style.background = '';
+
+      const fichier = evenement.dataTransfer.files[0];
+
+      if (!fichier) return;
+
+      fichierHistorique.value = '';
+      lireFichierHistorique(fichier);
+    });
+    
     btnDemarrer = parametresPage.querySelector('#btnDemarrer');
     btnDemarrer.onclick = () => {
       const nbQuestions = parseInt(document.getElementById('nbQuestions').value) || 10;
@@ -128,7 +217,12 @@ window.onload = () => {
         const index = Number(input.id.replace('themeCheck', ''));
         return themesCodes[index];
       });
-      socket.emit('demarrer_quizz', { code: maitreCode, nbQuestions, themes: themesChecked });
+      socket.emit('demarrer_quizz', {
+        code: maitreCode,
+        nbQuestions,
+        themes: themesChecked,
+        historiqueIds: historiqueImporte
+      });
       parametresPage.style.display = "none";
       createPageJeuMaitre();
       pageJeuMaitre.style.display = "flex";
