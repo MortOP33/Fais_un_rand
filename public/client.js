@@ -727,6 +727,43 @@ document.addEventListener('click', function(e) {
   }
 });
 
+document.addEventListener('click', function(e) {
+  if (e.target && e.target.id === 'btnSuivant') {
+    // Éviter plusieurs clics pendant le traitement.
+    const btnSuivant = document.getElementById('btnSuivant');
+    btnSuivant.disabled = true;
+
+    socket.emit('question_suivante', {
+      code: maitreCode
+    });
+  }
+});
+
+socket.on('quizz_termine', () => {
+  const btnAfficher = document.getElementById('btnAfficher');
+  const btnAnnuler = document.getElementById('btnAnnulerQuestion');
+  const btnSuivant = document.getElementById('btnSuivant');
+
+  if (timerInterval !== null) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+
+  document.getElementById('jeuTimerCadre').style.display = 'none';
+
+  btnAfficher.style.display = 'none';
+  btnAfficher.disabled = true;
+
+  btnAnnuler.style.display = 'none';
+  btnAnnuler.disabled = true;
+
+  btnSuivant.style.display = 'none';
+  btnSuivant.disabled = true;
+
+  document.getElementById('jeuQuestionLabel').textContent =
+    'Quiz terminé ! Les résultats finaux seront disponibles lors de la phase 4.';
+});
+
 socket.on('joueur_logout', () => {
   joueurPage.style.display = "none";
   homePage.style.display = "flex";

@@ -517,6 +517,48 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('question_suivante', ({ code }) => {
+    const lobby = lobbies[code];
+
+    // Seul le maître peut passer à la question suivante.
+    if (!lobby || lobby.maitreId !== socket.id) return;
+
+    // Autoriser le passage uniquement après révélation ou annulation.
+    if (
+      lobby.manche.phase !== 'revelation' &&
+      lobby.manche.phase !== 'annulee'
+    ) {
+      return;
+    }
+
+    const prochainIndex = lobby.questionIndex + 1;
+
+    // Toutes les questions ont été jouées.
+    if (prochainIndex >= lobby.questions.length) {
+      lobby.manche.phase = 'termine';
+      io.to(lobby.maitreId).emit('quizz_termine');
+      return;
+    }
+
+    // Préparer la prochaine question sans toucher aux scores totaux.
+    lobby.questionIndex = prochainIndex;
+    lobby.scoresManche = {};
+    lobby.manche = creerEtatManche();
+
+    const joueurs = lobby.joueurs.map(joueur => ({
+      ...joueur,
+      scoreTotal: lobby.scoresTotaux[joueur.socketId] ?? 0
+    }));
+
+    io.to(lobby.maitreId).emit('afficher_question', {
+      question: lobby.questions[lobby.questionIndex],
+      index: lobby.questionIndex,
+      total: lobby.questions.length,
+      joueurs,
+      themeImages: getThemeImages()
+    });
+  });
+
   socket.on('annuler_question', ({ code }) => {
     const lobby = lobbies[code];
 
