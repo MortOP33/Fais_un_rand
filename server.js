@@ -749,7 +749,9 @@ io.on('connection', (socket) => {
     // Toutes les questions ont été jouées.
     if (prochainIndex >= lobby.questions.length) {
       lobby.manche.phase = 'termine';
-      io.to(lobby.maitreId).emit('quizz_termine');
+      io.to(lobby.maitreId).emit('quizz_termine', {
+        historiqueIds: lobby.historiqueQuestions
+      });
       return;
     }
 

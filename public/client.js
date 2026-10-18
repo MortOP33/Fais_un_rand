@@ -856,7 +856,7 @@ document.addEventListener('click', function(e) {
   }
 });
 
-socket.on('quizz_termine', () => {
+socket.on('quizz_termine', ({ historiqueIds = [] } = {}) => {
   const btnAfficher = document.getElementById('btnAfficher');
   const btnAnnuler = document.getElementById('btnAnnulerQuestion');
   const btnSuivant = document.getElementById('btnSuivant');
@@ -878,8 +878,63 @@ socket.on('quizz_termine', () => {
   btnSuivant.disabled = true;
 
   document.getElementById('jeuQuestionLabel').textContent =
-    'Quiz terminé ! Les résultats finaux seront disponibles lors de la phase 4.';
+    'Quiz terminé !';
+
+  // Créer ou réutiliser la zone de téléchargement.
+  let zoneExport = document.getElementById('zoneExportHistorique');
+
+  if (!zoneExport) {
+    zoneExport = document.createElement('div');
+    zoneExport.id = 'zoneExportHistorique';
+    zoneExport.style.textAlign = 'center';
+    zoneExport.style.marginTop = '24px';
+    pageJeuMaitre.appendChild(zoneExport);
+  }
+
+  zoneExport.innerHTML = `
+    <p style="margin-bottom:14px;">
+      L'historique actualisé est prêt.
+      Télécharge-le si tu souhaites le conserver pour une prochaine partie.
+    </p>
+    <button id="btnTelechargerHistorique">
+      Télécharger l'historique
+    </button>
+  `;
+
+  document.getElementById('btnTelechargerHistorique').onclick = () => {
+    // Nettoyer et dédoublonner les identifiants avant export.
+    const ids = [
+      ...new Set(
+        historiqueIds
+          .map(id => String(id).trim())
+          .filter(id => id !== '')
+      )
+    ];
+
+    // Garder le même format que celui attendu à l'import.
+    const contenu = ids.join(';');
+
+    const fichier = new Blob(
+      [contenu],
+      { type: 'text/plain;charset=utf-8' }
+    );
+
+    const url = URL.createObjectURL(fichier);
+    const lien = document.createElement('a');
+
+    const date = new Date().toISOString().slice(0, 10);
+
+    lien.href = url;
+    lien.download = `historique-questions-${date}.txt`;
+
+    document.body.appendChild(lien);
+    lien.click();
+    lien.remove();
+
+    URL.revokeObjectURL(url);
+  };
 });
+
 
 socket.on('joueur_logout', () => {
   joueurPage.style.display = "none";
