@@ -69,6 +69,131 @@ function joueurEstValide(reponse) {
   return valeur !== '' && Number.isFinite(Number(valeur));
 }
 
+
+function convertirEnNombre(valeur) {
+  if (typeof valeur !== 'string' && typeof valeur !== 'number') {
+    return null;
+  }
+
+  const texte = String(valeur).trim().replace(',', '.');
+
+  if (texte === '') return null;
+
+  const nombre = Number(texte);
+  return Number.isFinite(nombre) ? nombre : null;
+}
+
+function scorePourRang(nbJoueurs, rangIndex) {
+  if (nbJoueurs <= 1) return 0;
+
+  // Cas particulier du barème à 2 joueurs : +1, 0.
+  if (nbJoueurs === 2) {
+    return rangIndex === 0 ? 1 : 0;
+  }
+
+  // Effectif impair : un seul zéro au milieu.
+  if (nbJoueurs % 2 === 1) {
+    return Math.floor(nbJoueurs / 2) - rangIndex;
+  }
+
+  // Effectif pair : deux zéros au milieu.
+  const milieu = nbJoueurs / 2;
+
+  return rangIndex < milieu
+    ? milieu - 1 - rangIndex
+    : milieu - rangIndex;
+}
+
+function calculerScoresManche(lobby, reponseCorrecte) {
+  const scores = {};
+  const joueurs = lobby.joueurs;
+  const nbJoueurs = joueurs.length;
+
+  if (nbJoueurs === 0) return scores;
+
+  const valeurCorrecte = convertirEnNombre(reponseCorrecte);
+
+  if (valeurCorrecte === null) {
+    console.error(
+      'Réponse correcte non numérique pour le calcul des scores.'
+    );
+    return scores;
+  }
+
+  const valides = [];
+  const invalides = [];
+
+  joueurs.forEach(joueur => {
+    const saisie = lobby.manche.reponses[joueur.socketId];
+
+    const valeur = saisie && saisie.valide
+      ? convertirEnNombre(saisie.reponse)
+      : null;
+
+    if (valeur === null) {
+      invalides.push(joueur);
+    } else {
+      valides.push({
+        joueur,
+        ecart: Math.abs(valeur - valeurCorrecte)
+      });
+    }
+  });
+
+  // Aucun joueur n'a donné de réponse valide :
+  // tous reçoivent le score maximal.
+  if (valides.length === 0) {
+    const scoreMaximal = scorePourRang(nbJoueurs, 0);
+
+    joueurs.forEach(joueur => {
+      scores[joueur.socketId] = scoreMaximal;
+    });
+
+    return scores;
+  }
+
+  // Classement de la réponse la plus proche à la plus éloignée.
+  valides.sort((a, b) => a.ecart - b.ecart);
+
+  let debutGroupe = 0;
+
+  while (debutGroupe < valides.length) {
+    let finGroupe = debutGroupe;
+
+    // Regrouper les réponses ayant le même écart.
+    while (
+      finGroupe + 1 < valides.length &&
+      Math.abs(
+        valides[finGroupe + 1].ecart -
+        valides[debutGroupe].ecart
+      ) < 1e-9
+    ) {
+      finGroupe++;
+    }
+
+    // Le groupe reçoit le score correspondant à sa dernière position.
+    const score = scorePourRang(nbJoueurs, finGroupe);
+
+    for (let i = debutGroupe; i <= finGroupe; i++) {
+      scores[valides[i].joueur.socketId] = score;
+    }
+
+    debutGroupe = finGroupe + 1;
+  }
+
+  // Les réponses invalides ou absentes reçoivent le score
+  // du dernier groupe ayant fourni une réponse valide.
+  const dernierScoreValide =
+    scores[valides[valides.length - 1].joueur.socketId];
+
+  invalides.forEach(joueur => {
+    scores[joueur.socketId] = dernierScoreValide;
+  });
+
+  return scores;
+}
+
+
 function tousLesJoueursOntRepondu(lobby) {
   return lobby.joueurs.length > 0 &&
     lobby.joueurs.every(j => {
@@ -303,12 +428,32 @@ io.on('connection', (socket) => {
     const question = lobby.questions[lobby.questionIndex];
     if (!question) return;
 
+    // Calcul des scores de la manche au moment de la révélation.
+    lobby.scoresManche = calculerScoresManche(
+      lobby,
+      question.reponse
+    );
+
+    console.log(
+      'Scores de manche :',
+      lobby.joueurs.map(joueur => ({
+        pseudo: joueur.pseudo,
+        score: lobby.scoresManche[joueur.socketId]
+      }))
+    );
+
     lobby.manche.phase = 'revelation';
+
 
     io.to(lobby.maitreId).emit('afficher_revelation', {
       reponse: question.reponse,
-      complement: question.complement
+      complement: question.complement,
+      scoresManche: lobby.joueurs.map(joueur => ({
+        pseudo: joueur.pseudo,
+        score: lobby.scoresManche[joueur.socketId] ?? null
+      }))
     });
+
   });
 
   socket.on('reset_affichage_joueur', ({ code }) => {
