@@ -373,7 +373,7 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
         <span id="reponse${idx}">-</span>
       </td>
       <td class="col-score-manche" style="text-align:center;">0</td>
-      <td class="col-score-total" style="text-align:center;">0</td>
+      <td class="col-score-total" style="text-align:center;">${j.scoreTotal ?? 0}</td>
     </tr>`
   ).join('');
 
@@ -546,7 +546,7 @@ socket.on('fin_saisie', ({ reponses }) => {
   btnSuivant.disabled = true;
 });
 
-socket.on('afficher_revelation', ({ reponse, complement }) => {
+socket.on('afficher_revelation', ({ reponse, complement, classement }) => {
   const btnAfficher = document.getElementById('btnAfficher');
   const btnAnnuler = document.getElementById('btnAnnulerQuestion');
   const btnSuivant = document.getElementById('btnSuivant');
@@ -560,6 +560,48 @@ socket.on('afficher_revelation', ({ reponse, complement }) => {
 
   btnSuivant.style.display = '';
   btnSuivant.disabled = false;
+
+    // Mettre à jour les scores et réordonner les lignes.
+  const tbody = document.getElementById('jeuJoueursTbody');
+
+  classement.forEach(joueurClassement => {
+    const ligne = Array.from(tbody.querySelectorAll('tr')).find(tr =>
+      tr.querySelector('.player-name')?.textContent
+        === joueurClassement.pseudo
+    );
+
+    if (!ligne) return;
+
+    const statut = ligne.querySelector('.col-statut');
+    const scoreManche = ligne.querySelector('.col-score-manche');
+    const scoreTotal = ligne.querySelector('.col-score-total');
+
+    if (statut) {
+      statut.textContent = joueurClassement.evolution;
+      statut.style.fontSize = '1.4em';
+      statut.style.fontWeight = '900';
+      statut.style.textAlign = 'center';
+
+      if (joueurClassement.evolution === '↑') {
+        statut.style.color = '#45d483';
+      } else if (joueurClassement.evolution === '↓') {
+        statut.style.color = '#ff5c5c';
+      } else {
+        statut.style.color = '#dfd111';
+      }
+    }
+
+    if (scoreManche) {
+      scoreManche.textContent = joueurClassement.scoreManche;
+    }
+
+    if (scoreTotal) {
+      scoreTotal.textContent = joueurClassement.scoreTotal;
+    }
+
+    // Déplacer la ligne à sa nouvelle position dans le classement.
+    tbody.appendChild(ligne);
+  });
 
   document.getElementById('jeuTimerCadre').innerHTML = `
     <div style="display:flex;align-items:center;gap:24px;width:100%;">

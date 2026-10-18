@@ -354,14 +354,27 @@ io.on('connection', (socket) => {
     const filtered = allQuestions.filter(q => themes.includes(q.theme));
     const selected = filtered.sort(() => 0.5 - Math.random()).slice(0, nbQuestions);
     if (lobbies[code]) {
-      lobbies[code].questions = selected;
-      lobbies[code].questionIndex = 0;
+      const lobby = lobbies[code];
+
+      // Réinitialiser les scores au lancement d'une nouvelle partie.
+      lobby.scoresTotaux = {};
+      lobby.scoresManche = {};
+
+      lobby.joueurs.forEach(joueur => {
+        lobby.scoresTotaux[joueur.socketId] = 0;
+      });
+
+      lobby.questions = selected;
+      lobby.questionIndex = 0;
       if (selected.length > 0) {
-        io.to(lobbies[code].maitreId).emit('afficher_question', {
+        io.to(lobby.maitreId).emit('afficher_question', {
           question: selected[0],
           index: 0,
           total: selected.length,
-          joueurs: lobbies[code].joueurs,
+          joueurs: lobby.joueurs.map(joueur => ({
+            ...joueur,
+            scoreTotal: lobby.scoresTotaux[joueur.socketId] ?? 0
+          })),
           themeImages: getThemeImages()
         });
       }
@@ -430,32 +443,70 @@ io.on('connection', (socket) => {
     const question = lobby.questions[lobby.questionIndex];
     if (!question) return;
 
-    // Calcul des scores de la manche au moment de la révélation.
+    // Mémoriser le classement avant l'ajout des nouveaux scores.
+    const anciensRangs = new Map(
+      lobby.joueurs.map((joueur, index) => [
+        joueur.socketId,
+        index
+      ])
+    );
+
+    // Calculer les scores de la manche.
     lobby.scoresManche = calculerScoresManche(
       lobby,
       question.reponse
     );
 
-    console.log(
-      'Scores de manche :',
-      lobby.joueurs.map(joueur => ({
+    // Ajouter les scores de manche aux scores totaux.
+    lobby.joueurs.forEach(joueur => {
+      const scoreManche =
+        lobby.scoresManche[joueur.socketId] ?? 0;
+
+      lobby.scoresTotaux[joueur.socketId] =
+        (lobby.scoresTotaux[joueur.socketId] ?? 0)
+        + scoreManche;
+    });
+
+    // Trier les joueurs du score total le plus élevé au plus faible.
+    lobby.joueurs.sort((a, b) => {
+      const scoreA = lobby.scoresTotaux[a.socketId] ?? 0;
+      const scoreB = lobby.scoresTotaux[b.socketId] ?? 0;
+      return scoreB - scoreA;
+    });
+
+    // Préparer les scores et les flèches à afficher.
+    const classement = lobby.joueurs.map((joueur, nouvelIndex) => {
+      const ancienIndex = anciensRangs.get(joueur.socketId);
+
+      let evolution = '→';
+
+      if (ancienIndex !== undefined) {
+        if (nouvelIndex < ancienIndex) {
+          evolution = '↑';
+        } else if (nouvelIndex > ancienIndex) {
+          evolution = '↓';
+        }
+      }
+
+      return {
         pseudo: joueur.pseudo,
-        score: lobby.scoresManche[joueur.socketId]
-      }))
-    );
+        scoreManche: lobby.scoresManche[joueur.socketId] ?? 0,
+        scoreTotal: lobby.scoresTotaux[joueur.socketId] ?? 0,
+        evolution
+      };
+    });
 
+    console.log('Classement après révélation :', classement);
+
+    // Changer la phase empêche un second clic de compter les points
+    // une deuxième fois pour cette même manche.
     lobby.manche.phase = 'revelation';
-
 
     io.to(lobby.maitreId).emit('afficher_revelation', {
       reponse: question.reponse,
       complement: question.complement,
-      scoresManche: lobby.joueurs.map(joueur => ({
-        pseudo: joueur.pseudo,
-        score: lobby.scoresManche[joueur.socketId] ?? null
-      }))
+      classement
     });
-
   });
 
   socket.on('reset_affichage_joueur', ({ code }) => {
