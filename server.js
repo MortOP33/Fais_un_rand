@@ -42,22 +42,87 @@ const QUESTIONS_PATH = path.join(__dirname, 'public', 'Questions', 'questions.js
 function loadQuestions() {
   try {
     const raw = fs.readFileSync(QUESTIONS_PATH, 'utf8');
-    const arr = JSON.parse(raw);
-    return arr.map(line => {
-      const parts = line.split('#');
-      if (parts.length !== 5) return null;
-      return {
-        id: parts[0],
-        theme: parts[1],
-        question: parts[2],
-        reponse: parts[3],
-        complement: parts[4]
-      };
-    }).filter(Boolean);
+    const questions = JSON.parse(raw);
+
+    // Vérifier que la racine du fichier est un tableau.
+    if (!Array.isArray(questions)) {
+      throw new Error(
+        'Le fichier doit contenir un tableau JSON de questions.'
+      );
+    }
+
+    const ids = new Set();
+
+    // Vérifier chaque question avant de la rendre disponible.
+    questions.forEach((q, index) => {
+      const numero = index + 1;
+
+      if (q === null || typeof q !== 'object' || Array.isArray(q)) {
+        throw new Error(
+          `La question ${numero} doit être un objet JSON.`
+        );
+      }
+
+      if (q.id === undefined || q.id === null ||
+          String(q.id).trim() === '') {
+        throw new Error(
+          `La question ${numero} n'a pas d'identifiant.`
+        );
+      }
+
+      const id = String(q.id).trim();
+
+      if (ids.has(id)) {
+        throw new Error(
+          `L'identifiant "${id}" est présent plusieurs fois.`
+        );
+      }
+
+      ids.add(id);
+
+      if (typeof q.theme !== 'string' || q.theme.trim() === '') {
+        throw new Error(
+          `La question ${numero} n'a pas de thème valide.`
+        );
+      }
+
+      if (typeof q.question !== 'string' || q.question.trim() === '') {
+        throw new Error(
+          `Le texte de la question ${numero} est absent ou invalide.`
+        );
+      }
+
+      if (typeof q.reponse !== 'number' ||
+          !Number.isFinite(q.reponse)) {
+        throw new Error(
+          `La réponse de la question ${numero} doit être numérique.`
+        );
+      }
+
+      if (typeof q.complement !== 'string') {
+        throw new Error(
+          `Le complément de la question ${numero} doit être du texte.`
+        );
+      }
+    });
+
+    // Normaliser les identifiants et les thèmes.
+    return questions.map(q => ({
+      ...q,
+      id: String(q.id).trim(),
+      theme: q.theme.trim()
+    }));
+
   } catch (e) {
+    console.error(
+      'Erreur lors du chargement de la base de questions :',
+      e.message
+    );
+
     return [];
   }
 }
+
 
 function joueurEstValide(reponse) {
   if (typeof reponse !== 'string' && typeof reponse !== 'number') {
