@@ -25,6 +25,7 @@ let roundAnswer = "";
 let roundComplement = "";
 let currentLobbyCode = null; // Pour page joueur
 let joueurResponseSent = "";
+let timerInterval = null;
 
 window.onload = () => {
   homePage.style.display = "flex";
@@ -181,6 +182,7 @@ function createPageJeuMaitre() {
     <table id="jeuJoueursTable" style="width:100%; max-width:700px; margin-bottom:22px;">
       <thead>
         <tr>
+          <th style="text-align:center;">Statut</th>
           <th style="text-align:left;">Joueur</th>
           <th style="text-align:center;">Réponse</th>
           <th style="text-align:center;">Score question</th>
@@ -225,7 +227,7 @@ socket.on('players', (joueurs) => {
     </li>`
   ).join('');
   if (btnCreerPartie) {
-    btnCreerPartie.disabled = joueurs.length < 3;
+    btnCreerPartie.disabled = joueurs.length < 2;
     btnCreerPartie.classList.toggle('disabled-btn', btnCreerPartie.disabled);
   }
 });
@@ -360,6 +362,7 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
   const tbody = document.getElementById('jeuJoueursTbody');
   tbody.innerHTML = joueurs.map((j, idx) =>
     `<tr>
+      <td class="col-statut" style="text-align:center;">—</td>
       <td class="col-joueur" style="text-align:left;">
         <div style="display:flex;align-items:center;gap:12px;">
           <img src="${j.avatar}" class="avatar-maitre" style="width:54px;height:54px;margin:0;">
@@ -374,25 +377,42 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
     </tr>`
   ).join('');
 
-  setTimeout(() => {
-    document.getElementById('btnAfficher').style.display = "";
-    document.getElementById('btnAfficher').disabled = true;
-    document.getElementById('btnAnnulerQuestion').style.display = "none";
-    document.getElementById('btnAnnulerQuestion').disabled = true;
-    document.getElementById('btnSuivant').disabled = true;
-  }, 100);
+  const btnAfficher = document.getElementById('btnAfficher');
+  const btnAnnuler = document.getElementById('btnAnnulerQuestion');
+  const btnSuivant = document.getElementById('btnSuivant');
 
-  displayTimer(30, () => {
-    document.getElementById('btnAfficher').disabled = false;
-    document.getElementById('btnAnnulerQuestion').style.display = "none";
-    document.getElementById('btnAnnulerQuestion').disabled = true;
-    document.getElementById('btnSuivant').disabled = true;
-    socket.emit('reset_affichage_joueur', { code: maitreCode });
-  });
+  btnAfficher.textContent = 'Réponse';
+  btnAfficher.style.display = 'none';
+  btnAfficher.disabled = true;
+
+  btnAnnuler.style.display = 'none';
+  btnAnnuler.disabled = true;
+
+  btnSuivant.style.display = 'none';
+  btnSuivant.disabled = true;
 
   // Demander aux joueurs de ce lobby d'afficher le champ de saisie
   currentLobbyCode = maitreCode;
   socket.emit('demande_saisie_joueur', { code: maitreCode, joueurs: joueurs.map(j => j.pseudo) });
+});
+
+socket.on('debut_saisie', ({ duree }) => {
+  const btnAfficher = document.getElementById('btnAfficher');
+  const btnAnnuler = document.getElementById('btnAnnulerQuestion');
+  const btnSuivant = document.getElementById('btnSuivant');
+
+  btnAfficher.style.display = 'none';
+  btnAnnuler.style.display = 'none';
+  btnSuivant.style.display = 'none';
+
+  btnAfficher.disabled = true;
+  btnAnnuler.disabled = true;
+  btnSuivant.disabled = true;
+
+  displayTimer(duree, () => {
+    // Le serveur gère la clôture effective.
+    // Ce callback ne doit plus révéler les réponses.
+  });
 });
 
 // --- Partie joueur : affichage du champ de saisie pendant le timer ---
@@ -411,7 +431,7 @@ socket.on('afficher_saisie_joueur', ({ code }) => {
     document.getElementById('btnEnvoyerReponse').onclick = function() {
       let val = document.getElementById('champReponseJoueur').value.replace(',', '.');
       if (!/^[-+]?\d*\.?\d+$/.test(val)) { alert("Réponse numérique attendue."); return; }
-      joueurResponse = val;
+      joueurResponseSent = val;
       socket.emit('envoi_reponse_joueur', { code: code, pseudo: joueurPseudo, reponse: val });
     };
   }
@@ -426,23 +446,117 @@ socket.on('reset_affichage_joueur', () => {
         <span class="player-name">${joueurPseudo}</span>
       </div>
     `;
-    joueurResponse = "";
+    joueurResponseSent = "";
   }
+});
+
+socket.on('fin_saisie_joueur', () => {
+  const formulaire = document.getElementById('reponseForm');
+
+  if (formulaire) {
+    formulaire.remove();
+  }
+
+  joueurResponseSent = "";
 });
 
 // --- Réception de la réponse côté maître : mise à jour du tableau ---
-socket.on('update_reponse_maitre', ({ pseudo, reponse }) => {
-  const tds = Array.from(document.querySelectorAll('.col-joueur'));
-  for (let i = 0; i < tds.length; ++i) {
-    const name = tds[i].querySelector('.player-name')?.textContent;
-    if (name === pseudo) {
-      document.getElementById(`reponse${i}`).textContent = reponse;
-      break;
-    }
+socket.on('statut_reponse', ({ pseudo, valide }) => {
+  const lignes = Array.from(
+    document.querySelectorAll('#jeuJoueursTbody tr')
+  );
+
+  const ligne = lignes.find(tr =>
+    tr.querySelector('.player-name')?.textContent === pseudo
+  );
+
+  if (!ligne) return;
+
+  const statut = ligne.querySelector('.col-statut');
+  if (!statut) return;
+
+  statut.textContent = valide ? '✓' : '✕';
+  statut.setAttribute(
+    'aria-label',
+    valide ? 'Réponse valide' : 'Réponse invalide'
+  );
+
+  statut.style.color = valide ? '#45d483' : '#ff5c5c';
+});
+
+socket.on('fin_saisie', ({ reponses }) => {
+
+  if (timerInterval !== null) {
+    clearInterval(timerInterval);
+    timerInterval = null;
   }
+
+  const btnAfficher = document.getElementById('btnAfficher');
+  const btnAnnuler = document.getElementById('btnAnnulerQuestion');
+  const btnSuivant = document.getElementById('btnSuivant');
+
+  // Les valeurs deviennent visibles, mais pas la réponse de référence.
+  reponses.forEach(item => {
+    const ligne = Array.from(
+      document.querySelectorAll('#jeuJoueursTbody tr')
+    ).find(tr =>
+      tr.querySelector('.player-name')?.textContent === item.pseudo
+    );
+
+    if (!ligne) return;
+
+    const reponseCell = ligne.querySelector('.col-reponse');
+    if (reponseCell) {
+      reponseCell.textContent =
+        item.reponse === null ? '—' : item.reponse;
+    }
+
+    const statut = ligne.querySelector('.col-statut');
+    if (statut) statut.textContent = '';
+  });
+
+  btnAfficher.textContent = 'Réponse';
+  btnAfficher.style.display = '';
+  btnAfficher.disabled = false;
+
+  btnAnnuler.style.display = 'none';
+  btnAnnuler.disabled = true;
+
+  btnSuivant.style.display = 'none';
+  btnSuivant.disabled = true;
+});
+
+socket.on('afficher_revelation', ({ reponse, complement }) => {
+  const btnAfficher = document.getElementById('btnAfficher');
+  const btnAnnuler = document.getElementById('btnAnnulerQuestion');
+  const btnSuivant = document.getElementById('btnSuivant');
+
+  btnAfficher.style.display = 'none';
+  btnAnnuler.style.display = '';
+  btnAnnuler.disabled = false;
+
+  btnSuivant.style.display = '';
+  btnSuivant.disabled = false;
+
+  document.getElementById('jeuTimerCadre').innerHTML = `
+    <div style="display:flex;align-items:center;gap:24px;width:100%;">
+      <div style="background:#2b2c32;border-radius:16px;padding:18px;
+        font-size:2.2em;font-weight:bold;min-width:100px;text-align:center;
+        border:4px solid #3855d6;color:#fff;">
+        ${reponse}
+      </div>
+      <div style="font-size:1.1em;text-align:left;color:#ececec;">
+        ${complement}
+      </div>
+    </div>
+  `;
 });
 
 function displayTimer(seconds, onFinish) {
+  if (timerInterval !== null) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
   const timerDiv = document.getElementById('jeuTimerCadre');
   let time = seconds;
   timerDiv.innerHTML = `<svg width="100" height="100">
@@ -453,35 +567,25 @@ function displayTimer(seconds, onFinish) {
     <div id="timerText" style="position:absolute;left:0;top:0;width:100px;height:100px;display:flex;align-items:center;justify-content:center;font-size:2em;font-weight:bold;color:#fff;">${time}</div>`;
   const circle = timerDiv.querySelector('#timerCircle');
   const timerText = timerDiv.querySelector('#timerText');
-  let interval = setInterval(() => {
+  timerInterval = setInterval(() => {
     time--;
     timerText.innerText = time;
     let offset = (time/seconds)*282;
     circle.setAttribute('stroke-dashoffset', `${282-offset}`);
     if (time <= 0) {
-      clearInterval(interval);
+      clearInterval(timerInterval);
+      timerInterval = null;
       if (onFinish) onFinish();
-      if (currentLobbyCode) socket.emit('reset_affichage_joueur', { code: currentLobbyCode });
     }
   }, 1000);
   circle.setAttribute('stroke-dashoffset', `0`);
 }
 
 document.addEventListener('click', function(e) {
-  if (e.target && e.target.id === "btnAfficher") {
-    let btnAfficher = document.getElementById('btnAfficher');
-    let btnAnnuler = document.getElementById('btnAnnulerQuestion');
-    btnAfficher.style.display = "none";
-    btnAnnuler.style.display = "";
-    btnAnnuler.disabled = false;
-    document.getElementById('btnSuivant').disabled = false;
-    const timerDiv = document.getElementById('jeuTimerCadre');
-    timerDiv.innerHTML = `
-      <div style="display:flex;align-items:center;gap:48px;">
-        <div style="background:#2b2c32;border-radius:16px;padding:18px 38px;font-size:2.2em;font-weight:bold;min-width:120px;text-align:center;box-shadow:0 2px 13px #0005;border:4px solid #3855d6;color:#fff;">${roundAnswer}</div>
-        <div style="font-size:1.18em;font-weight:500;text-align:left;color:#ececec;">${roundComplement}</div>
-      </div>
-    `;
+  if (e.target && e.target.id === 'btnAfficher') {
+    socket.emit('reveler_reponse', {
+      code: maitreCode
+    });
   }
 });
 

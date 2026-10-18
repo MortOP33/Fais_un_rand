@@ -59,8 +59,63 @@ function loadQuestions() {
   }
 }
 
+function joueurEstValide(reponse) {
+  if (typeof reponse !== 'string' && typeof reponse !== 'number') {
+    return false;
+  }
+
+  const valeur = String(reponse).trim().replace(',', '.');
+
+  return valeur !== '' && Number.isFinite(Number(valeur));
+}
+
+function tousLesJoueursOntRepondu(lobby) {
+  return lobby.joueurs.length > 0 &&
+    lobby.joueurs.every(j => {
+      const reponse = lobby.manche.reponses[j.socketId];
+      return reponse && reponse.valide;
+    });
+}
+
+function arreterSaisie(code, raison) {
+  const lobby = lobbies[code];
+
+  if (!lobby || lobby.manche.phase !== 'saisie') {
+    return;
+  }
+
+  if (lobby.manche.timer) {
+    clearTimeout(lobby.manche.timer);
+    lobby.manche.timer = null;
+  }
+
+  lobby.manche.phase = 'comparaison';
+
+  io.to(lobby.maitreId).emit('fin_saisie', {
+    raison,
+    reponses: lobby.joueurs.map(j => ({
+      pseudo: j.pseudo,
+      reponse: lobby.manche.reponses[j.socketId]?.reponse ?? null,
+      valide: lobby.manche.reponses[j.socketId]?.valide ?? false
+    }))
+  });
+
+  lobby.joueurs.forEach(j => {
+    io.to(j.socketId).emit('fin_saisie_joueur');
+  });
+}
+
 let lobbies = {}; // { code: { maitreId, joueurs: [{pseudo, avatar, socketId}] } }
 let socketToLobby = {}; // socketId -> code
+
+function creerEtatManche() {
+  return {
+    phase: 'attente',
+    reponses: {},
+    timer: null,
+    debutSaisie: null
+  };
+}
 
 io.on('connection', (socket) => {
   socket.on('maitre_create', () => {
@@ -68,7 +123,16 @@ io.on('connection', (socket) => {
     do {
       code = generateCode();
     } while (lobbies[code]);
-    lobbies[code] = { maitreId: socket.id, joueurs: [] };
+    lobbies[code] = {
+      maitreId: socket.id,
+      joueurs: [],
+      questions: [],
+      questionIndex: 0,
+      scoresTotaux: {},
+      scoresManche: {},
+      scoresCategories: {},
+      manche: creerEtatManche()
+    };
     socketToLobby[socket.id] = code;
     socket.emit('maitre_code', code);
     io.to(socket.id).emit('players', []);
@@ -178,18 +242,73 @@ io.on('connection', (socket) => {
   });
 
   // --- Ajout pour la saisie et envoi des réponses joueurs ---
-  socket.on('demande_saisie_joueur', ({ code, joueurs }) => {
-    if (lobbies[code]) {
-      lobbies[code].joueurs.forEach(j => {
-        io.to(j.socketId).emit('afficher_saisie_joueur', { code });
-      });
+  socket.on('demande_saisie_joueur', ({ code }) => {
+    const lobby = lobbies[code];
+
+    if (!lobby || lobby.maitreId !== socket.id) return;
+    if (lobby.manche.phase !== 'attente') return;
+
+    lobby.manche = creerEtatManche();
+    lobby.manche.phase = 'saisie';
+    lobby.manche.debutSaisie = Date.now();
+
+    lobby.joueurs.forEach(j => {
+      io.to(j.socketId).emit('afficher_saisie_joueur', { code });
+    });
+
+    io.to(lobby.maitreId).emit('debut_saisie', {
+      duree: 30,
+      joueurs: lobby.joueurs.map(j => ({
+        pseudo: j.pseudo,
+        avatar: j.avatar
+      }))
+    });
+
+    lobby.manche.timer = setTimeout(() => {
+      arreterSaisie(code, 'chrono');
+    }, 30000);
+  });
+
+  socket.on('envoi_reponse_joueur', ({ code, reponse }) => {
+    const lobby = lobbies[code];
+
+    if (!lobby || lobby.manche.phase !== 'saisie') return;
+
+    const joueur = lobby.joueurs.find(j => j.socketId === socket.id);
+    if (!joueur) return;
+
+    const valide = joueurEstValide(reponse);
+
+    lobby.manche.reponses[socket.id] = {
+      reponse: String(reponse).trim(),
+      valide
+    };
+
+    io.to(lobby.maitreId).emit('statut_reponse', {
+      pseudo: joueur.pseudo,
+      valide
+    });
+
+    if (tousLesJoueursOntRepondu(lobby)) {
+      arreterSaisie(code, 'tous_repondus');
     }
   });
 
-  socket.on('envoi_reponse_joueur', ({ code, pseudo, reponse }) => {
-    if (lobbies[code]) {
-      io.to(lobbies[code].maitreId).emit('update_reponse_maitre', { pseudo, reponse });
-    }
+  socket.on('reveler_reponse', ({ code }) => {
+    const lobby = lobbies[code];
+
+    if (!lobby || lobby.maitreId !== socket.id) return;
+    if (lobby.manche.phase !== 'comparaison') return;
+
+    const question = lobby.questions[lobby.questionIndex];
+    if (!question) return;
+
+    lobby.manche.phase = 'revelation';
+
+    io.to(lobby.maitreId).emit('afficher_revelation', {
+      reponse: question.reponse,
+      complement: question.complement
+    });
   });
 
   socket.on('reset_affichage_joueur', ({ code }) => {
