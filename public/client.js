@@ -578,9 +578,11 @@ socket.on('afficher_revelation', ({ reponse, complement, classement }) => {
 
     if (statut) {
       statut.textContent = joueurClassement.evolution;
-      statut.style.fontSize = '1.4em';
+      statut.style.fontSize = '2em';
       statut.style.fontWeight = '900';
+      statut.style.lineHeight = '1';
       statut.style.textAlign = 'center';
+      statut.style.padding = '4px 8px';
 
       if (joueurClassement.evolution === '↑') {
         statut.style.color = '#45d483';

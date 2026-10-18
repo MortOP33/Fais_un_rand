@@ -496,8 +496,6 @@ io.on('connection', (socket) => {
       };
     });
 
-    console.log('Classement après révélation :', classement);
-
     // Changer la phase empêche un second clic de compter les points
     // une deuxième fois pour cette même manche.
     lobby.manche.phase = 'revelation';
