@@ -361,8 +361,8 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
   // Génération du tableau joueurs
   const tbody = document.getElementById('jeuJoueursTbody');
   tbody.innerHTML = joueurs.map((j, idx) =>
-    `<tr>
-      <td class="col-statut" style="text-align:center;">—</td>
+    `<tr>    
+      <td class="col-statut" style="text-align:center; font-size:1.3em; font-weight:900; color:#ff5c5c;">✕</td>
       <td class="col-joueur" style="text-align:left;">
         <div style="display:flex;align-items:center;gap:12px;">
           <img src="${j.avatar}" class="avatar-maitre" style="width:54px;height:54px;margin:0;">
@@ -475,6 +475,7 @@ socket.on('statut_reponse', ({ pseudo, valide }) => {
   const statut = ligne.querySelector('.col-statut');
   if (!statut) return;
 
+
   statut.textContent = valide ? '✓' : '✕';
   statut.setAttribute(
     'aria-label',
@@ -482,6 +483,9 @@ socket.on('statut_reponse', ({ pseudo, valide }) => {
   );
 
   statut.style.color = valide ? '#45d483' : '#ff5c5c';
+  statut.style.fontSize = '1.3em';
+  statut.style.fontWeight = '900';
+
 });
 
 socket.on('fin_saisie', ({ reponses }) => {
@@ -490,6 +494,7 @@ socket.on('fin_saisie', ({ reponses }) => {
     clearInterval(timerInterval);
     timerInterval = null;
   }
+  document.getElementById('jeuTimerCadre').style.display = 'none';
 
   const btnAfficher = document.getElementById('btnAfficher');
   const btnAnnuler = document.getElementById('btnAnnulerQuestion');
@@ -530,6 +535,9 @@ socket.on('afficher_revelation', ({ reponse, complement }) => {
   const btnAfficher = document.getElementById('btnAfficher');
   const btnAnnuler = document.getElementById('btnAnnulerQuestion');
   const btnSuivant = document.getElementById('btnSuivant');
+
+  const cadreTimer = document.getElementById('jeuTimerCadre');
+  cadreTimer.style.display = 'flex';
 
   btnAfficher.style.display = 'none';
   btnAnnuler.style.display = '';
