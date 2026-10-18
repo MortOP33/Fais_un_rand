@@ -417,9 +417,26 @@ io.on('connection', (socket) => {
   });
 
   socket.on('demarrer_quizz', ({ code, nbQuestions, themes }) => {
+
     const allQuestions = loadQuestions();
-    const filtered = allQuestions.filter(q => themes.includes(q.theme));
-    const selected = filtered.sort(() => 0.5 - Math.random()).slice(0, nbQuestions);
+    const themesSelectionnes = Array.isArray(themes) ? themes : [];
+
+    const filtered = allQuestions.filter(q =>
+      themesSelectionnes.includes(q.theme)
+    );
+
+    // Mélanger toutes les questions retenues sans privilégier un thème.
+    for (let i = filtered.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+    }
+
+    const nombreDemande = Number.isFinite(Number(nbQuestions))
+      ? Math.max(0, Math.floor(Number(nbQuestions)))
+      : 0;
+
+    const selected = filtered.slice(0, nombreDemande);
+
     if (lobbies[code]) {
       const lobby = lobbies[code];
 

@@ -111,9 +111,23 @@ window.onload = () => {
     btnDemarrer = parametresPage.querySelector('#btnDemarrer');
     btnDemarrer.onclick = () => {
       const nbQuestions = parseInt(document.getElementById('nbQuestions').value) || 10;
-      const themesChecked = Array.from(document.querySelectorAll('#themesList input[type="checkbox"]:checked')).map((input, i) =>
-        ["DATES","GEOGRAPHIE","MONDE VIVANT","ECONOMIE","SCIENCES","DIVERTISSEMENT","SONDAGES","RECORDS","IMPROBABLE"][i]
-      );
+      const themesCodes = [
+        "DATES",
+        "GEOGRAPHIE",
+        "MONDE VIVANT",
+        "ECONOMIE",
+        "SCIENCES",
+        "DIVERTISSEMENT",
+        "SONDAGES",
+        "RECORDS",
+        "IMPROBABLE"
+      ];
+      const themesChecked = Array.from(
+        document.querySelectorAll('#themesList input[type="checkbox"]:checked')
+      ).map(input => {
+        const index = Number(input.id.replace('themeCheck', ''));
+        return themesCodes[index];
+      });
       socket.emit('demarrer_quizz', { code: maitreCode, nbQuestions, themes: themesChecked });
       parametresPage.style.display = "none";
       createPageJeuMaitre();
