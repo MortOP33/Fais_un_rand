@@ -340,6 +340,15 @@ socket.on('param_retour_maitre', () => {
 
 // ----------- TABLEAU + CADRES MODIFIÉS ET GESTION ENVOI DE REPONSE JOUEUR ----------
 socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }) => {
+
+  const enteteStatut = document.querySelector(
+    '#jeuJoueursTable thead th:first-child'
+  );
+
+  if (enteteStatut) {
+    enteteStatut.style.display = '';
+  }
+
   pageJeuMaitre.style.display = "flex";
   roundAnswer = question.reponse;
   roundComplement = question.complement;
@@ -362,7 +371,7 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
   const tbody = document.getElementById('jeuJoueursTbody');
   tbody.innerHTML = joueurs.map((j, idx) =>
     `<tr>    
-      <td class="col-statut" style="text-align:center; font-size:1.3em; font-weight:900; color:#ff5c5c;">✕</td>
+      <td class="col-statut" style="text-align:center; font-size:2em; font-weight:900; line-height:1; padding:4px 8px; color:#ff5c5c;">✕</td>
       <td class="col-joueur" style="text-align:left;">
         <div style="display:flex;align-items:center;gap:12px;">
           <img src="${j.avatar}" class="avatar-maitre" style="width:54px;height:54px;margin:0;">
@@ -498,8 +507,11 @@ socket.on('statut_reponse', ({ pseudo, valide }) => {
   );
 
   statut.style.color = valide ? '#45d483' : '#ff5c5c';
-  statut.style.fontSize = '1.3em';
+  statut.style.fontSize = '2em';
   statut.style.fontWeight = '900';
+  statut.style.lineHeight = '1';
+  statut.style.textAlign = 'center';
+  statut.style.padding = '4px 8px';
 
 });
 
@@ -619,6 +631,57 @@ socket.on('afficher_revelation', ({ reponse, complement, classement }) => {
   `;
 });
 
+socket.on('question_annulee', ({ classement }) => {
+  const tbody = document.getElementById('jeuJoueursTbody');
+  const btnAfficher = document.getElementById('btnAfficher');
+  const btnAnnuler = document.getElementById('btnAnnulerQuestion');
+  const btnSuivant = document.getElementById('btnSuivant');
+
+  // Masquer la colonne des statuts et des flèches.
+  const enteteStatut = document.querySelector(
+    '#jeuJoueursTable thead th:first-child'
+  );
+
+  if (enteteStatut) {
+    enteteStatut.style.display = 'none';
+  }
+
+  tbody.querySelectorAll('.col-statut').forEach(cellule => {
+    cellule.style.display = 'none';
+    cellule.textContent = '';
+  });
+
+  // Restaurer les scores affichés et l'ordre des joueurs.
+  classement.forEach(joueurClassement => {
+    const ligne = Array.from(tbody.querySelectorAll('tr')).find(tr =>
+      tr.querySelector('.player-name')?.textContent
+        === joueurClassement.pseudo
+    );
+
+    if (!ligne) return;
+
+    const scoreManche = ligne.querySelector('.col-score-manche');
+    const scoreTotal = ligne.querySelector('.col-score-total');
+
+    if (scoreManche) scoreManche.textContent = '0';
+    if (scoreTotal) {
+      scoreTotal.textContent = joueurClassement.scoreTotal;
+    }
+
+    tbody.appendChild(ligne);
+  });
+
+  // Masquer Réponse et Annuler ; permettre de continuer.
+  btnAfficher.style.display = 'none';
+  btnAfficher.disabled = true;
+
+  btnAnnuler.style.display = 'none';
+  btnAnnuler.disabled = true;
+
+  btnSuivant.style.display = '';
+  btnSuivant.disabled = false;
+});
+
 function displayTimer(seconds, onFinish) {
   if (timerInterval !== null) {
     clearInterval(timerInterval);
@@ -658,7 +721,9 @@ document.addEventListener('click', function(e) {
 
 document.addEventListener('click', function(e) {
   if (e.target && e.target.id === "btnAnnulerQuestion") {
-    alert("Annulation à définir");
+    socket.emit('annuler_question', {
+      code: maitreCode
+    });
   }
 });
 

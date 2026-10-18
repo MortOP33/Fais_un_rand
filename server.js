@@ -257,6 +257,8 @@ io.on('connection', (socket) => {
       questionIndex: 0,
       scoresTotaux: {},
       scoresManche: {},
+      scoresTotauxAvantManche: null,
+      ordreJoueursAvantManche: null,
       scoresCategories: {},
       manche: creerEtatManche()
     };
@@ -451,6 +453,14 @@ io.on('connection', (socket) => {
       ])
     );
 
+    // Conserver les scores et l'ordre avant cette manche
+    // pour pouvoir annuler proprement la question.
+    lobby.scoresTotauxAvantManche = {
+      ...lobby.scoresTotaux
+    };
+
+    lobby.ordreJoueursAvantManche = lobby.joueurs.map(joueur => joueur.socketId);
+
     // Calculer les scores de la manche.
     lobby.scoresManche = calculerScoresManche(
       lobby,
@@ -503,6 +513,51 @@ io.on('connection', (socket) => {
     io.to(lobby.maitreId).emit('afficher_revelation', {
       reponse: question.reponse,
       complement: question.complement,
+      classement
+    });
+  });
+
+  socket.on('annuler_question', ({ code }) => {
+    const lobby = lobbies[code];
+
+    // Seul le maître peut annuler une question révélée.
+    if (!lobby || lobby.maitreId !== socket.id) return;
+    if (lobby.manche.phase !== 'revelation') return;
+    if (!lobby.scoresTotauxAvantManche) return;
+    if (!lobby.ordreJoueursAvantManche) return;
+
+    // Restaurer les scores d'avant la question.
+    lobby.scoresTotaux = {
+      ...lobby.scoresTotauxAvantManche
+    };
+
+    // Restaurer l'ordre exact d'avant la révélation.
+    const ordreAvant = new Map(
+      lobby.ordreJoueursAvantManche.map(
+        (socketId, index) => [socketId, index]
+      )
+    );
+
+    lobby.joueurs.sort((a, b) =>
+      (ordreAvant.get(a.socketId) ?? Infinity) -
+      (ordreAvant.get(b.socketId) ?? Infinity)
+    );
+
+    // Annuler les scores de cette manche.
+    lobby.joueurs.forEach(joueur => {
+      lobby.scoresManche[joueur.socketId] = 0;
+    });
+
+    // Empêcher une seconde révélation de cette manche.
+    lobby.manche.phase = 'annulee';
+
+    const classement = lobby.joueurs.map(joueur => ({
+      pseudo: joueur.pseudo,
+      scoreManche: 0,
+      scoreTotal: lobby.scoresTotaux[joueur.socketId] ?? 0
+    }));
+
+    io.to(lobby.maitreId).emit('question_annulee', {
       classement
     });
   });
