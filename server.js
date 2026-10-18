@@ -416,73 +416,164 @@ io.on('connection', (socket) => {
       });
     }
   });
-
+  
   socket.on('demarrer_quizz', ({ code, nbQuestions, themes, historiqueIds }) => {
+    const lobby = lobbies[code];
+
+    // Vérifier que la demande vient du maître de cette partie.
+    if (!lobby || lobby.maitreId !== socket.id) return;
 
     const allQuestions = loadQuestions();
     const themesSelectionnes = Array.isArray(themes) ? themes : [];
 
+    // Refuser de démarrer sans thème sélectionné.
+    if (themesSelectionnes.length === 0) {
+      socket.emit(
+        'erreur_demarrage_quizz',
+        'Sélectionne au moins un thème avant de démarrer.'
+      );
+      return;
+    }
+
+    // Ne conserver que les questions des thèmes sélectionnés.
     const filtered = allQuestions.filter(q =>
       themesSelectionnes.includes(q.theme)
     );
 
-    // Mélanger toutes les questions retenues sans privilégier un thème.
-    for (let i = filtered.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+    // Refuser un démarrage si aucun thème ne correspond à la base.
+    if (filtered.length === 0) {
+      socket.emit(
+        'erreur_demarrage_quizz',
+        'Aucune question ne correspond aux thèmes sélectionnés.'
+      );
+      return;
     }
+
+    // Nettoyer et dédoublonner les identifiants de l'historique importé.
+    // Conserver l'historique déjà accumulé et y ajouter les identifiants importés.
+    const historiqueExistant = Array.isArray(lobby.historiqueQuestions)
+      ? lobby.historiqueQuestions
+      : [];
+
+    const historiqueNettoye = Array.isArray(historiqueIds)
+      ? historiqueIds
+          .filter(id => typeof id === 'string' || typeof id === 'number')
+          .map(id => String(id).trim())
+          .filter(id => id !== '')
+      : [];
+
+    lobby.historiqueQuestions = [
+      ...new Set([...historiqueExistant, ...historiqueNettoye])
+    ];
+
+    console.log(
+      `Historique disponible pour le lobby ${code} : ` +
+      `${lobby.historiqueQuestions.length} identifiant(s)`
+    );
+
+    // Mélange aléatoire de toutes les questions des thèmes choisis.
+    function melangerQuestions(questions) {
+      const resultat = [...questions];
+
+      for (let i = resultat.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [resultat[i], resultat[j]] = [resultat[j], resultat[i]];
+      }
+
+      return resultat;
+    }
+
+    const questionsMelangees = melangerQuestions(filtered);
+    const historiqueSet = new Set(lobby.historiqueQuestions);
+
+    // Séparer les questions inédites des questions déjà présentes
+    // dans l'historique, en respectant toujours les thèmes sélectionnés.
+    const questionsInedites = questionsMelangees.filter(
+      q => !historiqueSet.has(String(q.id))
+    );
+
+    const questionsDejaVues = questionsMelangees.filter(
+      q => historiqueSet.has(String(q.id))
+    );
 
     const nombreDemande = Number.isFinite(Number(nbQuestions))
-      ? Math.max(0, Math.floor(Number(nbQuestions)))
-      : 0;
+      ? Math.max(1, Math.min(99, Math.floor(Number(nbQuestions))))
+      : 10;
 
-    const selected = filtered.slice(0, nombreDemande);
+    let poolPrioritaire;
 
-    if (lobbies[code]) {
-      const lobby = lobbies[code];
-      
-      // Initialiser l'historique avec les identifiants importés.
-      // Les identifiants sont convertis en texte, nettoyés et dédoublonnés.
-      lobby.historiqueQuestions = Array.isArray(historiqueIds)
-        ? [
-            ...new Set(
-              historiqueIds
-                .filter(id => typeof id === 'string' || typeof id === 'number')
-                .map(id => String(id).trim())
-                .filter(id => id !== '')
-            )
-          ]
-        : [];
-
+    // Si toutes les questions sont dans l'historique, on l'ignore
+    // pour cette partie, mais on conserve les thèmes sélectionnés.
+    if (questionsInedites.length === 0) {
+      poolPrioritaire = questionsMelangees;
       console.log(
-        `Historique importé pour le lobby ${code} : ` +
-        `${lobby.historiqueQuestions.length} identifiant(s)`
+        `Historique ignoré pour le lobby ${code} : ` +
+        `aucune question inédite dans les thèmes sélectionnés.`
       );
+    } else {
+      poolPrioritaire = questionsInedites;
+    }
 
-      // Réinitialiser les scores au lancement d'une nouvelle partie.
-      lobby.scoresTotaux = {};
-      lobby.scoresManche = {};
+    // Commencer par les questions inédites (ou toutes les questions
+    // si l'historique a dû être ignoré).
+    const selected = poolPrioritaire.slice(0, nombreDemande);
 
-      lobby.joueurs.forEach(joueur => {
-        lobby.scoresTotaux[joueur.socketId] = 0;
-      });
+    // Si nécessaire, compléter avec les questions déjà vues.
+    if (
+      selected.length < nombreDemande &&
+      questionsInedites.length > 0
+    ) {
+      const dejaSelectionnees = new Set(selected.map(q => String(q.id)));
 
-      lobby.questions = selected;
-      lobby.questionIndex = 0;
-      if (selected.length > 0) {
-        io.to(lobby.maitreId).emit('afficher_question', {
-          question: selected[0],
-          index: 0,
-          total: selected.length,
-          joueurs: lobby.joueurs.map(joueur => ({
-            ...joueur,
-            scoreTotal: lobby.scoresTotaux[joueur.socketId] ?? 0
-          })),
-          themeImages: getThemeImages()
-        });
+      for (const question of melangerQuestions(questionsDejaVues)) {
+        if (selected.length >= nombreDemande) break;
+
+        if (!dejaSelectionnees.has(String(question.id))) {
+          selected.push(question);
+          dejaSelectionnees.add(String(question.id));
+        }
       }
     }
+
+    // Si la base ne suffit toujours pas, répéter des questions
+    // appartenant aux thèmes sélectionnés jusqu'au nombre demandé.
+    while (selected.length < nombreDemande) {
+      const questionAleatoire =
+        questionsMelangees[
+          Math.floor(Math.random() * questionsMelangees.length)
+        ];
+
+      selected.push(questionAleatoire);
+    }
+
+    // Réinitialiser les scores au lancement d'une nouvelle partie.
+    lobby.scoresTotaux = {};
+    lobby.scoresManche = {};
+
+    lobby.joueurs.forEach(joueur => {
+      lobby.scoresTotaux[joueur.socketId] = 0;
+    });
+
+    lobby.questions = selected;
+    lobby.questionIndex = 0;
+
+    console.log(
+      `Quiz ${code} démarré : ${selected.length} question(s), ` +
+      `${questionsInedites.length} inédite(s) disponible(s).`
+    );
+
+    io.to(lobby.maitreId).emit('afficher_question', {
+      question: selected[0],
+      index: 0,
+      total: selected.length,
+      joueurs: lobby.joueurs.map(joueur => ({
+        ...joueur,
+        scoreTotal: lobby.scoresTotaux[joueur.socketId] ?? 0
+      })),
+      themeImages: getThemeImages()
+    });
   });
+
 
   // --- Ajout pour la saisie et envoi des réponses joueurs ---
   socket.on('demande_saisie_joueur', ({ code }) => {

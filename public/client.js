@@ -445,6 +445,15 @@ socket.on('param_retour_maitre', () => {
   maitrePage.style.display = "flex";
   homePage.style.display = "none";
 });
+socket.on('erreur_demarrage_quizz', (message) => {
+  if (pageJeuMaitre) {
+    pageJeuMaitre.style.display = 'none';
+  }
+  if (parametresPage) {
+    parametresPage.style.display = 'flex';
+  }
+  alert(message);
+});
 
 // ----------- TABLEAU + CADRES MODIFIÉS ET GESTION ENVOI DE REPONSE JOUEUR ----------
 socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }) => {
