@@ -319,6 +319,7 @@ io.on('connection', (socket) => {
       maitreId: socket.id,
       joueurs: [],
       questions: [],
+      historiqueQuestions: [],
       questionIndex: 0,
       scoresTotaux: {},
       scoresManche: {},
@@ -613,7 +614,28 @@ io.on('connection', (socket) => {
       return;
     }
 
+    // Enregistrer la question parcourue au clic sur Suivant.
+    // Cette étape s'applique après une révélation ou une annulation.
+    const questionActuelle = lobby.questions[lobby.questionIndex];
+
+    if (questionActuelle && questionActuelle.id !== undefined &&
+        questionActuelle.id !== null) {
+      const idQuestion = String(questionActuelle.id).trim();
+
+      if (
+        idQuestion !== '' &&
+        !lobby.historiqueQuestions.includes(idQuestion)
+      ) {
+        lobby.historiqueQuestions.push(idQuestion);
+
+        console.log(
+          `Historique : question ${idQuestion} enregistrée pour le lobby ${code}`
+        );
+      }
+    }
+
     const prochainIndex = lobby.questionIndex + 1;
+
 
     // Toutes les questions ont été jouées.
     if (prochainIndex >= lobby.questions.length) {
