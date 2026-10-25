@@ -1145,6 +1145,17 @@ socket.on('quizz_termine', ({
     const rang = Number(joueur.rang) || 0;
     const marque = medaille(rang);
 
+    const etatAvatar = rang === 1
+      ? 'content'
+      : rang === 2 || rang === 3
+        ? 'normal'
+        : 'decu';
+
+    const avatarFinal = avatarAvecEtat(
+      joueur.avatar || '',
+      etatAvatar
+    );
+
     const cellulesThemesHTML = themesAvecQuestions.map(theme => {
       const moyenne = Number(
         joueur.moyennesThemes?.[theme.theme] ?? 0
@@ -1198,8 +1209,8 @@ socket.on('quizz_termine', ({
         <td style="
           padding:10px 6px;
           border-bottom:1px solid #353740;
-          width:190px;
-          max-width:190px;
+          width:210px;
+          max-width:210px;
         ">
           <div style="
             display:flex;
@@ -1208,11 +1219,11 @@ socket.on('quizz_termine', ({
             min-width:0;
           ">
             <img
-              src="${echapperHTML(joueur.avatar || '')}"
+              src="${echapperHTML(avatarFinal)}"
               alt=""
               style="
-                width:34px;
-                height:34px;
+                width:48px;
+                height:48px;
                 object-fit:cover;
                 border-radius:50%;
                 flex-shrink:0;
