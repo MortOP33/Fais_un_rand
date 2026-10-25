@@ -260,6 +260,63 @@ function calculerScoresManche(lobby, reponseCorrecte) {
   return scores;
 }
 
+function construireResultatsPartie(lobby) {
+  const themes = Object.entries(lobby.scoresCategories || {})
+    .filter(([, stats]) => stats.nombreQuestions > 0)
+    .map(([theme, stats]) => ({
+      theme,
+      nombreQuestions: stats.nombreQuestions
+    }));
+
+  const joueurs = lobby.joueurs.map(joueur => {
+    const moyennesThemes = {};
+
+    themes.forEach(({ theme }) => {
+      const stats = lobby.scoresCategories[theme];
+      const somme = stats.sommesScores[joueur.socketId] ?? 0;
+
+      moyennesThemes[theme] =
+        somme / stats.nombreQuestions;
+    });
+
+    return {
+      socketId: joueur.socketId,
+      pseudo: joueur.pseudo,
+      avatar: joueur.avatar,
+      scoreTotal: lobby.scoresTotaux[joueur.socketId] ?? 0,
+      moyennesThemes
+    };
+  });
+
+  // Classer les joueurs par score total décroissant.
+  joueurs.sort((a, b) => b.scoreTotal - a.scoreTotal);
+
+  // Classement à égalité : 1er, 1er, 3e, par exemple.
+  joueurs.forEach((joueur, index) => {
+    if (
+      index > 0 &&
+      joueur.scoreTotal === joueurs[index - 1].scoreTotal
+    ) {
+      joueur.rang = joueurs[index - 1].rang;
+    } else {
+      joueur.rang = index + 1;
+    }
+  });
+
+  const gagnants = joueurs.length > 0
+    ? joueurs
+        .filter(joueur =>
+          joueur.scoreTotal === joueurs[0].scoreTotal
+        )
+        .map(joueur => joueur.pseudo)
+    : [];
+
+  return {
+    gagnants,
+    themes,
+    joueurs
+  };
+}
 
 function tousLesJoueursOntRepondu(lobby) {
   return lobby.joueurs.length > 0 &&
@@ -546,9 +603,10 @@ io.on('connection', (socket) => {
       selected.push(questionAleatoire);
     }
 
-    // Réinitialiser les scores au lancement d'une nouvelle partie.
+    // Réinitialiser les scores et les statistiques au lancement d'une nouvelle partie.
     lobby.scoresTotaux = {};
     lobby.scoresManche = {};
+    lobby.scoresCategories = {};
 
     lobby.joueurs.forEach(joueur => {
       lobby.scoresTotaux[joueur.socketId] = 0;
@@ -743,14 +801,43 @@ io.on('connection', (socket) => {
       }
     }
 
-    const prochainIndex = lobby.questionIndex + 1;
+    // Ajouter les statistiques uniquement si la question
+    // a été révélée et n'a pas été annulée.
+    if (lobby.manche.phase === 'revelation' && questionActuelle) {
+      const theme = String(questionActuelle.theme || '').trim();
 
+      if (theme !== '') {
+        if (!lobby.scoresCategories[theme]) {
+          lobby.scoresCategories[theme] = {
+            nombreQuestions: 0,
+            sommesScores: {}
+          };
+        }
+
+        const stats = lobby.scoresCategories[theme];
+        stats.nombreQuestions++;
+
+        lobby.joueurs.forEach(joueur => {
+          const socketId = joueur.socketId;
+          const score = lobby.scoresManche[socketId] ?? 0;
+
+          stats.sommesScores[socketId] =
+            (stats.sommesScores[socketId] ?? 0) + score;
+        });
+      }
+    }
+
+    const prochainIndex = lobby.questionIndex + 1;
 
     // Toutes les questions ont été jouées.
     if (prochainIndex >= lobby.questions.length) {
       lobby.manche.phase = 'termine';
+
+      const resultatsPartie = construireResultatsPartie(lobby);
+
       io.to(lobby.maitreId).emit('quizz_termine', {
-        historiqueIds: lobby.historiqueQuestions
+        historiqueIds: lobby.historiqueQuestions,
+        resultatsPartie
       });
       return;
     }
