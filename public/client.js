@@ -507,12 +507,12 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
       <td class="col-statut"
           style="text-align:center; font-size:2em; font-weight:900;
                 line-height:1; padding:10px 8px;
-                color:#ff5c5c; border-bottom:1px solid #353740;">
+                color:#ff5c5c; border-top:1px solid #353740;">
         ✕
       </td>
       <td class="col-joueur"
           style="text-align:left; padding:10px 12px 10px 8px;
-                border-bottom:1px solid #353740;
+                border-top:1px solid #353740;
                 border-right:1px solid #454750;">
         <div style="display:flex;align-items:center;gap:12px;">
           <img src="${j.avatar}" class="avatar-maitre" style="width:54px;height:54px;margin:0;">
@@ -521,18 +521,18 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
       </td>
       <td class="col-reponse"
           style="text-align:center; padding:10px 8px;
-                border-bottom:1px solid #353740;
+                border-top:1px solid #353740;
                 border-right:1px solid #454750;">
         <span id="reponse${idx}">-</span>
       </td>
       <td class="col-score-manche"
           style="text-align:center; padding:10px 8px;
-                border-bottom:1px solid #353740;">
+                border-top:1px solid #353740;">
         0
       </td>
       <td class="col-score-total"
           style="text-align:center; padding:10px 8px;
-                border-bottom:1px solid #353740;">
+                border-top:1px solid #353740;">
         ${j.scoreTotal ?? 0}
       </td>
     </tr>`
