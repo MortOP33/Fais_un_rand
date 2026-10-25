@@ -397,7 +397,9 @@ socket.on('normalAvatars', (avatarFiles) => {
     btnRetourJoueur.style.display = "inline-block";
   } else {
     avatarsContainer.innerHTML = `
-      <div style="display:flex; align-items:center; justify-content:center; gap:18px; margin-top:24px;">
+      <div style="display:flex; align-items:center; justify-content:center;
+            gap:28px; width:max-content; max-width:100%;
+            box-sizing:border-box; margin:24px auto 0;">
         <img src="${joueurAvatar || ''}" class="avatar-maitre" alt="" />
         <span class="player-name">${joueurPseudo || ''}</span>
       </div>
@@ -416,7 +418,9 @@ socket.on('errorCode', (msg) => {
 socket.on('quizz_started', () => {
   isQuizzStarted = true;
   avatarsContainer.innerHTML = `
-    <div style="display:flex; align-items:center; justify-content:center; gap:18px; margin-top:24px;">
+    <div style="display:flex; align-items:center; justify-content:center;
+            gap:28px; width:max-content; max-width:100%;
+            box-sizing:border-box; margin:24px auto 0;">
       <img src="${joueurAvatar || ''}" class="avatar-maitre" alt="" />
       <span class="player-name">${joueurPseudo || ''}</span>
     </div>
@@ -580,13 +584,70 @@ socket.on('debut_saisie', ({ duree }) => {
 socket.on('afficher_saisie_joueur', ({ code }) => {
   if (codeInput.value.trim().toUpperCase() === code && joueurAvatar && joueurPseudo) {
     avatarsContainer.innerHTML = `
-      <div style="display:flex; align-items:center; justify-content:center; gap:18px; margin-top:24px;">
-        <img src="${joueurAvatar}" class="avatar-maitre" alt="" />
-        <span class="player-name">${joueurPseudo}</span>
-      </div>
-      <div id="reponseForm" style="margin-top:32px;display:flex;flex-direction:column;align-items:center;gap:8px;">
-        <input id="champReponseJoueur" type="text" style="width:120px;padding:10px 14px;font-size:1.25em;text-align:center;border-radius:8px;border:2px solid #3855d6;" placeholder="Votre réponse" autocomplete="off">
-        <button id="btnEnvoyerReponse" style="margin-top:5px; padding:8px 18px; font-size:1.1em; border-radius:8px; background:#3855d6; color:#fff; border:none; cursor:pointer;">ENVOYER</button>
+      <div style="
+        display:flex;
+        flex-direction:column;
+        align-items:stretch;
+        width:max-content;
+        max-width:100%;
+        box-sizing:border-box;
+        margin:24px auto 0;
+        gap:24px;
+      ">
+        <div style="
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          gap:28px;
+          width:max-content;
+          max-width:100%;
+          box-sizing:border-box;
+        ">
+          <img src="${joueurAvatar}" class="avatar-maitre" alt="" />
+          <span class="player-name">${joueurPseudo}</span>
+        </div>
+
+        <div id="reponseForm" style="
+          width:100%;
+          box-sizing:border-box;
+          margin:0;
+          display:flex;
+          flex-direction:column;
+          align-items:stretch;
+          gap:8px;
+        ">
+          <input
+            id="champReponseJoueur"
+            type="text"
+            style="
+              width:100%;
+              box-sizing:border-box;
+              padding:10px 14px;
+              font-size:1.25em;
+              text-align:center;
+              border-radius:8px;
+              border:2px solid #3855d6;
+            "
+            placeholder="Votre réponse"
+            autocomplete="off"
+          >
+
+          <button
+            id="btnEnvoyerReponse"
+            style="
+              width:100%;
+              box-sizing:border-box;
+              margin:0;
+              padding:8px 18px;
+              font-size:1.1em;
+              border-radius:8px;
+              background:#3855d6;
+              color:#fff;
+              border:none;
+              cursor:pointer;
+            "
+          >ENVOYER</button>
+        </div>
       </div>
     `;
     document.getElementById('btnEnvoyerReponse').onclick = function() {
@@ -617,7 +678,9 @@ socket.on('afficher_saisie_joueur', ({ code }) => {
 socket.on('reset_affichage_joueur', () => {
   if (joueurAvatar && joueurPseudo) {
     avatarsContainer.innerHTML = `
-      <div style="display:flex; align-items:center; justify-content:center; gap:18px; margin-top:24px;">
+      <div style="display:flex; align-items:center; justify-content:center;
+            gap:28px; width:max-content; max-width:100%;
+            box-sizing:border-box; margin:24px auto 0;">
         <img src="${joueurAvatar}" class="avatar-maitre" alt="" />
         <span class="player-name">${joueurPseudo}</span>
       </div>
