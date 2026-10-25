@@ -868,7 +868,29 @@ socket.on('afficher_revelation', ({ reponse, complement, classement }) => {
     }
 
     if (scoreManche) {
+      const score = Number(joueurClassement.scoreManche);
+
       scoreManche.textContent = joueurClassement.scoreManche;
+
+      if (score > 0) {
+        scoreManche.style.color = '#45d483';
+      } else if (score < 0) {
+        scoreManche.style.color = '#ff5c5c';
+      } else {
+        scoreManche.style.color = '';
+      }
+
+      const avatar = ligne.querySelector('.avatar-maitre');
+
+      if (avatar) {
+        if (score > 0) {
+          avatar.src = avatarAvecEtat(avatar.src, 'content');
+        } else if (score < 0) {
+          avatar.src = avatarAvecEtat(avatar.src, 'decu');
+        } else {
+          avatar.src = avatarAvecEtat(avatar.src, 'normal');
+        }
+      }
     }
 
     if (scoreTotal) {
