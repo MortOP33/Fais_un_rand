@@ -469,6 +469,9 @@ socket.on('nouvelle_partie_attente_joueur', () => {
   // Le joueur reste connecté au lobby et conserve son identité.
   isQuizzStarted = false;
 
+  // Réinitialiser l'avatar après la fin de la partie précédente.
+  joueurAvatar = avatarAvecEtat(joueurAvatar, 'normal');
+
   joueurPage.style.display = 'flex';
   homePage.style.display = 'none';
 
