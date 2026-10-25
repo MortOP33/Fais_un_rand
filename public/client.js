@@ -29,6 +29,15 @@ let timerInterval = null;
 let historiqueImporte = [];
 let derniereQuestionAffichee = false;
 
+function avatarAvecEtat(avatarNormal, etat) {
+  if (!avatarNormal) return avatarNormal;
+
+  return avatarNormal.replace(
+    /_normal(?=\.[^.]+$)/,
+    `_${etat}`
+  );
+}
+
 window.onload = () => {
   homePage.style.display = "flex";
   maitrePage.style.display = "none";
