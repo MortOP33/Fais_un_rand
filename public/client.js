@@ -735,7 +735,6 @@ socket.on('afficher_revelation', ({ reponse, complement, classement }) => {
   });
 
   // Masquer le chronomètre et afficher la réponse sur la même ligne que le complément.
-  const cadreTimer = document.getElementById('jeuTimerCadre');
   const cadreReponse = document.getElementById('jeuReponseCadre');
   const cadreComplement = document.getElementById('jeuComplementCadre');
 
