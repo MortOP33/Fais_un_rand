@@ -290,11 +290,22 @@ function createPageJeuMaitre() {
     <table id="jeuJoueursTable" style="width:100%; max-width:700px; margin-bottom:22px;">
       <thead>
         <tr>
-          <th style="text-align:center;">Statut</th>
-          <th style="text-align:left;">Joueur</th>
-          <th style="text-align:center;">Réponse</th>
-          <th style="text-align:center;">Score question</th>
-          <th style="text-align:center;">Score total</th>
+          <th id="enteteJoueur" colspan="2"
+              style="text-align:center; padding-bottom:18px;
+                    border-right:1px solid #454750;">
+            Joueur
+          </th>
+          <th id="enteteReponse"
+              style="text-align:center; padding-bottom:18px;
+                    border-right:1px solid #454750;">
+            Réponse
+          </th>
+          <th style="text-align:center; padding-bottom:18px;">
+            Score question
+          </th>
+          <th style="text-align:center; padding-bottom:18px;">
+            Score total
+          </th>
         </tr>
       </thead>
       <tbody id="jeuJoueursTbody"></tbody>
@@ -458,13 +469,18 @@ socket.on('erreur_demarrage_quizz', (message) => {
 // ----------- TABLEAU + CADRES MODIFIÉS ET GESTION ENVOI DE REPONSE JOUEUR ----------
 socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }) => {
 
-  const enteteStatut = document.querySelector(
-    '#jeuJoueursTable thead th:first-child'
-  );
+  const enteteJoueur = document.getElementById('enteteJoueur');
 
-  if (enteteStatut) {
-    enteteStatut.style.display = '';
+  if (enteteJoueur) {
+    enteteJoueur.style.display = '';
+    enteteJoueur.colSpan = 2;
+    enteteJoueur.textContent = 'Joueur';
   }
+
+  document.querySelectorAll('#jeuJoueursTbody .col-statut')
+    .forEach(cellule => {
+      cellule.style.display = '';
+    });
 
   pageJeuMaitre.style.display = "flex";
   roundAnswer = question.reponse;
@@ -488,18 +504,37 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
   const tbody = document.getElementById('jeuJoueursTbody');
   tbody.innerHTML = joueurs.map((j, idx) =>
     `<tr>    
-      <td class="col-statut" style="text-align:center; font-size:2em; font-weight:900; line-height:1; padding:4px 8px; color:#ff5c5c;">✕</td>
-      <td class="col-joueur" style="text-align:left;">
+      <td class="col-statut"
+          style="text-align:center; font-size:2em; font-weight:900;
+                line-height:1; padding:10px 8px;
+                color:#ff5c5c; border-bottom:1px solid #353740;">
+        ✕
+      </td>
+      <td class="col-joueur"
+          style="text-align:left; padding:10px 12px 10px 8px;
+                border-bottom:1px solid #353740;
+                border-right:1px solid #454750;">
         <div style="display:flex;align-items:center;gap:12px;">
           <img src="${j.avatar}" class="avatar-maitre" style="width:54px;height:54px;margin:0;">
           <span class="player-name">${j.pseudo}</span>
         </div>
       </td>
-      <td class="col-reponse" style="text-align:center;">
+      <td class="col-reponse"
+          style="text-align:center; padding:10px 8px;
+                border-bottom:1px solid #353740;
+                border-right:1px solid #454750;">
         <span id="reponse${idx}">-</span>
       </td>
-      <td class="col-score-manche" style="text-align:center;">0</td>
-      <td class="col-score-total" style="text-align:center;">${j.scoreTotal ?? 0}</td>
+      <td class="col-score-manche"
+          style="text-align:center; padding:10px 8px;
+                border-bottom:1px solid #353740;">
+        0
+      </td>
+      <td class="col-score-total"
+          style="text-align:center; padding:10px 8px;
+                border-bottom:1px solid #353740;">
+        ${j.scoreTotal ?? 0}
+      </td>
     </tr>`
   ).join('');
 
@@ -786,14 +821,19 @@ socket.on('question_annulee', ({ classement }) => {
   const btnAnnuler = document.getElementById('btnAnnulerQuestion');
   const btnSuivant = document.getElementById('btnSuivant');
 
-  // Masquer la colonne des statuts et des flèches.
-  const enteteStatut = document.querySelector(
-    '#jeuJoueursTable thead th:first-child'
-  );
+  // Masquer la colonne du statut tout en conservant l'en-tête Joueur.
+  const enteteJoueur = document.getElementById('enteteJoueur');
 
-  if (enteteStatut) {
-    enteteStatut.style.display = 'none';
+  if (enteteJoueur) {
+    enteteJoueur.style.display = '';
+    enteteJoueur.colSpan = 1;
+    enteteJoueur.textContent = 'Joueur';
   }
+
+  tbody.querySelectorAll('.col-statut').forEach(cellule => {
+    cellule.style.display = 'none';
+    cellule.textContent = '';
+  });
 
   tbody.querySelectorAll('.col-statut').forEach(cellule => {
     cellule.style.display = 'none';
