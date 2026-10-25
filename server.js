@@ -459,22 +459,29 @@ io.on('connection', (socket) => {
   });
 
   socket.on('quizz_started', ({ code }) => {
-    if (lobbies[code]) {
-      lobbies[code].joueurs.forEach(j => {
-        io.to(j.socketId).emit('quizz_started');
-      });
-    }
+    const lobby = lobbies[code];
+
+    // Seul le maître peut signaler le démarrage du quiz.
+    if (!lobby || lobby.maitreId !== socket.id) return;
+
+    lobby.joueurs.forEach(j => {
+      io.to(j.socketId).emit('quizz_started');
+    });
   });
 
   socket.on('param_retour', ({ code }) => {
-    if (lobbies[code]) {
-      io.to(lobbies[code].maitreId).emit('param_retour_maitre');
-      lobbies[code].joueurs.forEach(j => {
-        io.to(j.socketId).emit('param_retour_joueurs');
-      });
-    }
+    const lobby = lobbies[code];
+
+    // Seul le maître peut demander le retour aux paramètres.
+    if (!lobby || lobby.maitreId !== socket.id) return;
+
+    io.to(lobby.maitreId).emit('param_retour_maitre');
+
+    lobby.joueurs.forEach(j => {
+      io.to(j.socketId).emit('param_retour_joueurs');
+    });
   });
-  
+
   socket.on('nouvelle_partie_configuration', ({ code }) => {
     const lobby = lobbies[code];
 
@@ -938,11 +945,14 @@ io.on('connection', (socket) => {
   });
 
   socket.on('reset_affichage_joueur', ({ code }) => {
-    if (lobbies[code]) {
-      lobbies[code].joueurs.forEach(j => {
-        io.to(j.socketId).emit('reset_affichage_joueur');
-      });
-    }
+    const lobby = lobbies[code];
+
+    // Seul le maître peut réinitialiser l'affichage des joueurs.
+    if (!lobby || lobby.maitreId !== socket.id) return;
+
+    lobby.joueurs.forEach(j => {
+      io.to(j.socketId).emit('reset_affichage_joueur');
+    });
   });
 
 });
