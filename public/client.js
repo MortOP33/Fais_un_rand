@@ -1057,6 +1057,7 @@ socket.on('quizz_termine', ({
     <th style="
       padding:12px 10px;
       border-bottom:1px solid #454750;
+      border-right:1px solid #707482;
       text-align:center;
       min-width:85px;
       white-space:normal;
@@ -1100,6 +1101,7 @@ socket.on('quizz_termine', ({
           text-align:center;
           background:${couleurFond};
           border-bottom:1px solid #353740;
+          border-right:1px solid #707482;
           font-variant-numeric:tabular-nums;
         ">
           ${echapperHTML(formatScore(moyenne))}
@@ -1116,6 +1118,7 @@ socket.on('quizz_termine', ({
           border-bottom:1px solid #353740;
           font-weight:800;
           white-space:nowrap;
+          font-size:1.4em;
         ">
           ${marque || echapperHTML(libelleRang(rang))}
         </td>
@@ -1153,6 +1156,7 @@ socket.on('quizz_termine', ({
                 text-overflow:ellipsis;
                 white-space:nowrap;
                 font-weight:600;
+                font-size:1.4em;
               "
             >${echapperHTML(joueur.pseudo)}</span>
           </div>
@@ -1162,7 +1166,9 @@ socket.on('quizz_termine', ({
           padding:12px 10px;
           text-align:center;
           font-weight:800;
+          font-size:1.4em;
           border-bottom:1px solid #353740;
+          border-right:2px solid #707482;
           white-space:nowrap;
         ">
           ${echapperHTML(joueur.scoreTotal)}
@@ -1216,8 +1222,9 @@ socket.on('quizz_termine', ({
                   colspan="3"
                   style="
                     padding:12px 10px;
-                    text-align:left;
+                    text-align:center;
                     border-bottom:1px solid #454750;
+                    border-right:2px solid #707482;
                   "
                 >
                   Classement final
@@ -1240,6 +1247,7 @@ socket.on('quizz_termine', ({
                   padding:8px 10px;
                   text-align:center;
                   border-bottom:1px solid #454750;
+                  border-right:2px solid #707482;
                 ">
                   Total
                 </th>
