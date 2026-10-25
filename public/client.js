@@ -1271,15 +1271,31 @@ socket.on('quizz_termine', ({
 
       <div style="
         display:flex;
+        flex-wrap:wrap;
+        gap:12px;
         justify-content:center;
         margin-top:28px;
       ">
+        <button id="btnNouvellePartie">
+          Nouvelle partie
+        </button>
+
         <button id="btnTelechargerHistorique">
           Télécharger l'historique
         </button>
       </div>
+
     </div>
   `;
+
+  document.getElementById('btnNouvellePartie').onclick = () => {
+    pageJeuMaitre.style.display = 'none';
+    parametresPage.style.display = 'flex';
+
+    socket.emit('nouvelle_partie_configuration', {
+      code: maitreCode
+    });
+  };
 
   document.getElementById('btnTelechargerHistorique').onclick = () => {
     const ids = [

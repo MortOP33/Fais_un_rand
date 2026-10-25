@@ -474,6 +474,25 @@ io.on('connection', (socket) => {
     }
   });
   
+  socket.on('nouvelle_partie_configuration', ({ code }) => {
+    const lobby = lobbies[code];
+
+    // Seul le maître peut demander une nouvelle partie.
+    if (!lobby || lobby.maitreId !== socket.id) return;
+
+    // Arrêter un éventuel chronomètre résiduel.
+    if (lobby.manche && lobby.manche.timer) {
+      clearTimeout(lobby.manche.timer);
+    }
+
+    // Préparer les joueurs à rejoindre la prochaine partie.
+    lobby.manche = creerEtatManche();
+
+    lobby.joueurs.forEach(joueur => {
+      io.to(joueur.socketId).emit('param_retour_joueurs');
+    });
+  });
+  
   socket.on('demarrer_quizz', ({ code, nbQuestions, themes, historiqueIds }) => {
     const lobby = lobbies[code];
 
@@ -607,6 +626,10 @@ io.on('connection', (socket) => {
     lobby.scoresTotaux = {};
     lobby.scoresManche = {};
     lobby.scoresCategories = {};
+
+    lobby.manche = creerEtatManche();
+    lobby.scoresTotauxAvantManche = null;
+    lobby.ordreJoueursAvantManche = null;
 
     lobby.joueurs.forEach(joueur => {
       lobby.scoresTotaux[joueur.socketId] = 0;
