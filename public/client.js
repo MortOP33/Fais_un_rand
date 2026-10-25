@@ -33,7 +33,7 @@ function avatarAvecEtat(avatarNormal, etat) {
   if (!avatarNormal) return avatarNormal;
 
   return avatarNormal.replace(
-    /_normal(?=\.[^.]+$)/,
+    /_(normal|content|decu)(?=\.[^.]+$)/,
     `_${etat}`
   );
 }
@@ -984,7 +984,16 @@ socket.on('question_annulee', ({ classement }) => {
     const scoreManche = ligne.querySelector('.col-score-manche');
     const scoreTotal = ligne.querySelector('.col-score-total');
 
-    if (scoreManche) scoreManche.textContent = '0';
+    if (scoreManche) {
+      scoreManche.textContent = '0';
+      scoreManche.style.color = '';
+    }
+
+    const avatar = ligne.querySelector('.avatar-maitre');
+
+    if (avatar) {
+      avatar.src = avatarAvecEtat(avatar.src, 'normal');
+    }
     if (scoreTotal) {
       scoreTotal.textContent = joueurClassement.scoreTotal;
     }
