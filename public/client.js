@@ -721,6 +721,19 @@ socket.on('afficher_saisie_joueur', ({ code }) => {
   }
 });
 
+socket.on('changer_etat_avatar_joueur', ({ etat }) => {
+  if (!joueurAvatar) return;
+
+  joueurAvatar = avatarAvecEtat(joueurAvatar, etat);
+
+  const avatarAffiche =
+    avatarsContainer.querySelector('img:not(.avatar-item)');
+
+  if (avatarAffiche) {
+    avatarAffiche.src = joueurAvatar;
+  }
+});
+
 // --- Retour à l'affichage initial à la fin du timer sur la page joueur ---
 socket.on('reset_affichage_joueur', () => {
   if (joueurAvatar && joueurPseudo) {

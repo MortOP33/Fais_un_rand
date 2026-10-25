@@ -755,7 +755,8 @@ io.on('connection', (socket) => {
       question.reponse
     );
 
-    // Ajouter les scores de manche aux scores totaux.
+    // Ajouter les scores de manche aux scores totaux
+    // et synchroniser l'avatar sur le téléphone.
     lobby.joueurs.forEach(joueur => {
       const scoreManche =
         lobby.scoresManche[joueur.socketId] ?? 0;
@@ -763,6 +764,17 @@ io.on('connection', (socket) => {
       lobby.scoresTotaux[joueur.socketId] =
         (lobby.scoresTotaux[joueur.socketId] ?? 0)
         + scoreManche;
+
+      const etatAvatar = scoreManche > 0
+        ? 'content'
+        : scoreManche < 0
+          ? 'decu'
+          : 'normal';
+
+      io.to(joueur.socketId).emit(
+        'changer_etat_avatar_joueur',
+        { etat: etatAvatar }
+      );
     });
 
     // Trier les joueurs du score total le plus élevé au plus faible.
@@ -873,6 +885,20 @@ io.on('connection', (socket) => {
 
       const resultatsPartie = construireResultatsPartie(lobby);
 
+      // Synchroniser les avatars des téléphones avec le classement final.
+      resultatsPartie.joueurs.forEach(joueurResultat => {
+        const etatAvatar = joueurResultat.rang === 1
+          ? 'content'
+          : joueurResultat.rang === 2 || joueurResultat.rang === 3
+            ? 'normal'
+            : 'decu';
+
+        io.to(joueurResultat.socketId).emit(
+          'changer_etat_avatar_joueur',
+          { etat: etatAvatar }
+        );
+      });
+
       io.to(lobby.maitreId).emit('quizz_termine', {
         historiqueIds: lobby.historiqueQuestions,
         resultatsPartie
@@ -884,6 +910,14 @@ io.on('connection', (socket) => {
     lobby.questionIndex = prochainIndex;
     lobby.scoresManche = {};
     lobby.manche = creerEtatManche();
+
+    // Réinitialiser les avatars des téléphones pour la nouvelle question.
+    lobby.joueurs.forEach(joueur => {
+      io.to(joueur.socketId).emit(
+        'changer_etat_avatar_joueur',
+        { etat: 'normal' }
+      );
+    });
 
     const joueurs = lobby.joueurs.map(joueur => ({
       ...joueur,
@@ -932,6 +966,14 @@ io.on('connection', (socket) => {
 
     // Empêcher une seconde révélation de cette manche.
     lobby.manche.phase = 'annulee';
+
+    // Remettre les avatars des téléphones à l'état normal.
+    lobby.joueurs.forEach(joueur => {
+      io.to(joueur.socketId).emit(
+        'changer_etat_avatar_joueur',
+        { etat: 'normal' }
+      );
+    });
 
     const classement = lobby.joueurs.map(joueur => ({
       pseudo: joueur.pseudo,
