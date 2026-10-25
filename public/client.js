@@ -998,53 +998,304 @@ document.addEventListener('click', function(e) {
   }
 });
 
-socket.on('quizz_termine', ({ historiqueIds = [] } = {}) => {
-  const btnAfficher = document.getElementById('btnAfficher');
-  const btnAnnuler = document.getElementById('btnAnnulerQuestion');
-  const btnSuivant = document.getElementById('btnSuivant');
 
+socket.on('quizz_termine', ({
+  historiqueIds = [],
+  resultatsPartie = { gagnants: [], themes: [], joueurs: [] }
+} = {}) => {
   if (timerInterval !== null) {
     clearInterval(timerInterval);
     timerInterval = null;
   }
 
-  document.getElementById('jeuTimerCadre').style.display = 'none';
+  const gagnants = resultatsPartie.gagnants || [];
+  const themes = resultatsPartie.themes || [];
+  const joueurs = resultatsPartie.joueurs || [];
 
-  btnAfficher.style.display = 'none';
-  btnAfficher.disabled = true;
+  const nomsThemes = {
+    'DATES': 'Dates',
+    'GEOGRAPHIE': 'Géographie',
+    'MONDE VIVANT': 'Monde vivant',
+    'ECONOMIE': 'Economie',
+    'SCIENCES': 'Sciences',
+    'DIVERTISSEMENT': 'Divertissement',
+    'SONDAGES': 'Sondages',
+    'RECORDS': 'Records',
+    'IMPROBABLE': 'Improbable'
+  };
 
-  btnAnnuler.style.display = 'none';
-  btnAnnuler.disabled = true;
+  const echapperHTML = valeur => String(valeur ?? '').replace(
+    /[&<>"']/g,
+    caractere => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    })[caractere]
+  );
 
-  btnSuivant.style.display = 'none';
-  btnSuivant.disabled = true;
+  const formatScore = valeur => Number(valeur || 0).toFixed(1);
 
-  document.getElementById('jeuQuestionLabel').textContent =
-    'Quiz terminé !';
+  const libelleRang = rang => {
+    if (rang === 1) return '1er';
+    return `${rang}ème`;
+  };
 
-  // Créer ou réutiliser la zone de téléchargement.
-  let zoneExport = document.getElementById('zoneExportHistorique');
+  const medaille = rang => {
+    if (rang === 1) return '🥇';
+    if (rang === 2) return '🥈';
+    if (rang === 3) return '🥉';
+    return '';
+  };
 
-  if (!zoneExport) {
-    zoneExport = document.createElement('div');
-    zoneExport.id = 'zoneExportHistorique';
-    zoneExport.style.textAlign = 'center';
-    zoneExport.style.marginTop = '24px';
-    pageJeuMaitre.appendChild(zoneExport);
-  }
+  const classementHTML = joueurs.map(joueur => {
+    const rang = Number(joueur.rang) || 0;
+    const marque = medaille(rang);
 
-  zoneExport.innerHTML = `
-    <p style="margin-bottom:14px;">
-      L'historique actualisé est prêt.
-      Télécharge-le si tu souhaites le conserver pour une prochaine partie.
-    </p>
-    <button id="btnTelechargerHistorique">
-      Télécharger l'historique
-    </button>
+    return `
+      <div style="
+        display:flex;
+        align-items:center;
+        gap:14px;
+        padding:12px;
+        border-bottom:1px solid #353740;
+        min-width:0;
+      ">
+        <div style="
+          width:54px;
+          flex-shrink:0;
+          text-align:center;
+          font-size:${marque ? '2em' : '1.05em'};
+          font-weight:800;
+        ">
+          ${marque || echapperHTML(libelleRang(rang))}
+        </div>
+
+        <img
+          src="${echapperHTML(joueur.avatar || '')}"
+          alt=""
+          style="
+            width:48px;
+            height:48px;
+            object-fit:cover;
+            border-radius:50%;
+            flex-shrink:0;
+          "
+        >
+
+        <div style="
+          flex:1;
+          min-width:0;
+          overflow-wrap:anywhere;
+          font-weight:600;
+        ">
+          ${echapperHTML(joueur.pseudo)}
+        </div>
+
+        <div style="
+          font-size:1.15em;
+          font-weight:800;
+          white-space:nowrap;
+        ">
+          ${echapperHTML(joueur.scoreTotal)}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const themesAvecQuestions = themes.filter(
+    theme => Number(theme.nombreQuestions) > 0
+  );
+
+  const entetesThemesHTML = themesAvecQuestions.map(theme => `
+    <th style="
+      padding:12px 14px;
+      border-bottom:1px solid #454750;
+      text-align:center;
+      min-width:105px;
+    ">
+      ${echapperHTML(nomsThemes[theme.theme] || theme.theme)}
+      <div style="font-size:0.85em;font-weight:400;margin-top:4px;">
+        (${echapperHTML(theme.nombreQuestions)})
+      </div>
+    </th>
+  `).join('');
+
+  const lignesScoresHTML = joueurs.map(joueur => {
+    const cellulesThemesHTML = themesAvecQuestions.map(theme => {
+      const moyenne = Number(
+        joueur.moyennesThemes?.[theme.theme] ?? 0
+      );
+
+      const moyennes = joueurs.map(j =>
+        Number(j.moyennesThemes?.[theme.theme] ?? 0)
+      );
+
+      const meilleure = Math.max(...moyennes);
+      const plusFaible = Math.min(...moyennes);
+
+      let couleurFond = 'transparent';
+
+      // Pas de distinction si toutes les moyennes sont égales.
+      if (meilleure !== plusFaible) {
+        if (moyenne === meilleure) {
+          couleurFond = '#174d35';
+        } else if (moyenne === plusFaible) {
+          couleurFond = '#612d35';
+        }
+      }
+
+      return `
+        <td style="
+          padding:12px 14px;
+          text-align:center;
+          background:${couleurFond};
+          border-bottom:1px solid #353740;
+          font-variant-numeric:tabular-nums;
+        ">
+          ${echapperHTML(formatScore(moyenne))}
+        </td>
+      `;
+    }).join('');
+
+    return `
+      <tr>
+        <td style="
+          padding:12px 14px;
+          border-bottom:1px solid #353740;
+          white-space:nowrap;
+        ">
+          ${echapperHTML(joueur.pseudo)}
+        </td>
+        <td style="
+          padding:12px 14px;
+          text-align:center;
+          font-weight:800;
+          border-bottom:1px solid #353740;
+        ">
+          ${echapperHTML(joueur.scoreTotal)}
+        </td>
+        ${cellulesThemesHTML}
+      </tr>
+    `;
+  }).join('');
+
+  const titreGagnants = gagnants.length === 0
+    ? 'Partie terminée !'
+    : gagnants.length === 1
+      ? `${gagnants[0]} remporte la partie !`
+      : `${gagnants.slice(0, -1).join(', ')} et ${gagnants[gagnants.length - 1]} remportent la partie !`;
+
+  pageJeuMaitre.innerHTML = `
+    <div style="
+      width:100%;
+      max-width:1400px;
+      box-sizing:border-box;
+      margin:0 auto;
+      padding:12px;
+    ">
+      <h1 style="
+        text-align:center;
+        font-size:clamp(1.5em, 3vw, 2.4em);
+        margin:10px 0 30px;
+        overflow-wrap:anywhere;
+      ">
+        ${echapperHTML(titreGagnants)}
+      </h1>
+
+      <div style="
+        display:grid;
+        grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+        gap:24px;
+        align-items:start;
+      ">
+        <section style="
+          min-width:0;
+          border:1px solid #454750;
+          border-radius:14px;
+          padding:16px;
+          box-sizing:border-box;
+        ">
+          <h2 style="margin:0 0 14px;">Classement final</h2>
+
+          <div style="
+            display:flex;
+            justify-content:space-between;
+            padding:0 12px 10px;
+            color:#bfc3d0;
+            font-size:0.9em;
+          ">
+            <span>Rang et joueur</span>
+            <span>Total</span>
+          </div>
+
+          ${classementHTML || '<p>Aucun joueur à afficher.</p>'}
+        </section>
+
+        <section style="
+          min-width:0;
+          border:1px solid #454750;
+          border-radius:14px;
+          padding:16px;
+          box-sizing:border-box;
+        ">
+          <h2 style="margin:0 0 14px;">Détail des scores</h2>
+
+          <div style="overflow-x:auto;width:100%;">
+            <table style="
+              width:100%;
+              border-collapse:collapse;
+              text-align:left;
+            ">
+              <thead>
+                <tr>
+                  <th style="
+                    padding:12px 14px;
+                    border-bottom:1px solid #454750;
+                  ">
+                    Joueur
+                  </th>
+                  <th style="
+                    padding:12px 14px;
+                    border-bottom:1px solid #454750;
+                    text-align:center;
+                  ">
+                    Total
+                  </th>
+                  ${entetesThemesHTML}
+                </tr>
+              </thead>
+              <tbody>
+                ${lignesScoresHTML}
+              </tbody>
+            </table>
+          </div>
+
+          <p style="
+            margin:14px 0 0;
+            font-size:0.9em;
+            color:#c4c6cf;
+          ">
+            Moyennes par question, arrondies à une décimale.
+            Vert : meilleure moyenne. Rouge : moyenne la plus faible.
+          </p>
+        </section>
+      </div>
+
+      <div style="
+        display:flex;
+        justify-content:center;
+        margin-top:28px;
+      ">
+        <button id="btnTelechargerHistorique">
+          Télécharger l'historique
+        </button>
+      </div>
+    </div>
   `;
 
   document.getElementById('btnTelechargerHistorique').onclick = () => {
-    // Nettoyer et dédoublonner les identifiants avant export.
     const ids = [
       ...new Set(
         historiqueIds
@@ -1053,9 +1304,7 @@ socket.on('quizz_termine', ({ historiqueIds = [] } = {}) => {
       )
     ];
 
-    // Garder le même format que celui attendu à l'import.
     const contenu = ids.join(';');
-
     const fichier = new Blob(
       [contenu],
       { type: 'text/plain;charset=utf-8' }
@@ -1063,7 +1312,6 @@ socket.on('quizz_termine', ({ historiqueIds = [] } = {}) => {
 
     const url = URL.createObjectURL(fichier);
     const lien = document.createElement('a');
-
     const date = new Date().toISOString().slice(0, 10);
 
     lien.href = url;
@@ -1076,7 +1324,6 @@ socket.on('quizz_termine', ({ historiqueIds = [] } = {}) => {
     URL.revokeObjectURL(url);
   };
 });
-
 
 socket.on('joueur_logout', () => {
   joueurPage.style.display = "none";
