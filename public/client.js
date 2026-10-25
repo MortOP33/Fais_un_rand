@@ -1118,7 +1118,7 @@ socket.on('quizz_termine', ({
           border-bottom:1px solid #353740;
           font-weight:800;
           white-space:nowrap;
-          font-size:1.4em;
+          font-size:${marque ? '2em' : '1em'};
         ">
           ${marque || echapperHTML(libelleRang(rang))}
         </td>
