@@ -281,10 +281,10 @@ function createPageJeuMaitre() {
   }
   pageJeuMaitre.innerHTML = `
     <div id="jeuThemeImg" style="text-align:center; margin-bottom:24px;"></div>
-    <div id="jeuQuestionLabel" style="font-size:1.3em; font-weight:700; text-align:center; margin-bottom:18px;"></div>
-    <div id="jeuCadres" style="display:flex; gap:0; justify-content:center; margin-bottom:24px;">
-      <div id="jeuReponseCadre" style="display:none;"></div>
-      <div id="jeuComplementCadre" style="display:none;"></div>
+    <div id="jeuQuestionLabel" style="font-size:1.5em; font-weight:700; text-align:center; margin-bottom:18px;"></div>
+    <div id="jeuCadres" style="display:flex; width:100%; max-width:1000px; box-sizing:border-box; gap:0; align-items:center; justify-content:center; margin:0 auto 24px; padding:0 12px;">
+      <div id="jeuReponseCadre" style="display:none; flex:0 0 20%; width:20%; min-width:0; box-sizing:border-box; padding-right:12px;"></div>
+      <div id="jeuComplementCadre" style="display:none; flex:1; min-width:0; box-sizing:border-box; padding-left:12px;"></div>
       <div id="jeuTimerCadre" style="width:100px; height:100px; position:relative; display:flex; align-items:center; justify-content:center;"></div>
     </div>
     <table id="jeuJoueursTable" style="width:100%; max-width:700px; margin-bottom:22px;">
@@ -681,7 +681,7 @@ socket.on('afficher_revelation', ({ reponse, complement, classement }) => {
   const btnSuivant = document.getElementById('btnSuivant');
 
   const cadreTimer = document.getElementById('jeuTimerCadre');
-  cadreTimer.style.display = 'flex';
+  cadreTimer.style.display = 'none';
 
   btnAfficher.style.display = 'none';
   btnAnnuler.style.display = '';
@@ -734,16 +734,49 @@ socket.on('afficher_revelation', ({ reponse, complement, classement }) => {
     tbody.appendChild(ligne);
   });
 
-  document.getElementById('jeuTimerCadre').innerHTML = `
-    <div style="display:flex;align-items:center;gap:24px;width:100%;">
-      <div style="background:#2b2c32;border-radius:16px;padding:18px;
-        font-size:2.2em;font-weight:bold;min-width:100px;text-align:center;
-        border:4px solid #3855d6;color:#fff;">
-        ${reponse}
-      </div>
-      <div style="font-size:1.1em;text-align:left;color:#ececec;">
-        ${complement}
-      </div>
+  // Masquer le chronomètre et afficher la réponse sur la même ligne que le complément.
+  const cadreTimer = document.getElementById('jeuTimerCadre');
+  const cadreReponse = document.getElementById('jeuReponseCadre');
+  const cadreComplement = document.getElementById('jeuComplementCadre');
+
+  cadreTimer.style.display = 'none';
+
+  cadreReponse.style.display = 'flex';
+  cadreReponse.style.alignItems = 'center';
+
+  cadreComplement.style.display = 'flex';
+  cadreComplement.style.alignItems = 'center';
+
+  cadreReponse.innerHTML = `
+    <div style="
+      width:100%;
+      box-sizing:border-box;
+      background:#2b2c32;
+      border-radius:16px;
+      padding:18px 8px;
+      font-size:2.2em;
+      font-weight:bold;
+      text-align:center;
+      overflow-wrap:anywhere;
+      border:4px solid #3855d6;
+      color:#fff;
+      box-shadow:0 2px 13px #0005;
+    ">
+      ${reponse}
+    </div>
+  `;
+
+  cadreComplement.innerHTML = `
+    <div style="
+      width:100%;
+      box-sizing:border-box;
+      font-size:1.18em;
+      font-weight:500;
+      text-align:left;
+      overflow-wrap:anywhere;
+      color:#ececec;
+    ">
+      ${complement}
     </div>
   `;
 });
