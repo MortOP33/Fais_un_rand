@@ -375,6 +375,7 @@ io.on('connection', (socket) => {
     lobbies[code] = {
       maitreId: socket.id,
       joueurs: [],
+      partieEnCours: false,
       questions: [],
       historiqueQuestions: [],
       questionIndex: 0,
@@ -485,7 +486,8 @@ io.on('connection', (socket) => {
       clearTimeout(lobby.manche.timer);
     }
 
-    // Préparer les joueurs à rejoindre la prochaine partie.
+    // Préparer une nouvelle partie.
+    lobby.partieEnCours = false;
     lobby.manche = creerEtatManche();
 
     lobby.joueurs.forEach(joueur => {
@@ -498,6 +500,9 @@ io.on('connection', (socket) => {
 
     // Vérifier que la demande vient du maître de cette partie.
     if (!lobby || lobby.maitreId !== socket.id) return;
+
+    // Ignorer les demandes de démarrage répétées.
+    if (lobby.partieEnCours) return;
 
     const allQuestions = loadQuestions();
     const themesSelectionnes = Array.isArray(themes) ? themes : [];
@@ -621,6 +626,9 @@ io.on('connection', (socket) => {
 
       selected.push(questionAleatoire);
     }
+
+    // Verrouiller le démarrage après validation des paramètres.
+    lobby.partieEnCours = true;
 
     // Réinitialiser les scores et les statistiques au lancement d'une nouvelle partie.
     lobby.scoresTotaux = {};
