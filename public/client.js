@@ -456,6 +456,37 @@ socket.on('param_retour_joueurs', () => {
   socket.emit('requestNormalAvatars');
 });
 
+socket.on('nouvelle_partie_attente_joueur', () => {
+  // Le joueur reste connecté au lobby et conserve son identité.
+  isQuizzStarted = false;
+
+  joueurPage.style.display = 'flex';
+  homePage.style.display = 'none';
+
+  // Afficher uniquement l'avatar et le pseudo.
+  avatarsContainer.innerHTML = `
+    <div style="
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:28px;
+      width:max-content;
+      max-width:100%;
+      box-sizing:border-box;
+      margin:24px auto 0;
+    ">
+      <img src="${joueurAvatar || ''}" class="avatar-maitre" alt="" />
+      <span class="player-name">${joueurPseudo || ''}</span>
+    </div>
+  `;
+
+  // Masquer les contrôles de connexion et de sélection.
+  codeInput.style.display = 'none';
+  errorCodeDiv.style.display = 'none';
+  labelInput.style.display = 'none';
+  btnRetourJoueur.style.display = 'none';
+});
+
 socket.on('param_retour_maitre', () => {
   parametresPage.style.display = "none";
   maitrePage.style.display = "flex";

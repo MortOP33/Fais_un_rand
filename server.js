@@ -489,7 +489,7 @@ io.on('connection', (socket) => {
     lobby.manche = creerEtatManche();
 
     lobby.joueurs.forEach(joueur => {
-      io.to(joueur.socketId).emit('param_retour_joueurs');
+      io.to(joueur.socketId).emit('nouvelle_partie_attente_joueur');
     });
   });
   
