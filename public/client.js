@@ -1049,71 +1049,17 @@ socket.on('quizz_termine', ({
     return '';
   };
 
-  const classementHTML = joueurs.map(joueur => {
-    const rang = Number(joueur.rang) || 0;
-    const marque = medaille(rang);
-
-    return `
-      <div style="
-        display:flex;
-        align-items:center;
-        gap:14px;
-        padding:12px;
-        border-bottom:1px solid #353740;
-        min-width:0;
-      ">
-        <div style="
-          width:54px;
-          flex-shrink:0;
-          text-align:center;
-          font-size:${marque ? '2em' : '1.05em'};
-          font-weight:800;
-        ">
-          ${marque || echapperHTML(libelleRang(rang))}
-        </div>
-
-        <img
-          src="${echapperHTML(joueur.avatar || '')}"
-          alt=""
-          style="
-            width:48px;
-            height:48px;
-            object-fit:cover;
-            border-radius:50%;
-            flex-shrink:0;
-          "
-        >
-
-        <div style="
-          flex:1;
-          min-width:0;
-          overflow-wrap:anywhere;
-          font-weight:600;
-        ">
-          ${echapperHTML(joueur.pseudo)}
-        </div>
-
-        <div style="
-          font-size:1.15em;
-          font-weight:800;
-          white-space:nowrap;
-        ">
-          ${echapperHTML(joueur.scoreTotal)}
-        </div>
-      </div>
-    `;
-  }).join('');
-
   const themesAvecQuestions = themes.filter(
     theme => Number(theme.nombreQuestions) > 0
   );
 
   const entetesThemesHTML = themesAvecQuestions.map(theme => `
     <th style="
-      padding:12px 14px;
+      padding:12px 10px;
       border-bottom:1px solid #454750;
       text-align:center;
-      min-width:105px;
+      min-width:85px;
+      white-space:normal;
     ">
       ${echapperHTML(nomsThemes[theme.theme] || theme.theme)}
       <div style="font-size:0.85em;font-weight:400;margin-top:4px;">
@@ -1123,6 +1069,9 @@ socket.on('quizz_termine', ({
   `).join('');
 
   const lignesScoresHTML = joueurs.map(joueur => {
+    const rang = Number(joueur.rang) || 0;
+    const marque = medaille(rang);
+
     const cellulesThemesHTML = themesAvecQuestions.map(theme => {
       const moyenne = Number(
         joueur.moyennesThemes?.[theme.theme] ?? 0
@@ -1137,7 +1086,6 @@ socket.on('quizz_termine', ({
 
       let couleurFond = 'transparent';
 
-      // Pas de distinction si toutes les moyennes sont égales.
       if (meilleure !== plusFaible) {
         if (moyenne === meilleure) {
           couleurFond = '#174d35';
@@ -1148,7 +1096,7 @@ socket.on('quizz_termine', ({
 
       return `
         <td style="
-          padding:12px 14px;
+          padding:12px 10px;
           text-align:center;
           background:${couleurFond};
           border-bottom:1px solid #353740;
@@ -1162,20 +1110,64 @@ socket.on('quizz_termine', ({
     return `
       <tr>
         <td style="
-          padding:12px 14px;
+          width:42px;
+          padding:10px 4px;
+          text-align:center;
           border-bottom:1px solid #353740;
+          font-weight:800;
           white-space:nowrap;
         ">
-          ${echapperHTML(joueur.pseudo)}
+          ${marque || echapperHTML(libelleRang(rang))}
         </td>
+
         <td style="
-          padding:12px 14px;
+          padding:10px 6px;
+          border-bottom:1px solid #353740;
+          width:190px;
+          max-width:190px;
+        ">
+          <div style="
+            display:flex;
+            align-items:center;
+            gap:8px;
+            min-width:0;
+          ">
+            <img
+              src="${echapperHTML(joueur.avatar || '')}"
+              alt=""
+              style="
+                width:34px;
+                height:34px;
+                object-fit:cover;
+                border-radius:50%;
+                flex-shrink:0;
+              "
+            >
+            <span
+              title="${echapperHTML(joueur.pseudo)}"
+              style="
+                display:block;
+                min-width:0;
+                max-width:140px;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                white-space:nowrap;
+                font-weight:600;
+              "
+            >${echapperHTML(joueur.pseudo)}</span>
+          </div>
+        </td>
+
+        <td style="
+          padding:12px 10px;
           text-align:center;
           font-weight:800;
           border-bottom:1px solid #353740;
+          white-space:nowrap;
         ">
           ${echapperHTML(joueur.scoreTotal)}
         </td>
+
         ${cellulesThemesHTML}
       </tr>
     `;
@@ -1205,82 +1197,67 @@ socket.on('quizz_termine', ({
       </h1>
 
       <div style="
-        display:grid;
-        grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-        gap:24px;
-        align-items:start;
+        width:100%;
+        min-width:0;
+        border:1px solid #454750;
+        border-radius:14px;
+        padding:12px;
+        box-sizing:border-box;
       ">
-        <section style="
-          min-width:0;
-          border:1px solid #454750;
-          border-radius:14px;
-          padding:16px;
-          box-sizing:border-box;
-        ">
-          <h2 style="margin:0 0 14px;">Classement final</h2>
-
-          <div style="
-            display:flex;
-            justify-content:space-between;
-            padding:0 12px 10px;
-            color:#bfc3d0;
-            font-size:0.9em;
+        <div style="overflow-x:auto;width:100%;">
+          <table style="
+            width:100%;
+            border-collapse:collapse;
+            text-align:left;
           ">
-            <span>Rang et joueur</span>
-            <span>Total</span>
-          </div>
-
-          ${classementHTML || '<p>Aucun joueur à afficher.</p>'}
-        </section>
-
-        <section style="
-          min-width:0;
-          border:1px solid #454750;
-          border-radius:14px;
-          padding:16px;
-          box-sizing:border-box;
-        ">
-          <h2 style="margin:0 0 14px;">Détail des scores</h2>
-
-          <div style="overflow-x:auto;width:100%;">
-            <table style="
-              width:100%;
-              border-collapse:collapse;
-              text-align:left;
-            ">
-              <thead>
-                <tr>
-                  <th style="
-                    padding:12px 14px;
+            <thead>
+              <tr>
+                <th
+                  colspan="3"
+                  style="
+                    padding:12px 10px;
+                    text-align:left;
                     border-bottom:1px solid #454750;
-                  ">
-                    Joueur
-                  </th>
-                  <th style="
-                    padding:12px 14px;
-                    border-bottom:1px solid #454750;
+                  "
+                >
+                  Classement final
+                </th>
+                <th
+                  colspan="${themesAvecQuestions.length}"
+                  style="
+                    padding:12px 10px;
                     text-align:center;
-                  ">
-                    Total
-                  </th>
-                  ${entetesThemesHTML}
+                    border-bottom:1px solid #454750;
+                  "
+                >
+                  Détail des scores
+                </th>
+              </tr>
+              <tr>
+                <th style="padding:8px 4px;border-bottom:1px solid #454750;"></th>
+                <th style="padding:8px 6px;border-bottom:1px solid #454750;"></th>
+                <th style="
+                  padding:8px 10px;
+                  text-align:center;
+                  border-bottom:1px solid #454750;
+                ">
+                  Total
+                </th>
+                ${entetesThemesHTML}
+              </tr>
+            </thead>
+            <tbody>
+              ${lignesScoresHTML || `
+                <tr>
+                  <td colspan="${3 + themesAvecQuestions.length}"
+                      style="padding:12px;">
+                    Aucun joueur à afficher.
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                ${lignesScoresHTML}
-              </tbody>
-            </table>
-          </div>
-
-          <p style="
-            margin:14px 0 0;
-            font-size:0.9em;
-            color:#c4c6cf;
-          ">
-            Moyennes par question, arrondies à une décimale.
-            Vert : meilleure moyenne. Rouge : moyenne la plus faible.
-          </p>
-        </section>
+              `}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div style="
