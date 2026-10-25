@@ -27,6 +27,7 @@ let currentLobbyCode = null; // Pour page joueur
 let joueurResponseSent = "";
 let timerInterval = null;
 let historiqueImporte = [];
+let derniereQuestionAffichee = false;
 
 window.onload = () => {
   homePage.style.display = "flex";
@@ -473,6 +474,9 @@ socket.on('erreur_demarrage_quizz', (message) => {
 // ----------- TABLEAU + CADRES MODIFIÉS ET GESTION ENVOI DE REPONSE JOUEUR ----------
 socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }) => {
 
+  // Déterminer si la question affichée est la dernière.
+  derniereQuestionAffichee = index === total - 1;
+
   const enteteJoueur = document.getElementById('enteteJoueur');
 
   if (enteteJoueur) {
@@ -553,6 +557,9 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
   btnAnnuler.style.display = 'none';
   btnAnnuler.disabled = true;
 
+  btnSuivant.textContent = derniereQuestionAffichee
+    ? 'Résultats de partie'
+    : 'Suivant';
   btnSuivant.style.display = 'none';
   btnSuivant.disabled = true;
 
