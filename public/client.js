@@ -947,6 +947,7 @@ function displayTimer(seconds, onFinish) {
     timerInterval = null;
   }
   const timerDiv = document.getElementById('jeuTimerCadre');
+  timerDiv.style.display = 'flex';
   let time = seconds;
   timerDiv.innerHTML = `<svg width="100" height="100">
       <circle id="timerCircle" r="45" cx="50" cy="50" fill="none" stroke="#3855d6" stroke-width="7"
