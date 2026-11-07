@@ -1,128 +1,2760 @@
 [
   {
     "id": "1",
-    "theme": "ECONOMIE",
-    "question": "Question 1 economie ?",
-    "reponse": 1,
-    "complement": "Texte 1 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "DATES",
+    "question": "En quelle année a été découvert le ciment artificiel ?",
+    "reponse": 1818,
+    "complement": "Louis Vicat, un ingénieur français. Source : Wikipedia"
   },
   {
     "id": "2",
-    "theme": "ECONOMIE",
-    "question": "Question 2 economie ?",
-    "reponse": 2,
-    "complement": "Texte 2 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "DATES",
+    "question": "En quelle année est né Jules Cesar ?",
+    "reponse": -100,
+    "complement": "A Subure, en Italie — Source : <a href=\"https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Recherche?search=En%20quelle%20ann%C3%A9e%20est%20n%C3%A9%20Jules%20Cesar%20%3F\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipédia</a>"
   },
   {
     "id": "3",
-    "theme": "DATES",
-    "question": "Question 3 dates ?",
-    "reponse": 3,
-    "complement": "Texte 3 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "MONDE VIVANT",
+    "question": "A fin 2024, Combien d'espèces d'insectes ont été identifiées et décrites ?",
+    "reponse": 1300000,
+    "complement": "Source : Museum national d'histoire naturelle"
   },
   {
     "id": "4",
-    "theme": "DATES",
-    "question": "Question 4 dates ?",
-    "reponse": 4,
-    "complement": "Texte 4 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "MONDE VIVANT",
+    "question": "Combien de mètres mesure le plus grand arbre du monde ?",
+    "reponse": 116,
+    "complement": "Un sequoia géant, nommé Hyperion. Source : Wikipedia"
   },
   {
     "id": "5",
-    "theme": "DIVERTISSEMENT",
-    "question": "Question 5 divertissement ?",
-    "reponse": 5,
-    "complement": "Texte 5 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "ECONOMIE",
+    "question": "Quel est le prix moyen en euros au mètre carré de l'immobilier à Paris (Novembre 2024) ?",
+    "reponse": 9282,
+    "complement": "Source : Se loger"
   },
   {
     "id": "6",
-    "theme": "DIVERTISSEMENT",
-    "question": "Question 6 divertissement ?",
-    "reponse": 6,
-    "complement": "Texte 6 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de villes françaises comportent plus de 100 000 habitants (au 1er janvier 2020)",
+    "reponse": 62,
+    "complement": "Source : Insee"
   },
   {
     "id": "7",
     "theme": "GEOGRAPHIE",
-    "question": "Question 7 geographie ?",
-    "reponse": 7,
-    "complement": "Texte 7 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "question": "Quelle est la distance en kilomètres à vol d'oiseau entre Londres et Paris ?",
+    "reponse": 342.76,
+    "complement": "Contre 457,72 en voiture. Source : Distance calculator"
   },
   {
     "id": "8",
-    "theme": "GEOGRAPHIE",
-    "question": "Question 8 geographie ?",
-    "reponse": 8,
-    "complement": "Texte 8 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "SCIENCES",
+    "question": "Combien d'exoplanètes sont référencées et connues (au 1er février 2023) ?",
+    "reponse": 5307,
+    "complement": "Source : Wikipédia"
   },
   {
     "id": "9",
-    "theme": "IMPROBABLE",
-    "question": "Question 9 improbable ?",
-    "reponse": 9,
-    "complement": "Texte 9 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "SCIENCES",
+    "question": "Combien d'éléments comporte le tableau périodique ?",
+    "reponse": 118,
+    "complement": "Le dernier élément étant l'Oganesson"
   },
   {
     "id": "10",
-    "theme": "IMPROBABLE",
-    "question": "Question 10 improbable ?",
-    "reponse": 10,
-    "complement": "Texte 10 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien y a-t-il de boss de raid instanciés dans World of Warcraft jusqu'à la fin de Dragonflight (inclus) ?",
+    "reponse": 396,
+    "complement": "Source : Judgehype"
   },
   {
     "id": "11",
-    "theme": "MONDE VIVANT",
-    "question": "Question 11 monde vivant ?",
-    "reponse": 11,
-    "complement": "Texte 11 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de fois est répété \"Around the world\" dans la chanson éponyme des Daft Punk (dans la version album) ?",
+    "reponse": 144,
+    "complement": "Sur une durée totale de 7min 07"
   },
   {
     "id": "12",
-    "theme": "MONDE VIVANT",
-    "question": "Question 12 monde vivant ?",
-    "reponse": 12,
-    "complement": "Texte 12 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "SONDAGES",
+    "question": "Quel est le budget moyen français en euros pour les cadeaux de Noël en 2024 ?",
+    "reponse": 497,
+    "complement": "Source : Enquête CSA"
   },
   {
     "id": "13",
-    "theme": "RECORDS",
-    "question": "Question 13 records ?",
-    "reponse": 13,
-    "complement": "Texte 13 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "SONDAGES",
+    "question": "Sur 100 français, combien possèdent un chat ou un chien ?",
+    "reponse": 55,
+    "complement": "Source : Icad"
   },
   {
     "id": "14",
-    "theme": "RECORDS",
-    "question": "Question 14 records ?",
-    "reponse": 14,
-    "complement": "Texte 14 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "IMPROBABLE",
+    "question": "Combien y a-t-il de rivets dans la tour Eiffel ?",
+    "reponse": 2500000,
+    "complement": "…pour assembler 12 000 pièces ! Source : Toureiffel.paris"
   },
   {
     "id": "15",
-    "theme": "SCIENCES",
-    "question": "Question 15 sciences ?",
-    "reponse": 15,
-    "complement": "Texte 15 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "IMPROBABLE",
+    "question": "Combien y a-t-il de pièces dans le château de Versailles ?",
+    "reponse": 2300,
+    "complement": "Source : Wikipédia"
   },
   {
     "id": "16",
-    "theme": "SCIENCES",
-    "question": "Question 16 sciences ?",
-    "reponse": 16,
-    "complement": "Texte 16 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "SONDAGES",
+    "question": "Sur 100 personnes dans le monde, combien avaient accès à Internet en janvier 2024 ?",
+    "reponse": 66.2,
+    "complement": "Source : Statista"
   },
   {
     "id": "17",
-    "theme": "SONDAGES",
-    "question": "Question 17 sondages ?",
-    "reponse": 17,
-    "complement": "Texte 17 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la superficie du désert du Sahara en kilomètres carrés ?",
+    "reponse": 8600000,
+    "complement": "Source : Encyclopedia Universalis"
   },
   {
     "id": "18",
+    "theme": "ECONOMIE",
+    "question": "Quel est le produit intérieur brut (PIB) de la France en milliards d'euros en 2023 ?",
+    "reponse": 2565.3,
+    "complement": "Source : Insee"
+  },
+  {
+    "id": "19",
+    "theme": "DATES",
+    "question": "En quelle année a eu lieu la première transmission télévisée en couleur en France ?",
+    "reponse": 1967,
+    "complement": "Un 1er octobre, sur la deuxième chaine"
+  },
+  {
+    "id": "20",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la longueur totale du fleuve Amazone en kilomètres ?",
+    "reponse": 6400,
+    "complement": "Prend sa source au sud du Pérou"
+  },
+  {
+    "id": "21",
+    "theme": "DIVERTISSEMENT",
+    "question": "Au 29 Septembre 2024, combien de saisons comporte la série \"Les Simpsons\" ?",
+    "reponse": 36,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "22",
     "theme": "SONDAGES",
-    "question": "Question 18 sondages ?",
+    "question": "A mi 2024, sur 100 français de 15 ans et plus, combien déclarent pratiquer une activité physique au moins une fois par semaine ?",
+    "reponse": 58,
+    "complement": "Source : Injep"
+  },
+  {
+    "id": "23",
+    "theme": "RECORDS",
+    "question": "Combien de temps, en minutes, a duré le plus long match de tennis de l'histoire (du moins jusqu'en 2024) ?",
+    "reponse": 665,
+    "complement": "Le match entre John Isner et Nicolas Mahut à Wimbledon, réparti sur 3 jours. En 980 points !"
+  },
+  {
+    "id": "24",
+    "theme": "DATES",
+    "question": "En quelle année a été breveté le premier distributeur automatique de billets (DAB) ?",
+    "reponse": 1966,
+    "complement": "Puis installé en 1967, au nord de Londres à Enfield Town par M. De la Rue"
+  },
+  {
+    "id": "25",
+    "theme": "MONDE VIVANT",
+    "question": "Combien de litres de salive un humain produit-il en moyenne au cours de sa vie ?",
+    "reponse": 40000,
+    "complement": "Sur une estimation moyenne de 1L par jour, sur 80 ans. Source : Cnews ou Science.lu"
+  },
+  {
+    "id": "26",
+    "theme": "ECONOMIE",
+    "question": "Au 1er janvier 2021, combien y avait-il de pièces de 1 centime d'euros en circulation au sein de la zone euro ?",
+    "reponse": 37421979853,
+    "complement": "Source : European central banque, rien que ça !"
+  },
+  {
+    "id": "27",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la longueur totale de cables sous marins installés dans le monde en 2023 (en kilomètres)",
+    "reponse": 1300000,
+    "complement": "Principalement pour véhiculer internet, 33 fois le tour de la Terre installés en 35 ans ! Source : Ouest France"
+  },
+  {
+    "id": "28",
+    "theme": "SCIENCES",
+    "question": "Quelle est la température la plus froide jamais enregistrée sur Terre, en degrés Celsius ?",
+    "reponse": -98,
+    "complement": "Dans l'Inlandsis Est-Antarctique, sur le glacier Langhovde. Source : National Geographic"
+  },
+  {
+    "id": "29",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de briques LEGO sont produites chaque année ?",
+    "reponse": 20000000000,
+    "complement": "Source : Planetoscope"
+  },
+  {
+    "id": "30",
+    "theme": "IMPROBABLE",
+    "question": "En moyenne, combien de trajets en ascenseur sont réalisés en France chaque jour ?",
+    "reponse": 100000000,
+    "complement": "D'après la très sérieuse étude Ipsos \"Les français et l'ascenceur\" ! Source : Federation des ascenceurs"
+  },
+  {
+    "id": "31",
+    "theme": "MONDE VIVANT",
+    "question": "Combien de litres d’eau un baobab peut-il stocker dans son tronc ?",
+    "reponse": 14000,
+    "complement": "Pour les plus grands, Source : Oneheart.fr"
+  },
+  {
+    "id": "32",
+    "theme": "DATES",
+    "question": "En quelle année a été inventé le système de chasse d'eau ?",
+    "reponse": 1596,
+    "complement": "Par Sir John Harington, qui a inventé par la même occasion les toilettes modernes"
+  },
+  {
+    "id": "33",
+    "theme": "MONDE VIVANT",
+    "question": "Combien de litres de sang un coeur humain pompe-t-il chaque jour ?",
+    "reponse": 8000,
+    "complement": "Source : Service de cardiologie CHUV.ch"
+  },
+  {
+    "id": "34",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de visiteurs ont été comptabilisés au Louvre en 2023 ?",
+    "reponse": 8900000,
+    "complement": "Source : Presse.louvre.fr"
+  },
+  {
+    "id": "35",
+    "theme": "MONDE VIVANT",
+    "question": "Combien de fois par secondes une abeille bat-elle des ailes en moyenne ?",
+    "reponse": 200,
+    "complement": "Et va à environ 25km/h. Source : Rucher ecole Enchenberg"
+  },
+  {
+    "id": "36",
+    "theme": "SCIENCES",
+    "question": "À quelle température en degrés Celsius l’eau bout-elle au sommet de l’Everest ?",
+    "reponse": 70,
+    "complement": "Source : Université de technologie de Compiègne"
+  },
+  {
+    "id": "37",
+    "theme": "SCIENCES",
+    "question": "Quelle est la durée de révolution de Vénus autour du soleil en jours terrestres ?",
+    "reponse": 224,
+    "complement": "Source : CNES"
+  },
+  {
+    "id": "38",
+    "theme": "SCIENCES",
+    "question": "Quelle est la durée de rotation de Vénus sur elle même en jours terrestres ?",
+    "reponse": 117,
+    "complement": "Source : CNES"
+  },
+  {
+    "id": "39",
+    "theme": "SONDAGES",
+    "question": "Combien de minutes un utilisateur de tik tok passe-t-il en moyenne par jour sur l'application (mars 2024) ?",
+    "reponse": 95,
+    "complement": "Source : Meltwater.com"
+  },
+  {
+    "id": "40",
+    "theme": "ECONOMIE",
+    "question": "En 2022, combien de facteurs et factrices étaient employés par la poste en France ?",
+    "reponse": 62000,
+    "complement": "Source : La poste"
+  },
+  {
+    "id": "41",
+    "theme": "DATES",
+    "question": "En quelle année a été envoyé le premier SMS ?",
+    "reponse": 1992,
+    "complement": "Le 3 décembre, Neil Papworth à envoyé \"Merry Christmas\". Source : Ouest France"
+  },
+  {
+    "id": "42",
+    "theme": "IMPROBABLE",
+    "question": "Combien de touches comporte un piano standard ?",
+    "reponse": 88,
+    "complement": "52 blanches et 36 noires"
+  },
+  {
+    "id": "43",
+    "theme": "MONDE VIVANT",
+    "question": "Quel est le record de nombre d'enfants simultanés en un seul accouchement par césarienne (2024) ?",
+    "reponse": 9,
+    "complement": "Halima Cissé, une malienne (5 filles et 4 garçons). Source : Lesenfantsdevitry.com"
+  },
+  {
+    "id": "44",
+    "theme": "MONDE VIVANT",
+    "question": "Quel est le record en nombre de jours de la plus longue grossesse référencée chez la femme ?",
+    "reponse": 398,
+    "complement": "Soit 13 mois et 1 semaine. Source : Lesenfantsdevitry.com"
+  },
+  {
+    "id": "45",
+    "theme": "SONDAGES",
+    "question": "Combien de tasses de café un français consomme-t-il en moyenne chaque années (2024) ?",
+    "reponse": 500,
+    "complement": "Source : Statista"
+  },
+  {
+    "id": "46",
+    "theme": "SONDAGES",
+    "question": "Sur 100 français, combien croîent aux OVNIS (extraterrestres) ?",
+    "reponse": 28,
+    "complement": "Contre 43% chez les Américains. Source : Enquête Ifop - Americain VS Français"
+  },
+  {
+    "id": "47",
+    "theme": "MONDE VIVANT",
+    "question": "A quelle vitesse moyenne (en millimètres par jours) pousse un cheveu humain ?",
+    "reponse": 0.3,
+    "complement": "Source : Santé magazine"
+  },
+  {
+    "id": "48",
+    "theme": "GEOGRAPHIE",
+    "question": "A quelle distance d'un sol émergé se situe le Point Nemo en kilomètres (le point sur la Terre le plus éloigné de toute terre émergée) ?",
+    "reponse": 2688.22,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "49",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de kilomètres mesure la plus longue ligne droite de chemin de fer au monde ?",
+    "reponse": 478,
+    "complement": "En Australie. Source : Midnight trains"
+  },
+  {
+    "id": "50",
+    "theme": "IMPROBABLE",
+    "question": "Combien existe-t-il de stations de métro à Paris (18 janvier 2025) ?",
+    "reponse": 321,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "51",
+    "theme": "DATES",
+    "question": "En quelle année le premier code-barres a-t-il été scanné en caisse ?",
+    "reponse": 1974,
+    "complement": "Créé par Georges Laurer 4 ans plus tôt. Source : Imprimerie Pierotti"
+  },
+  {
+    "id": "52",
+    "theme": "MONDE VIVANT",
+    "question": "Combien de dents possède un escargot commun ?",
+    "reponse": 14000,
+    "complement": "Sur sa radula, une espèce de langue. Source : Science-et-vie"
+  },
+  {
+    "id": "53",
+    "theme": "GEOGRAPHIE",
+    "question": "Que représente en pourcentage la superficie de la Russie par rapport à la superficie totale de tous les pays ?",
+    "reponse": 11.5,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "54",
+    "theme": "GEOGRAPHIE",
+    "question": "De combien d'îles de plus de 100 mètres carrés est constitué le Japon ?",
+    "reponse": 14125,
+    "complement": "Source : Japan National Tourism Organization"
+  },
+  {
+    "id": "55",
+    "theme": "GEOGRAPHIE",
+    "question": "De combien d'îles sont constituées les îles Cook ?",
+    "reponse": 15,
+    "complement": "Source : Cookislands.travel"
+  },
+  {
+    "id": "56",
+    "theme": "SCIENCES",
+    "question": "Combien de secondes faut-il à la lumière pour parcourir la distance Terre-Lune ?",
+    "reponse": 1.28,
+    "complement": "Source : Nosdevoirs.fr"
+  },
+  {
+    "id": "57",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de films James Bond ont été officiellement produits (Octobre 2021) ?",
+    "reponse": 25,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "58",
+    "theme": "IMPROBABLE",
+    "question": "Combien de pages sont reliées dans l'édition française du Seigneur des Anneaux (édition intégrale), avec ses 50 illustrations ?",
+    "reponse": 1360,
+    "complement": "Source : Tolkien Collector's guide"
+  },
+  {
+    "id": "59",
+    "theme": "IMPROBABLE",
+    "question": "Combien de rescapés sont recensés au naufrage du Titanic en 1912 ?",
+    "reponse": 711,
+    "complement": "Source : Cité des sciences"
+  },
+  {
+    "id": "60",
+    "theme": "SONDAGES",
+    "question": "Sur 100 français en 2022, combien ont utilisé au moins une plateforme de vidéo à la demande ?",
+    "reponse": 53.2,
+    "complement": "Source : Ministère de la culture"
+  },
+  {
+    "id": "61",
+    "theme": "RECORDS",
+    "question": "Quel est le record de vitesse de résolution d'un Rubik's cube en secondes (2023) ?",
+    "reponse": 3.13,
+    "complement": "Max Park. Source : Le parisien"
+  },
+  {
+    "id": "62",
+    "theme": "ECONOMIE",
+    "question": "De quel pourcentage à grimpé le marché de la vente de puzzles en France en l'année 2020 par rapport à 2019 ?",
+    "reponse": 63,
+    "complement": "Source : Ouest France"
+  },
+  {
+    "id": "63",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de ports maritimes sont recensés en France (2015) ?",
+    "reponse": 473,
+    "complement": "Source : Ecologie.gouv.fr"
+  },
+  {
+    "id": "64",
+    "theme": "RECORDS",
+    "question": "Combien de mètres mesure la vague la plus haute jamais surfée (2020) ?",
+    "reponse": 26,
+    "complement": "Source : Geo.fr"
+  },
+  {
+    "id": "65",
+    "theme": "IMPROBABLE",
+    "question": "Combien de litres de bière sont consommés dans le monde chaque secondes ?",
+    "reponse": 5600,
+    "complement": "Source : Globometer.com"
+  },
+  {
+    "id": "66",
+    "theme": "SONDAGES",
+    "question": "Sur 100 français entre 18 et 24 ans, combien déclarent parler anglais couramment ?",
+    "reponse": 14,
+    "complement": "Source : Ifop"
+  },
+  {
+    "id": "67",
+    "theme": "IMPROBABLE",
+    "question": "Combien de restaurants Mc Donald sont référencés en France à fin 2021 ?",
+    "reponse": 1517,
+    "complement": "Source : Statista"
+  },
+  {
+    "id": "68",
+    "theme": "SONDAGES",
+    "question": "Sur 100 personnes dans le monde, combien peuvent résoudre un Rubik's cube (2023) ?",
+    "reponse": 5.8,
+    "complement": "Source : Rubiks.com"
+  },
+  {
+    "id": "69",
+    "theme": "SONDAGES",
+    "question": "Sur 100 français, combien déclarent aller au restaurant au moins une fois par mois dans le cadre privé (janvier 2020) ?",
+    "reponse": 65,
+    "complement": "Source : Snacking.fr"
+  },
+  {
+    "id": "70",
+    "theme": "RECORDS",
+    "question": "A combien de décibels a été enregistré le record du plus fort cri humain (2024) ?",
+    "reponse": 129,
+    "complement": "Jill Drake en 2000. Source : Wikipedia"
+  },
+  {
+    "id": "71",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de kilomètres mesure la plus longue plage du monde ?",
+    "reponse": 254,
+    "complement": "Paraia do Cassino au Brésil. Source : Topito.com"
+  },
+  {
+    "id": "72",
+    "theme": "ECONOMIE",
+    "question": "Combien de centimes d'euros coûte la fabrication d'une pièce d'un centime d'euro ?",
+    "reponse": 1.2,
+    "complement": "Source : L'union.fr"
+  },
+  {
+    "id": "73",
+    "theme": "MONDE VIVANT",
+    "question": "Jusqu'à combien d'oeufs par an une poule est-elle capable de pondre ?",
+    "reponse": 300,
+    "complement": "Source : Le mag des animaux"
+  },
+  {
+    "id": "74",
+    "theme": "DATES",
+    "question": "En quelle année le premier email a-t-il été envoyé ?",
+    "reponse": 1971,
+    "complement": "Par Ray Tomlinson, entre deux machines adjacentes. Source : Mondedumail.com"
+  },
+  {
+    "id": "75",
+    "theme": "DATES",
+    "question": "En quelle année à eu lieu la première coupe du monde de football ?",
+    "reponse": 1930,
+    "complement": "En Uruguay. Source : FIFA"
+  },
+  {
+    "id": "76",
+    "theme": "RECORDS",
+    "question": "Quel est le poids en kilogrammes du plus gros hamburger (2011) ?",
+    "reponse": 352,
+    "complement": "Source : 20 Minutes"
+  },
+  {
+    "id": "77",
+    "theme": "SCIENCES",
+    "question": "Combien d'étoiles naissent en moyenne par an dans la Voie lactée ?",
+    "reponse": 7,
+    "complement": "Source : Sciencepost.fr"
+  },
+  {
+    "id": "78",
+    "theme": "MONDE VIVANT",
+    "question": "Quelle est la durée moyenne en secondes de la nictation, soit le clignement de l'oeil ?",
+    "reponse": 0.15,
+    "complement": "Source : Planetoscope"
+  },
+  {
+    "id": "79",
+    "theme": "MONDE VIVANT",
+    "question": "Combien de litres d'air en moyenne un être humain inspire-t-il par jour ?",
+    "reponse": 12000,
+    "complement": "Source : Ligue pulmonaire"
+  },
+  {
+    "id": "80",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de mètres de haut mesure la plus haute cascade de France ?",
+    "reponse": 422,
+    "complement": "Gavarnie. Source : Wikipedia"
+  },
+  {
+    "id": "81",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de kilomètres mesure la frontière entre la France et l'Espagne ?",
+    "reponse": 623,
+    "complement": "Source : Revue-pouvoirs.fr"
+  },
+  {
+    "id": "82",
+    "theme": "MONDE VIVANT",
+    "question": "Combien d'heures au minimum par jour un koala dort-il ?",
     "reponse": 18,
-    "complement": "Texte 18 avec beaucoup plus de mots pour faire un essai représentatif d'un vrai complément de réponse"
+    "complement": "Source : Australian Koala foundation"
+  },
+  {
+    "id": "83",
+    "theme": "MONDE VIVANT",
+    "question": "Combien de centimètres mesure en moyenne la langue d'une girafe ?",
+    "reponse": 50,
+    "complement": "Source : Instinct-animal.fr"
+  },
+  {
+    "id": "84",
+    "theme": "DATES",
+    "question": "En quel année a été publié le premier album de Tintin ?",
+    "reponse": 1929,
+    "complement": "Le 10 janvier. Source : Site officiel de Tintin"
+  },
+  {
+    "id": "85",
+    "theme": "SONDAGES",
+    "question": "Sur 100 français, combien déclarent chanter sous la douche ?",
+    "reponse": 28,
+    "complement": "Source : L'internaute.com"
+  },
+  {
+    "id": "86",
+    "theme": "MONDE VIVANT",
+    "question": "Combien de muscles sont activés chez l'Homme pour sourire ?",
+    "reponse": 17,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "87",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien d'Etats sont enclavés dans le monde (ne possèdent pas d'accès à une mer ouverte ou un océan) ?",
+    "reponse": 42,
+    "complement": "Source : defense.gouv.fr"
+  },
+  {
+    "id": "88",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de places possède le Stade de France en configuration standard (2024) ?",
+    "reponse": 80698,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "89",
+    "theme": "IMPROBABLE",
+    "question": "En Lozère en 2016, par combien fallait-il multiplier le nombre d'habitants pour obtenir le nombre de bovins du département ?",
+    "reponse": 1.96,
+    "complement": "76 390 habitants pour environ 150 000 bovins. Source : France 3 région (franceTVinfo)"
+  },
+  {
+    "id": "90",
+    "theme": "RECORDS",
+    "question": "Combien d'années à duré le record du hoquet le plus long sans interruption ?",
+    "reponse": 68,
+    "complement": "Charles Osborne. Source : Le parisien"
+  },
+  {
+    "id": "91",
+    "theme": "SCIENCES",
+    "question": "Combien d’années un chewing-gum met-il en moyenne à se dégrader dans la nature ?",
+    "reponse": 5,
+    "complement": "Source : Jeunes reporters pour l'environnement"
+  },
+  {
+    "id": "92",
+    "theme": "DATES",
+    "question": "En quelle année a été fondée l'entreprise Google ?",
+    "reponse": 1998,
+    "complement": "Dans la SiliconValley par Larry Page et Sergey Brin. Source : Wikipedia"
+  },
+  {
+    "id": "93",
+    "theme": "DATES",
+    "question": "En quelle année a été créé Youtube ?",
+    "reponse": 2005,
+    "complement": "En Californie, par Steve Chen, Chad Hurley et Jawed Karim. Source : Wikipedia"
+  },
+  {
+    "id": "94",
+    "theme": "SCIENCES",
+    "question": "Quelle est la température en degrés Celsius au centre de la Terre ?",
+    "reponse": 5500,
+    "complement": "Source : Futura-science"
+  },
+  {
+    "id": "95",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de films Pixar ont été produits jusqu’en 2024 ?",
+    "reponse": 28,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "96",
+    "theme": "IMPROBABLE",
+    "question": "Combien de types sont définis dans l'echelle de Bristol ?",
+    "reponse": 7,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "97",
+    "theme": "SCIENCES",
+    "question": "Combien de forces de vents sont définis dans l'echelle de Beaufort ?",
+    "reponse": 12,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "98",
+    "theme": "MONDE VIVANT",
+    "question": "Quelle est la vitesse de pointe en km/h sur la terre ferme d'un crocodile du Nil ?",
+    "reponse": 17,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "99",
+    "theme": "MONDE VIVANT",
+    "question": "Combien d'espèces d'arbres existent au total dans le monde ?",
+    "reponse": 73000,
+    "complement": "Dont 9200 restent à découvrir. Source : Lemonde.fr"
+  },
+  {
+    "id": "100",
+    "theme": "SONDAGES",
+    "question": "Quelle est la durée moyenne en France du trajet aller-retour quotidien entre le domicile et le travail (en minutes) ?",
+    "reponse": 50,
+    "complement": "Source : Ministère du travail"
+  },
+  {
+    "id": "101",
+    "theme": "IMPROBABLE",
+    "question": "En 2020, combien de divorces ou ruptures de corps ont été demandés officiellement en France ?",
+    "reponse": 78100,
+    "complement": " Durée moyenne des mariages de 16,5 ans. Source : Justice.gouv.fr"
+  },
+  {
+    "id": "102",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de villes de la Creuse comportent plus de 2000 habitants ?",
+    "reponse": 5,
+    "complement": "Guéret, La Souterraine, Aubusson, Sainte-Feyre, Bourganeuf. Source : Bien-dans-ma-ville.fr"
+  },
+  {
+    "id": "103",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la superficie de la France métropolitaine en kilomètres carrés ?",
+    "reponse": 551695,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "104",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la superficie du lac Léman en kilomètres carrés ?",
+    "reponse": 582,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "105",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la longueur en kilomètres de la ligne féroviaire du Shinkansen ?",
+    "reponse": 515.4,
+    "complement": "La ligne Shinkansen Tokaido, en service depuis 1964. Source : Wikipedia"
+  },
+  {
+    "id": "106",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la longueur en kilomètres du réseau autoroutier total de France métropolitaine (fin 2021)",
+    "reponse": 11664,
+    "complement": "Dont 9102km concédés a des sociétés privées. Source : statistiques.developpement-durable.gouv.fr"
+  },
+  {
+    "id": "107",
+    "theme": "SCIENCES",
+    "question": "A quelle température le fer pur fond-il (en degrés Celsius) ?",
+    "reponse": 1538,
+    "complement": "Source : Air liquide France industrie"
+  },
+  {
+    "id": "108",
+    "theme": "ECONOMIE",
+    "question": "Quel est le budget investi estimé pour le film Warcraft : Le commencement (en millions de dollars) ?",
+    "reponse": 160,
+    "complement": "Source : Allo ciné"
+  },
+  {
+    "id": "109",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien d'épisodes de \"Rendez-vous en terre inconnue\" ont été diffusés (au 26 Novembre 2024)",
+    "reponse": 34,
+    "complement": "Le dernier parti étant Tomer Sisley. Source : Wikipedia"
+  },
+  {
+    "id": "110",
+    "theme": "RECORDS",
+    "question": "Combien de bisounours contient la plus grande collection inscrite au Guinness des records (2024) ?",
+    "reponse": 1234,
+    "complement": "Nicholas Cherrywood. Source : Caminteresse.com"
+  },
+  {
+    "id": "111",
+    "theme": "RECORDS",
+    "question": "Quel est le record du monde homologué du nombre de ricochets (2013) ?",
+    "reponse": 88,
+    "complement": "Kurt Steiner, au championnats du monde de ricochets en Ecosse. Source : Wikipedia"
+  },
+  {
+    "id": "112",
+    "theme": "RECORDS",
+    "question": "Combien d'étages comporte le château de carte le plus haut jamais réalisé sur une machine à laver en marche (2024) ?",
+    "reponse": 48,
+    "complement": "Bryan Berg, pour promouvoir la stabilité de la machine. Source : recordsdumonde.fr"
+  },
+  {
+    "id": "113",
+    "theme": "RECORDS",
+    "question": "Combien de kilos de sucreries contenait la plus grande pinata jamais conçue (2024) ?",
+    "reponse": 3600,
+    "complement": "Dans une pinata de 19 mètres de haut tout de même. Source : Wordpress.com"
+  },
+  {
+    "id": "114",
+    "theme": "RECORDS",
+    "question": "Quel est le record du monde de la partie la plus longue disputée au Monopoly en jours consécutifs (2024) ?",
+    "reponse": 70,
+    "complement": "Source : Monopolypedia"
+  },
+  {
+    "id": "115",
+    "theme": "RECORDS",
+    "question": "De combien de cases est constituée la plus grande marelle du monde (2024) ?",
+    "reponse": 21871,
+    "complement": "Sur 7km, prévoir environ 2 heures. Source : Guinnessworldrecords.com"
+  },
+  {
+    "id": "116",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de cases y a-t-il dans le jeu des petits chevaux (version française) ?",
+    "reponse": 81,
+    "complement": "4 joueurs ont 14 cases, 6 cases en plus par joueur vers le centre, et le centre. Source : Ribambel.com"
+  },
+  {
+    "id": "117",
+    "theme": "DATES",
+    "question": "En quelle année à eu lieu le printemps de Prague ?",
+    "reponse": 1968,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "118",
+    "theme": "DATES",
+    "question": "En quelle année à débuter la première guerre des Boers en Afrique du Sud ?",
+    "reponse": 1880,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "119",
+    "theme": "DATES",
+    "question": "De quelle année date l'utilisation des confettis modernes ?",
+    "reponse": 1875,
+    "complement": "Enrico Mangili, a Milan, en remplacement de billes de platre !  Source : Wikipedia"
+  },
+  {
+    "id": "120",
+    "theme": "DATES",
+    "question": "En quelle année à eu lieu le premier carnaval de Rio ?",
+    "reponse": 1840,
+    "complement": "Mais on y dansait pas encore la samba. Source : Wikipedia"
+  },
+  {
+    "id": "121",
+    "theme": "DATES",
+    "question": "En quelle année le dodo a-t-il disparu ?",
+    "reponse": 1681,
+    "complement": "Source : Ile-maurice.fr"
+  },
+  {
+    "id": "122",
+    "theme": "DATES",
+    "question": "En quelle année a été diffusée la première publicité à la télévision française ?",
+    "reponse": 1968,
+    "complement": "Un 1er octobre. Source : Ladepeche.fr"
+  },
+  {
+    "id": "123",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien existe-t-il de champions jouables dans League of Legends (6 Novembre 2024)",
+    "reponse": 169,
+    "complement": "Date de sortie d'Ambessa. Source : Leagueoflegends.fandom.com"
+  },
+  {
+    "id": "124",
+    "theme": "DATES",
+    "question": "De quelle année date la baguette tradition en France ?",
+    "reponse": 1993,
+    "complement": "Le \"décret pain\" de Septembre. Source : Les echos"
+  },
+  {
+    "id": "125",
+    "theme": "DATES",
+    "question": "En quelle année le premier brevet pour une machine à laver le linge a-t-il été déposé ?",
+    "reponse": 1797,
+    "complement": "Le 28 mars, par l'Américain Nathaniel Briggs. Source : Radiofrance"
+  },
+  {
+    "id": "126",
+    "theme": "DATES",
+    "question": "En quelle année a été breveté le stylo à bille jetable ?",
+    "reponse": 1938,
+    "complement": "Par les frères Biro. Source : Wikipedia"
+  },
+  {
+    "id": "127",
+    "theme": "DATES",
+    "question": "En quelle année le premier radar fixe de contrôle routier a-t-il été installé en France ?",
+    "reponse": 2003,
+    "complement": "Le 27 octobre, à la Ville du Bois dans l'Essone (RN20). Source : Securité-routière.gouv.fr"
+  },
+  {
+    "id": "128",
+    "theme": "DATES",
+    "question": "En quelle année le premier restaurant végétarien a-t-il ouvert en Europe ?",
+    "reponse": 1898,
+    "complement": "A Zurich, le \"Hiltl\". Source : Ledevoir.com"
+  },
+  {
+    "id": "129",
+    "theme": "DATES",
+    "question": "En quelle année le premier journal télévisé a-t-il été diffusé en France ?",
+    "reponse": 1949,
+    "complement": "Sur la RTF, alors que un pour cent des foyers disposent d'un téléviseur. Source : Le dauphiné libéré"
+  },
+  {
+    "id": "130",
+    "theme": "DATES",
+    "question": "En quelle année la prise de courant murale a-t-elle été brevetée ?",
+    "reponse": 1903,
+    "complement": "Par Harvey Hubbell. Source : Wikipedia"
+  },
+  {
+    "id": "131",
+    "theme": "DIVERTISSEMENT",
+    "question": "En moyenne, combien de livres les français déclarent-ils avoir lu en un an (papier et numérique, en 2023) ?",
+    "reponse": 22,
+    "complement": "Source : Centre national du livre"
+  },
+  {
+    "id": "132",
+    "theme": "SONDAGES",
+    "question": "Sur 100 Français, combien ont déjà tapé leur propre nom sur Google ?",
+    "reponse": 71,
+    "complement": "Source : Le nouvel Obs"
+  },
+  {
+    "id": "133",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien existe-t-il de danses de salon (standard et latines) ?",
+    "reponse": 10,
+    "complement": "2 Valses, Tango, Quickstep, Slow fox, Samba, Cha-cha, Rumba, Paso doble, Jive. Source : Wikipedia"
+  },
+  {
+    "id": "134",
+    "theme": "DATES",
+    "question": "En quelle année est né Robespierre ?",
+    "reponse": 1758,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "135",
+    "theme": "IMPROBABLE",
+    "question": "Quel est le pourcentage de noisettes dans la fabrication du Nutella (2024) ?",
+    "reponse": 13,
+    "complement": "Source : Nutella.com"
+  },
+  {
+    "id": "136",
+    "theme": "ECONOMIE",
+    "question": "Combien y avait-il de demandeurs d'emploi inscrits à France travail en décembre 2024 ?",
+    "reponse": 5535100,
+    "complement": "Source : Ministère du travail"
+  },
+  {
+    "id": "137",
+    "theme": "ECONOMIE",
+    "question": "Combien d'entreprises françaises ont fait faillite en 2023 ?",
+    "reponse": 55492,
+    "complement": "Source : Libération"
+  },
+  {
+    "id": "138",
+    "theme": "MONDE VIVANT",
+    "question": "En 2023, quel est le taux de fécondité le plus bas dans un pays en nombre d'enfants par femme ?",
+    "reponse": 0.72,
+    "complement": "En Corée du sud. Source : Wikipedia"
+  },
+  {
+    "id": "139",
+    "theme": "SONDAGES",
+    "question": "Sur 100 français en couple, combien ont déjà fouillé dans le téléphone de leur partenaire ?",
+    "reponse": 40,
+    "complement": "Qualifié de Snooping. Source : Elle.fr"
+  },
+  {
+    "id": "140",
+    "theme": "SONDAGES",
+    "question": "Sur 100 français entre 18 et 29 ans, combien vivaient encore chez leurs parents (2013) ?",
+    "reponse": 46,
+    "complement": "Source : Insee"
+  },
+  {
+    "id": "141",
+    "theme": "SONDAGES",
+    "question": "Sur 100 français ayant un enfant, combien regrettent le nom qu'ils lui ont donné ?",
+    "reponse": 14,
+    "complement": "Precisement une personne sur 7. Source : Cosmopolitan.fr"
+  },
+  {
+    "id": "142",
+    "theme": "SONDAGES",
+    "question": "Sur 100 français de moins de 35 ans, combien ont au moins un tatouage ?",
+    "reponse": 27,
+    "complement": "Source : Santé.gouv.fr"
+  },
+  {
+    "id": "143",
+    "theme": "SONDAGES",
+    "question": "Sur 100 francais, combien dorment nus ?",
+    "reponse": 10,
+    "complement": "Source : Ouest france"
+  },
+  {
+    "id": "144",
+    "theme": "DATES",
+    "question": "En quelle année a été concue la classification PEGI des jeux vidéo ?",
+    "reponse": 2003,
+    "complement": "Pan European Game Information. Source : Wikipedia"
+  },
+  {
+    "id": "145",
+    "theme": "SONDAGES",
+    "question": "Sur 100 français en couple, combien préfèrent faire chambre à part (le faisant effectivement ou non) ?",
+    "reponse": 16,
+    "complement": "Source : Ifop"
+  },
+  {
+    "id": "146",
+    "theme": "ECONOMIE",
+    "question": "Combien d'actifs en France touchent le SMIC en travaillant à temps plein (novembre 2024) ?",
+    "reponse": 3100000,
+    "complement": "Pour 17,6 millions d'actifs. Source : Le monde"
+  },
+  {
+    "id": "147",
+    "theme": "SONDAGES",
+    "question": "Sur 100 hommes français de moins de 35 ans, combien préfèrent regarder une série plutôt que faire l'amour ?",
+    "reponse": 50,
+    "complement": "Source : Sud ouest"
+  },
+  {
+    "id": "148",
+    "theme": "SONDAGES",
+    "question": "Sur 100 actifs français, combien se rendent au travail à vélo (2021) ?",
+    "reponse": 4.5,
+    "complement": "Source : notre-environnement.gouv.fr et étude Insee mobilité des personnes"
+  },
+  {
+    "id": "149",
+    "theme": "IMPROBABLE",
+    "question": "Combien les français ont-ils mangé d'oeufs en moyenne en 2023 ?",
+    "reponse": 224,
+    "complement": "Source : Oeuf-info.fr"
+  },
+  {
+    "id": "150",
+    "theme": "RECORDS",
+    "question": "Quel est le record du monde du nombre de Tee shirts portés en même temps (2024) ?",
+    "reponse": 260,
+    "complement": "Ted Hastings. Source : Guinness world records"
+  },
+  {
+    "id": "151",
+    "theme": "RECORDS",
+    "question": "Combien de centimètres mesure le plus grand lance-pierre du monde (2025) ?",
+    "reponse": 456,
+    "complement": "En Norvège. Source : Guinness world records"
+  },
+  {
+    "id": "152",
+    "theme": "RECORDS",
+    "question": "Quel est le record de nombre de coups sur caisse claire de batterie en 30 secondes (2024) ?",
+    "reponse": 687,
+    "complement": "Keita Hattori. Il a aussi le record au piano avec 484 touches… Source : Guinness world records"
+  },
+  {
+    "id": "153",
+    "theme": "RECORDS",
+    "question": "Combien de personnes ont participé au record du monde de la représentation du plus long ADN (2024) ?",
+    "reponse": 4000,
+    "complement": "Sur une plage bulgare. Source : Guinness world records"
+  },
+  {
+    "id": "154",
+    "theme": "RECORDS",
+    "question": "Combien de centimètres mesure la plus petite femme au monde (capable de se déplacer seule, en 2011) ?",
+    "reponse": 62.8,
+    "complement": "Jyoti Kisanji Amge (Inde). Source : Guinness world records"
+  },
+  {
+    "id": "155",
+    "theme": "RECORDS",
+    "question": "Quel est le record du monde en minutes du gainage abdominal le plus long (2024) ?",
+    "reponse": 578,
+    "complement": "Josef Salek, soit 9h38min47sec. Source : Guinness world records"
+  },
+  {
+    "id": "156",
+    "theme": "RECORDS",
+    "question": "Quel est le record en centimètres des plus long ongles de main (cumul des dix doigts, 2022) ?",
+    "reponse": 1306.58,
+    "complement": "Diana Armstrong, qui laisse pousser depuis 1997. Source : Guinness world records"
+  },
+  {
+    "id": "157",
+    "theme": "DATES",
+    "question": "En quelle année a été conçu le plus ancien labyrinthe de haies toujours actif (2024)",
+    "reponse": 1690,
+    "complement": "A Hampton court palace en Angleterre, par le roi William III. Source : Guinness world records"
+  },
+  {
+    "id": "158",
+    "theme": "RECORDS",
+    "question": "Quelle est la taille en mètres du plus grand saut par dessus un fossé effectué avec une cabine de camion (2015)",
+    "reponse": 50.6,
+    "complement": "Gregg Godfrey (Americain, évidemment). Source : Guinness world records"
+  },
+  {
+    "id": "159",
+    "theme": "RECORDS",
+    "question": "Quelle est la taille en mètres du plus long vélo jamais conçu (2024) ?",
+    "reponse": 55.16,
+    "complement": "Source : Guinness world records"
+  },
+  {
+    "id": "160",
+    "theme": "RECORDS",
+    "question": "Combien de robots comptabilisait le record du plus grand nombre de robots dansant simultanément (2018) ?",
+    "reponse": 1372,
+    "complement": "Tim S.P.A en Italie. Source : Guinness world records"
+  },
+  {
+    "id": "161",
+    "theme": "RECORDS",
+    "question": "Quel est le record du monde en secondes du 100 mètre haies en palmes le plus rapide (2008) ?",
+    "reponse": 14.82,
+    "complement": "Christopher Irmscher (allemand), contre 12,12 sans palmes. Source : Guinness world records"
+  },
+  {
+    "id": "162",
+    "theme": "RECORDS",
+    "question": "Quel est le prix en dollars du hot dog le plus cher au monde jamais vendu (2014) ?",
+    "reponse": 169,
+    "complement": "Environ 123 euros, vendu par Tokyo dog. Source : Guinness world records"
+  },
+  {
+    "id": "163",
+    "theme": "IMPROBABLE",
+    "question": "Combien a été vendu aux enchères le gant ayant appartenu à Michael Jackson (en dollars) ?",
+    "reponse": 350000,
+    "complement": "Et lui l'avait acheté 30 dollars. Source : 20minutes"
+  },
+  {
+    "id": "164",
+    "theme": "ECONOMIE",
+    "question": "Quel est le coût de fabrication estimé de la station spatiale internationale (en milliards de dollars) ?",
+    "reponse": 150,
+    "complement": "Source : Cité des télécoms"
+  },
+  {
+    "id": "165",
+    "theme": "RECORDS",
+    "question": "Quel est le record en centimètres des plus long pieds d'une personne vivante (2018) ?",
+    "reponse": 40.57,
+    "complement": "Jeison Orlando Rodriguez Hernandez au Venezuela chausse du 57. Source : Guinness world records"
+  },
+  {
+    "id": "166",
+    "theme": "RECORDS",
+    "question": "Quel est le record du nombre de doigts de main et d'orteils cumulés sur une seule personne vivante (2014) ?",
+    "reponse": 34,
+    "complement": "Akshat Saxena, 14 doigts et 20 orteils. Source : 20minutes"
+  },
+  {
+    "id": "167",
+    "theme": "RECORDS",
+    "question": "Quel est le record en secondes de la plus longue durée passée en équilibre sur deux doigts par mains (2008) ?",
+    "reponse": 19.23,
+    "complement": "Wang Wei Bao (Chine). Source : Guinness world records"
+  },
+  {
+    "id": "168",
+    "theme": "RECORDS",
+    "question": "Quel est le record en mètres de la plus longue distance nagée sous l'eau à l'horitonzal en une seule inspiration en maillot de bain dans un lac gelé (2022) ?",
+    "reponse": 105,
+    "complement": "Arthur Guérin-Boeri, sous la glace dans une eau à 0,7°C. Source : Sud ouest"
+  },
+  {
+    "id": "169",
+    "theme": "IMPROBABLE",
+    "question": "Combien de lettres possède l'alphabet le plus long d'une langue vivante ?",
+    "reponse": 74,
+    "complement": "Le khmer (cambodgien). Source : Adhoc-translations.com"
+  },
+  {
+    "id": "170",
+    "theme": "RECORDS",
+    "question": "Quel est le record du nombre de bottle flips (sur une table) en une minute (2022) ?",
+    "reponse": 71,
+    "complement": "Dipika Sharma (Inde). Source : Guinness world records"
+  },
+  {
+    "id": "171",
+    "theme": "RECORDS",
+    "question": "Quel est le record du nombre de personnes ayant participé à la plus longue chaine de dominos humains (2016) ?",
+    "reponse": 1200,
+    "complement": "13min38 de réaction en chaine. Source : Le dauphiné libéré"
+  },
+  {
+    "id": "172",
+    "theme": "IMPROBABLE",
+    "question": "Combien y a-t-il de déchetteries en France (2021) ?",
+    "reponse": 4620,
+    "complement": "Source : notre-environnement.gouv.fr"
+  },
+  {
+    "id": "173",
+    "theme": "ECONOMIE",
+    "question": "Combien y a-t-il de notaires en France (07/2024) ?",
+    "reponse": 17334,
+    "complement": "12189 libéraux et 5145 salariés. Source : csn.notaires.fr"
+  },
+  {
+    "id": "174",
+    "theme": "ECONOMIE",
+    "question": "Quelle est la part de marché (de 0 à 100) de Leroy Merlin sur le marché total des enseignes de bricolage (2023) ?",
+    "reponse": 39,
+    "complement": "Devant Castorama (13%), Brico depot (12%). Source : Statista.com"
+  },
+  {
+    "id": "175",
+    "theme": "ECONOMIE",
+    "question": "Quel était le prix moyen du sans plomb 95 (E5) en France métropolitaine en euros par litres (02/2025) ?",
+    "reponse": 1.8,
+    "complement": "Source : carbu.com"
+  },
+  {
+    "id": "176",
+    "theme": "RECORDS",
+    "question": "Quelle est la durée record en minutes de tenue debout en équilibre sur un ballon de Yoga (2015) ?",
+    "reponse": 325,
+    "complement": "Garett Lam. Soit 5h25min (et précisemment 36,98secondes). Source : Bostonglobe.com"
+  },
+  {
+    "id": "177",
+    "theme": "RECORDS",
+    "question": "Quel est le record du nombre de M&M's mangés en une minute les yeux bandés avec des baguettes chinoises (2022) ?",
+    "reponse": 25,
+    "complement": "Avery Chin (Malaisie). Source : Asia book of records"
+  },
+  {
+    "id": "178",
+    "theme": "ECONOMIE",
+    "question": "Combien coûtait l'iPhone 16 Pro 128Go à son lancement le 20/09/2024 (en euros) ?",
+    "reponse": 1229,
+    "complement": "Source : Numerama.com"
+  },
+  {
+    "id": "179",
+    "theme": "RECORDS",
+    "question": "Quel est le record du nombre d'albums vendus en une seule semaine par un ou une artiste (2015) ?",
+    "reponse": 3380000,
+    "complement": "Adele, pour son album 25. Source : Vinylesandvintage.com"
+  },
+  {
+    "id": "180",
+    "theme": "RECORDS",
+    "question": "Quel est le record en dollars de l'intrument de musique le plus cher jamais vendu (2011) ?",
+    "reponse": 15900000,
+    "complement": "Un Stradivarius. Source : Guinness world records"
+  },
+  {
+    "id": "181",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien y avait-il de licenciés de la fédération française de bridge sur la saison 2023-2024 ?",
+    "reponse": 76782,
+    "complement": "Répartis dans 1050 clubs. Source : Wikipedia"
+  },
+  {
+    "id": "182",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien y avait-il de participants aux épreuves d'athlétisme des JO de Paris 2024 ?",
+    "reponse": 1810,
+    "complement": "Sur 48 épreuves différentes. Source : Wikipedia"
+  },
+  {
+    "id": "183",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de singles comporte la discographie de Johnny Hallyday ?",
+    "reponse": 165,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "184",
+    "theme": "IMPROBABLE",
+    "question": "Combien de chapitres comporte la Bible (ancien et nouveau testament) ?",
+    "reponse": 1189,
+    "complement": "Respectivement 929 et 260. Source : Bibliauniversalis3.com"
+  },
+  {
+    "id": "185",
+    "theme": "DATES",
+    "question": "En quelle année est né Honoré de Balzac ?",
+    "reponse": 1799,
+    "complement": "Le 20 mai. Source : Wikipedia"
+  },
+  {
+    "id": "186",
+    "theme": "IMPROBABLE",
+    "question": "Combien de lettres comporte la dénomination chimique exacte de la molécule de la titine (un des mots les plus longs du monde) ?",
+    "reponse": 189819,
+    "complement": "Possède également une forme raccourcie de 45 caractères…pour usage. Source : Alphatrad.fr"
+  },
+  {
+    "id": "187",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de films concourraient à la cérémonie des oscars en 2024 ?",
+    "reponse": 321,
+    "complement": "Source : L'officiel des spectacles"
+  },
+  {
+    "id": "188",
+    "theme": "SCIENCES",
+    "question": "Quelle est l'accélération la plus élevée enregistrée sur un humain (en g) ?",
+    "reponse": 46.2,
+    "complement": "Pendant 0,9 secondes sur le dos. John Paul Stapp. Source : Wikipedia"
+  },
+  {
+    "id": "189",
+    "theme": "SCIENCES",
+    "question": "Combien de temps met un atome d’uranium 238 pour se désintégrer complètement (en années) ?",
+    "reponse": 4500000000,
+    "complement": "Source : Connaissancedesenergies.org"
+  },
+  {
+    "id": "190",
+    "theme": "SCIENCES",
+    "question": "Quelle est la température la plus élevée jamais mesurée sur Terre (en degrés Celsius) ?",
+    "reponse": 56.7,
+    "complement": "A Furnace Creek dans le désert californien en 1913. Source : Wikipedia"
+  },
+  {
+    "id": "191",
+    "theme": "SCIENCES",
+    "question": "Quelle est la plus violente rafale de vent jamais enregistrée sur Terre (hors tornades) en kilomètres par heures ?",
+    "reponse": 408,
+    "complement": "Le 10 avril 1996 sur l'ile de Barrow (Australie occidentale). Source : Wikipedia"
+  },
+  {
+    "id": "192",
+    "theme": "SCIENCES",
+    "question": "Quelle est la vitesse maximale de propagation du son dans un solide (en kilomètres par heure) ?",
+    "reponse": 129600,
+    "complement": "Soit 36 km/s, dans le diamant. Source : Wikipedia"
+  },
+  {
+    "id": "193",
+    "theme": "SCIENCES",
+    "question": "Quelle est la distance moyenne entre le soleil et Mars (en million de kilomètres) ?",
+    "reponse": 220,
+    "complement": "Source : Futura sciences"
+  },
+  {
+    "id": "194",
+    "theme": "SCIENCES",
+    "question": "Combien de satellites connus et nommés possède Neptune (2024) ?",
+    "reponse": 14,
+    "complement": "Nous en connaissons deux autres, si petits qu'ils ne sont pas nommés. Source : CNES"
+  },
+  {
+    "id": "195",
+    "theme": "SCIENCES",
+    "question": "Quelle distance sépare le soleil de l'étoile qui lui est la plus proche (en années lumière) ?",
+    "reponse": 4.24,
+    "complement": "Proxima Centauri. Source : Wikipedia"
+  },
+  {
+    "id": "196",
+    "theme": "SCIENCES",
+    "question": "Quelle est la tension electrique moyenne d'un éclair (en joules) ?",
+    "reponse": 100000000,
+    "complement": "Pour environ 30 000 degrés celsius. Source : Palais de la découverte"
+  },
+  {
+    "id": "197",
+    "theme": "SCIENCES",
+    "question": "Combien de grammes d'astate existe-t-il dans la croûte terrestre ?",
+    "reponse": 30,
+    "complement": "L'élément le plus rare. Source : CNRS"
+  },
+  {
+    "id": "198",
+    "theme": "SCIENCES",
+    "question": "Quelle est la vitesse du son dans l'eau (en kilomètres par heures) ?",
+    "reponse": 5400,
+    "complement": "Soit 1500 m/s. Source : Wikipedia"
+  },
+  {
+    "id": "199",
+    "theme": "IMPROBABLE",
+    "question": "Combien d'adhérents comptabilise l'enseigne Basic Fit dans le monde (06/2023) ?",
+    "reponse": 3600000,
+    "complement": "Présents surtout en France, Belgique et Pays bas (entreprise néerlandaise). Source : Wikipedia"
+  },
+  {
+    "id": "200",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de tomes principaux de la BD Gaston Lagaffe ont été édités (sans hors séries, à Novembre 2023) ?",
+    "reponse": 22,
+    "complement": "Le dernier est \"Le retour de Lagaffe\". Source : gastonlagaffe.com"
+  },
+  {
+    "id": "201",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la longueur de la route 66 aux USA en kilomètres ?",
+    "reponse": 3940,
+    "complement": "Source : Roadtrippin.fr"
+  },
+  {
+    "id": "202",
+    "theme": "SONDAGES",
+    "question": "Sur 100 collégiens de la cinquième à la troisième, combien étudiaient le latin (2021) ?",
+    "reponse": 14.6,
+    "complement": "Source : Education.gouv.fr… ils ont un beau tableau excel à disposition !"
+  },
+  {
+    "id": "203",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de fois a été vue la vidéo de Baby shark sur Youtube au 21/12/2024 (en millions) ?",
+    "reponse": 15426,
+    "complement": "La plus vue, deux fois plus que la deuxième (Despacito). Source : Wikipedia"
+  },
+  {
+    "id": "204",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de combinaisons prénoms-animaux sont citées dans les couplets de la chanson \"La ferme\" des Fatals picards ?",
+    "reponse": 176,
+    "complement": "22 couplets à 8 noms, avec certains rappels à la fin tout de même. Source : paroles.net"
+  },
+  {
+    "id": "205",
+    "theme": "IMPROBABLE",
+    "question": "Combien de pélerins pour Saint Jacques de Compostelle ont été comptabilisés en Galice en 2023 ?",
+    "reponse": 446000,
+    "complement": "Source : Lescheminsverscompostelle.fr"
+  },
+  {
+    "id": "206",
+    "theme": "SONDAGES",
+    "question": "En 2022, combien y avait-il de fumeurs en France ?",
+    "reponse": 12000000,
+    "complement": "Source : Santepubliquefrance.fr"
+  },
+  {
+    "id": "207",
+    "theme": "IMPROBABLE",
+    "question": "En 1991, combien de personnes appelées Kévin sont nées ?",
+    "reponse": 14101,
+    "complement": "Contre 127 en 2023. Source : capeutservir.com/prenoms"
+  },
+  {
+    "id": "208",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de jeux de la série Call Of Duty ont été édités (jusqu'au Black Ops 6 du 25 octobre 2024) ?",
+    "reponse": 21,
+    "complement": "Depuis 2003. Source : Wikipedia"
+  },
+  {
+    "id": "209",
+    "theme": "IMPROBABLE",
+    "question": "Quelle est la masse totale en tonnes du gaspillage alimentaire en France en 2022 ?",
+    "reponse": 9400000,
+    "complement": "Dont 4 millions de comestible. Le reste étant coquilles, carcasses...Source : agriculture.gouv.fr"
+  },
+  {
+    "id": "210",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de niveaux sont disponibles dans le jeu \"Candy crush Saga\" au 3 octobre 2024 sur mobile ?",
+    "reponse": 17720,
+    "complement": "Source : Mycandycrush.fr"
+  },
+  {
+    "id": "211",
+    "theme": "SONDAGES",
+    "question": "Sur 100 français, combien ont appris à jouer d'un ou plusieurs instruments de musique même s'ils ne le pratiquent plus (2017) ?",
+    "reponse": 37,
+    "complement": "Source : cb-expert.fr et étude Ifop"
+  },
+  {
+    "id": "212",
+    "theme": "ECONOMIE",
+    "question": "Quelle est la recette générée par les radars automatiques de contrôle routier en 2023 (en millions d'euros) ?",
+    "reponse": 965,
+    "complement": "Dont 20,9% servent à rembourser la dette. Source : Securité-routiere.gouv.fr"
+  },
+  {
+    "id": "213",
+    "theme": "ECONOMIE",
+    "question": "Quel était le prix du baril de pétrole en dollars le 09/02/2025 ?",
+    "reponse": 71,
+    "complement": "Source : prixdubaril.com"
+  },
+  {
+    "id": "214",
+    "theme": "ECONOMIE",
+    "question": "Combien de roubles russes valent un euros au 07/02/2025 ?",
+    "reponse": 100.17,
+    "complement": "Source : google (page d'acceuil)"
+  },
+  {
+    "id": "215",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de langues vivantes différentes sont estimées dans le monde ?",
+    "reponse": 7000,
+    "complement": "Source : Museum national d'histoire naturelle"
+  },
+  {
+    "id": "216",
+    "theme": "MONDE VIVANT",
+    "question": "Combien y a-t-il d'éléphants d'Afrique vivants (2023) ?",
+    "reponse": 415000,
+    "complement": "Source : WWF France"
+  },
+  {
+    "id": "217",
+    "theme": "MONDE VIVANT",
+    "question": "Combien existe-t-il d'espèces de requins connues dans le monde (2014) ?",
+    "reponse": 529,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "218",
+    "theme": "MONDE VIVANT",
+    "question": "Combien de grammes pèse un oeuf d'autruche en moyenne ?",
+    "reponse": 1500,
+    "complement": "Soit environ 24 oeufs de poule. Source : Wikipedia"
+  },
+  {
+    "id": "219",
+    "theme": "MONDE VIVANT",
+    "question": "Combien de pattes possède le mille pattes le plus long jamais découvert (2021) ?",
+    "reponse": 1306,
+    "complement": "Et rare sont ceux qui atteignent les 1000 ! Source : Courrier international"
+  },
+  {
+    "id": "220",
+    "theme": "IMPROBABLE",
+    "question": "Combien de Témoins de Jéhovah y a-t-il dans le monde en 2024 ?",
+    "reponse": 8800000,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "221",
+    "theme": "IMPROBABLE",
+    "question": "Au 1er octobre 2024, combien recensait-on de détenus dans des centres pénitentiaires en France ?",
+    "reponse": 79631,
+    "complement": "Pour 62 279 places opérationnelles. Source : Wikipedia"
+  },
+  {
+    "id": "222",
+    "theme": "IMPROBABLE",
+    "question": "Combien de sangliers ont été abattus en France sur la saison 2022-2023 ?",
+    "reponse": 789816,
+    "complement": "Pour plus de 2 millions d'individus. Source : Office français de la biodiversité"
+  },
+  {
+    "id": "223",
+    "theme": "ECONOMIE",
+    "question": "En 2021, combien y avait-il de PME en France ?",
+    "reponse": 159000,
+    "complement": "4,3 millions de salariés. Source : Economie.gouv.fr"
+  },
+  {
+    "id": "224",
+    "theme": "ECONOMIE",
+    "question": "En moyenne en 2024, quel pourcentage (0-100) des revenus nets des français leur servaient à constituer une épargne ?",
+    "reponse": 11,
+    "complement": "Pour seulement 6% pour les personnes autour de la médiane. Source : Insee"
+  },
+  {
+    "id": "225",
+    "theme": "ECONOMIE",
+    "question": "Sur les 82% des français possédant un livret A, quelle était la valeur moyenne en euros stocké dessus en 2024 ?",
+    "reponse": 7077,
+    "complement": "Qui ont rapporté 3%, soit 212 euros en moyenne en fin d'année. Source : placement.meilleurtaux.com"
+  },
+  {
+    "id": "226",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de figurants ont été employés sur le tournage de la trilogie du Seigneur des Anneaux ?",
+    "reponse": 20602,
+    "complement": "Source : The.middle.earth.free.fr"
+  },
+  {
+    "id": "227",
+    "theme": "ECONOMIE",
+    "question": "Combien y a-t-il d'hôtels ouverts en France (01/01/2025) ?",
+    "reponse": 16610,
+    "complement": "Pour un total de 661 066 chambres. Source : Insee"
+  },
+  {
+    "id": "228",
+    "theme": "ECONOMIE",
+    "question": "A fin 2022, combien de personnes employaient une assistante maternelle en France ?",
+    "reponse": 1080338,
+    "complement": "30,9% des employeurs particuliers. Source : Insee"
+  },
+  {
+    "id": "229",
+    "theme": "ECONOMIE",
+    "question": "Sur 100 femmes actives en France en 2021, combien occupaient un emploi à temps partiel ?",
+    "reponse": 24.8,
+    "complement": "Contre seulement 8,0 chez les hommes. Source : Insee"
+  },
+  {
+    "id": "230",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la superficie de l'île de Zanzibar en kilomètres carrés ?",
+    "reponse": 1658,
+    "complement": "Ile tanzanienne. Source : Routard.com"
+  },
+  {
+    "id": "231",
+    "theme": "IMPROBABLE",
+    "question": "Combien y a-t-il d'éoliennes en France métropolitaine et outre-Mer (31/03/2023) ?",
+    "reponse": 9719,
+    "complement": "Source : transition-energetique.eco"
+  },
+  {
+    "id": "232",
+    "theme": "IMPROBABLE",
+    "question": "Combien y a-t-il de réacteurs nucléaires en France (01/2025) ?",
+    "reponse": 57,
+    "complement": "56 REP et un EPR. Source : EDF.fr"
+  },
+  {
+    "id": "233",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de pays possèdent officielement l'arme atomique (2024) ?",
+    "reponse": 9,
+    "complement": "Russie, Etats-Unis, France, Royaume-Uni, Chine, Inde, Pakistan, Israël, Corée du Nord"
+  },
+  {
+    "id": "234",
+    "theme": "IMPROBABLE",
+    "question": "Combien la France possède-t-elle de produits sous AOC/AOP (06/2022) ?",
+    "reponse": 489,
+    "complement": "Source : Agriculture.gouv.fr"
+  },
+  {
+    "id": "235",
+    "theme": "IMPROBABLE",
+    "question": "Combien y a-t-il de châteaux d'eau en France métropolitainte (2023) ?",
+    "reponse": 16000,
+    "complement": "Source : caminteresse.fr"
+  },
+  {
+    "id": "236",
+    "theme": "IMPROBABLE",
+    "question": "Combien de lettres comporte le nom le plus long de commune en France, tirets compris (2024) ?",
+    "reponse": 45,
+    "complement": "Saint-Remy-en-Bouzemont-Saint-Genest-et-Isson, dans la Marne. Source : lunion.fr"
+  },
+  {
+    "id": "237",
+    "theme": "IMPROBABLE",
+    "question": "Combien la France a-t-elle remporté de médailles dans tous les jeux olympiques d'été modernes (30 jusqu'en 2024) ?",
+    "reponse": 816,
+    "complement": "239 or, 278 argent, 299 bronze. Source : Wikipedia"
+  },
+  {
+    "id": "238",
+    "theme": "ECONOMIE",
+    "question": "Combien coûte un bitcoin en euros (12/02/2025 : 20h45) ?",
+    "reponse": 93500.27,
+    "complement": "A gagné 1,09% aujourd'hui ! Source : Suivi marché Google"
+  },
+  {
+    "id": "239",
+    "theme": "ECONOMIE",
+    "question": "Combien de NFTs peuvent être achetées avec un euros (12/02/2025) ?",
+    "reponse": 333.33,
+    "complement": "Soit 0,003 euros la NFT. Source : coinbase.com"
+  },
+  {
+    "id": "240",
+    "theme": "MONDE VIVANT",
+    "question": "Quelle est la vitesse maximale en mètres secondes de l'influx nerveux dans les neurones chez l'Homme ?",
+    "reponse": 100,
+    "complement": "Source : pourlascience.fr"
+  },
+  {
+    "id": "241",
+    "theme": "RECORDS",
+    "question": "Quel est le record du monde du nombre de sauts à l'élastique réalisés en 24 heures (2024) ?",
+    "reponse": 941,
+    "complement": "Le Néo-zélandais Mike Heard bat le record français de 765 sauts. Source : Le parisien"
+  },
+  {
+    "id": "242",
+    "theme": "MONDE VIVANT",
+    "question": "A quel age (en années) est décédé l'animal le plus vieux du monde en 2006 ?",
+    "reponse": 507,
+    "complement": "Une palourde, de l'espèce Arctica Islandica. Source : Geo.fr"
+  },
+  {
+    "id": "243",
+    "theme": "ECONOMIE",
+    "question": "Combien d’euros ont été jetés dans la fontaine de Trevi à Rome en 2022 ?",
+    "reponse": 1432953.74,
+    "complement": "Source : L'aveniradubon.fr et journal italien Il Gazzetino"
+  },
+  {
+    "id": "244",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la profondeur moyenne de l'océan Atlantique (en mètres) ?",
+    "reponse": 3926,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "245",
+    "theme": "MONDE VIVANT",
+    "question": "Combien de mètres fait la plus longue super colonie de fourmis jamais trouvée (2022) ?",
+    "reponse": 6000000,
+    "complement": "Les fourmis d'argentine importée en Europe, colonie du Portugal à l'Italie. Source : Wikipedia"
+  },
+  {
+    "id": "246",
+    "theme": "SCIENCES",
+    "question": "Combien d'éclipses solaires sont prévues au total au XXIème siècle ?",
+    "reponse": 224,
+    "complement": "77 partielles, 72 annulaires, 68 totales et 7 hybrides. Source : Wikipedia"
+  },
+  {
+    "id": "247",
+    "theme": "RECORDS",
+    "question": "Combien de mètres mesurait le plus grand bonhomme de neige jamais construit (2025) ?",
+    "reponse": 37.21,
+    "complement": "Source : caminteresse.fr"
+  },
+  {
+    "id": "248",
+    "theme": "DATES",
+    "question": "En quelle année la première machine à café expresso a-t-elle été brevetée ?",
+    "reponse": 1884,
+    "complement": "Angelo Moriondi, un industriel turinois. Source : Cellini café"
+  },
+  {
+    "id": "249",
+    "theme": "MONDE VIVANT",
+    "question": "Quelle est la vitesse de pointe en km/h du colibri ?",
+    "reponse": 97,
+    "complement": "Contre 56km/h de moyenne. Source : Le mag des animaux"
+  },
+  {
+    "id": "250",
+    "theme": "MONDE VIVANT",
+    "question": "Combien un grand requin blanc perd-il de dents en moyenne au cours de sa vie ?",
+    "reponse": 30000,
+    "complement": "Source : WWF.ca"
+  },
+  {
+    "id": "251",
+    "theme": "ECONOMIE",
+    "question": "Combien de pourcentage (0-100) de la production mondiale de vanille provient de Madagascar ? ",
+    "reponse": 80,
+    "complement": "Source : vanille.com"
+  },
+  {
+    "id": "252",
+    "theme": "IMPROBABLE",
+    "question": "Combien de ponts y a-t-il à Venise (2024) ?",
+    "reponse": 435,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "253",
+    "theme": "IMPROBABLE",
+    "question": "Combien d'années durera au total l'oeuvre musicale de John Cage : Organ2/ASLSP ?",
+    "reponse": 639,
+    "complement": "Débuté en 2001 à l'Eglise Saint-Burchardi de Halberstadt. Source : Wikipedia"
+  },
+  {
+    "id": "254",
+    "theme": "RECORDS",
+    "question": "Quel est le record du nombre de tentatives (écrites et pratiques) avant d'obtenir le permis de conduire (2023) ?",
+    "reponse": 960,
+    "complement": "La sud coréenne Cha-sa-Soon, après 18 ans, 12500 euros et 950 echecs à l'écrit. Source : leblogauto.com"
+  },
+  {
+    "id": "255",
+    "theme": "ECONOMIE",
+    "question": "Quel est le revenu mensuel brut d'Emmanuel Macron en euros (05/2024) ?",
+    "reponse": 16039,
+    "complement": "Salaire présidentiel rendu public par Nicolas Sarkozy en 2007 qui était à 20k. Source : Notretemps.com"
+  },
+  {
+    "id": "256",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien d'heures de vidéo ont été publiées sur Youtube en moyenne par jour en 2024 ?",
+    "reponse": 720000,
+    "complement": "Source : caminteresse.fr"
+  },
+  {
+    "id": "257",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de pays sont traversés par le fleuve Danube ?",
+    "reponse": 10,
+    "complement": "Allemagne, Autriche, Slovaquie, Hongrie, Croatie, Serbie, Bulgarie, Roumanie, Moldavie et Ukraine"
+  },
+  {
+    "id": "258",
+    "theme": "DATES",
+    "question": "En quelle année a été créé le premier supermarché au monde ?",
+    "reponse": 1916,
+    "complement": "Le 6 septembre, ouverture du magasin libre service Piggly Wiggly à Memphis. Source : Wikipedia"
+  },
+  {
+    "id": "259",
+    "theme": "IMPROBABLE",
+    "question": "Combien d’étages compte la tour Burj Khalifa ?",
+    "reponse": 163,
+    "complement": "Source : partir-a-dubai.com"
+  },
+  {
+    "id": "260",
+    "theme": "RECORDS",
+    "question": "Combien de personnes ont assisté au plus grand concert de l’histoire (2024) ?",
+    "reponse": 3500000,
+    "complement": "Rod Stewart en 1994 sur la plage de Copacabana. Source : linternaute.com"
+  },
+  {
+    "id": "261",
+    "theme": "IMPROBABLE",
+    "question": "Combien de balles de tennis sont utilisées chaque année au tournoi de Wimbledon en moyenne ?",
+    "reponse": 54000,
+    "complement": "Source : pandpglass.co.uk"
+  },
+  {
+    "id": "262",
+    "theme": "IMPROBABLE",
+    "question": "Combien de temps, en minutes, a duré le plus long discours jamais prononcé à l'ONU ?",
+    "reponse": 269,
+    "complement": "Discours de Fidel Castro en 1960. Source : linternaute.com"
+  },
+  {
+    "id": "263",
+    "theme": "SONDAGES",
+    "question": "Sur 100 français, combien ont lu plus de 20 livres en 2023 ?",
+    "reponse": 31,
+    "complement": "Contre seulement 11 % qui n'en ont lu aucun. Source : statista.com"
+  },
+  {
+    "id": "264",
+    "theme": "DIVERTISSEMENT",
+    "question": "Quel est le poids maximal en grammes d'une boule de pétanque (validée par la Fédération internationale de pétanque) ?",
+    "reponse": 800,
+    "complement": "Et minimum 650. Source : decathlon.fr"
+  },
+  {
+    "id": "265",
+    "theme": "MONDE VIVANT",
+    "question": "En France en 2022, quel pourcentage (0-100) de la population avait plus de 65 ans ?",
+    "reponse": 21.1,
+    "complement": "Source : Statista"
+  },
+  {
+    "id": "266",
+    "theme": "GEOGRAPHIE",
+    "question": "En France métropolitaine en 2019, quel pourcentage (0-100) de la superficie du pays est occupé par des terres agricoles utilisées ?",
+    "reponse": 52,
+    "complement": "Source : Insee"
+  },
+  {
+    "id": "267",
+    "theme": "SCIENCES",
+    "question": "Combien de mètres de long mesure la station spatiale internationale ?",
+    "reponse": 108,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "268",
+    "theme": "IMPROBABLE",
+    "question": "Quel age avait Che Guevara sur la photo portrait la plus connue datant du 5 mars 1960 ?",
+    "reponse": 31,
+    "complement": "Il est né le 14 juin 1928. Source : Wikipedia"
+  },
+  {
+    "id": "269",
+    "theme": "IMPROBABLE",
+    "question": "Combien d'hommes composent l'équipage de Christophe Colomb sur les trois navires en 1492 ?",
+    "reponse": 87,
+    "complement": "Santa Maria, Nina et Pinta. Source : kartable.fr"
+  },
+  {
+    "id": "270",
+    "theme": "SONDAGES",
+    "question": "Sur 100 français en couple, combien ont rencontré leur conjoint sur un site de rencontre en ligne (2021) ?",
+    "reponse": 22,
+    "complement": "Source : Statista"
+  },
+  {
+    "id": "271",
+    "theme": "SONDAGES",
+    "question": "En moyenne basse, combien de fois par an les femmes pleurent-elles (2024) ?",
+    "reponse": 30,
+    "complement": "64 en moyenne haute. Pour les hommes, entre 6 et 17. Source : Wikipedia"
+  },
+  {
+    "id": "272",
+    "theme": "DATES",
+    "question": "En quelle année a été fondé Air France ?",
+    "reponse": 1933,
+    "complement": "Le 7 octobre. Source : Wikipedia"
+  },
+  {
+    "id": "273",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de mètres mesure la plus haute statue du monde hors piédestal (2018) ?",
+    "reponse": 182,
+    "complement": "La statue de l'unité en Inde. Source : Wikipedia"
+  },
+  {
+    "id": "274",
+    "theme": "IMPROBABLE",
+    "question": "Combien de kilomètres mesure le plus grand sentier de randonnée du monde (2024) ?",
+    "reponse": 24000,
+    "complement": "Le trans Canada trail, durée estimée d'un an et quatre mois. Source : ffrandonnée.fr"
+  },
+  {
+    "id": "275",
+    "theme": "SONDAGES",
+    "question": "Sur 100 français entre 25 et 34 ans, combien possèdent un service de table spécialement réservé aux grandes occasions (2018) ?",
+    "reponse": 15,
+    "complement": "Contre 25% des plus de 55 ans. Source : statista"
+  },
+  {
+    "id": "276",
+    "theme": "SONDAGES",
+    "question": "Combien les françaises de 25 à 34 ans possèdent de paires de chaussures en moyenne (2017) ?",
+    "reponse": 15,
+    "complement": "Source : statista"
+  },
+  {
+    "id": "277",
+    "theme": "ECONOMIE",
+    "question": "Quel pourcentage (0-100) des ménages français sont propriétaires de leur résidence principale (2021) ?",
+    "reponse": 57.7,
+    "complement": "Source : statistiques.developpement-durable.gouv.fr"
+  },
+  {
+    "id": "278",
+    "theme": "SONDAGES",
+    "question": "Combien de fois les français déménagent-ils en moyenne au cours de leur vie (2024) ?",
+    "reponse": 4.6,
+    "complement": "Source : Insee"
+  },
+  {
+    "id": "279",
+    "theme": "SONDAGES",
+    "question": "Combien de photos les Français prennent-ils en moyenne par jours pendant leurs vacances (2018) ?",
+    "reponse": 42,
+    "complement": "Et 78% des français prennent un selfie par jour. Source : quotidiendutourisme.com"
+  },
+  {
+    "id": "280",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien mesure la promenade des anglais à Nice (en mètres) ?",
+    "reponse": 7000,
+    "complement": "Source : nice-properties.fr"
+  },
+  {
+    "id": "281",
+    "theme": "ECONOMIE",
+    "question": "A fin 2024, combien y avait-il de milliardaires dans le monde ?",
+    "reponse": 2781,
+    "complement": "Dont 68 en France. Source : forbes.fr"
+  },
+  {
+    "id": "282",
+    "theme": "IMPROBABLE",
+    "question": "En 2022, combien de personnes appelées Josiane sont nées ?",
+    "reponse": 10,
+    "complement": "Soit le 2658ème prénom le plus donné. Source : capeutservir.com/prenoms"
+  },
+  {
+    "id": "283",
+    "theme": "SCIENCES",
+    "question": "Quelle est l'envergure en kilomètres du grand collisionneur de hadrons du CERN, le plus grand accélérateur à particules ?",
+    "reponse": 27,
+    "complement": "A 100 mètres sous terre près de Genève. Source : Wikipedia"
+  },
+  {
+    "id": "284",
+    "theme": "ECONOMIE",
+    "question": "Quel est le budget français alloué à l'armée en milliards d'euros (2023) ?",
+    "reponse": 43.9,
+    "complement": "Gain de 3 milliards en 2023. Source : ministère des armées"
+  },
+  {
+    "id": "285",
+    "theme": "DATES",
+    "question": "En quelle année est mort Alexandre le Grand ?",
+    "reponse": -323,
+    "complement": "Le 11 juin a Babylone. Source : Wikipedia"
+  },
+  {
+    "id": "286",
+    "theme": "IMPROBABLE",
+    "question": "Combien d'étoiles au guide Michelin Joël Robuchon détenait-il à son décès en 2018 ?",
+    "reponse": 32,
+    "complement": "En 2024, Alain Ducasse est le plus étoilé en activité avec 21 étoiles. Source : Wikipedia"
+  },
+  {
+    "id": "287",
+    "theme": "ECONOMIE",
+    "question": "Combien y avait-il de billets de 500 euros en circulation au 1er janvier 2021 ?",
+    "reponse": 405707688,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "288",
+    "theme": "DATES",
+    "question": "En quelle année a été inauguré le canal de Suez ?",
+    "reponse": 1869,
+    "complement": "Le 17 novembre. Source : Wikipedia"
+  },
+  {
+    "id": "289",
+    "theme": "SONDAGES",
+    "question": "Combien de temps en minutes les français passent-ils en moyenne aux toilettes en une journée (2023) ?",
+    "reponse": 45,
+    "complement": "Et 6% des français en profitent pour passer des appels. Source : toilettespubliques.com"
+  },
+  {
+    "id": "290",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de licenciés la FFTA (Fédération Française de Tir à l'Arc) compte-t-elle au 14/11/2024 ?",
+    "reponse": 77300,
+    "complement": "Source : lequipe.fr"
+  },
+  {
+    "id": "291",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien y a-t-il de cartes dans le jeu UNO ?",
+    "reponse": 108,
+    "complement": "Source : Joueclub.fr"
+  },
+  {
+    "id": "292",
+    "theme": "SONDAGES",
+    "question": "Sur 100 Français, combien prennent une douche quotidiennement ?",
+    "reponse": 76,
+    "complement": "Source : leparisien.fr et étude Ifop"
+  },
+  {
+    "id": "293",
+    "theme": "MONDE VIVANT",
+    "question": "De combien de muscles est constitué le corps humain ?",
+    "reponse": 639,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "294",
+    "theme": "SCIENCES",
+    "question": "Quelle est la valeur de l'accélération de la gravité sur la Lune (en mètres par secondes au carré) ?",
+    "reponse": 1.62,
+    "complement": "Contre 9,807 sur la Terre. Source : Wikipedia"
+  },
+  {
+    "id": "295",
+    "theme": "SCIENCES",
+    "question": "Quelle est la valeur de l'accélération de la gravité sur Mars (en mètres par secondes au carré) ?",
+    "reponse": 3.73,
+    "complement": "Contre 9,807 sur la Terre. Source : Wikipedia"
+  },
+  {
+    "id": "296",
+    "theme": "SCIENCES",
+    "question": "Quelle est la valeur de l'accélération de la gravité à la surface du soleil (en mètres par secondes au carré) ?",
+    "reponse": 274,
+    "complement": "Contre 9,807 sur la Terre. Source : Wikipedia"
+  },
+  {
+    "id": "297",
+    "theme": "SCIENCES",
+    "question": "Combien y a-t-il de nombres premiers inférieurs à 100 ?",
+    "reponse": 25,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "298",
+    "theme": "SCIENCES",
+    "question": "Combien de publications scientifiques françaises sont parues en 2022 ?",
+    "reponse": 160047,
+    "complement": "Source : Edition 2023 du Baromètre de la Science Ouverte (BSO)"
+  },
+  {
+    "id": "299",
+    "theme": "SCIENCES",
+    "question": "Combien de nouveaux médicaments ont été approuvés en Europe en 2024 ?",
+    "reponse": 114,
+    "complement": "Source : notre-recherche-clinique.fr"
+  },
+  {
+    "id": "300",
+    "theme": "SCIENCES",
+    "question": "Combien de milliards d'opérations flottantes par secondes est capable de résoudre Jean Zay, le plus puissant supercalculateur français (2024) ?",
+    "reponse": 126000000,
+    "complement": "Soit 126 pétaflops, 10 fois moins que l'américain \"Frontier\". Source : enseignementsup.gouv.fr"
+  },
+  {
+    "id": "301",
+    "theme": "IMPROBABLE",
+    "question": "Combien de chirurgiens spécialisés dans la chirurgie thoracique et cardio-vasculaire exercaient en France en 2022 ?",
+    "reponse": 534,
+    "complement": "Source : profilmedecin.fr"
+  },
+  {
+    "id": "302",
+    "theme": "SCIENCES",
+    "question": "Combien y a-t-il de gènes dans le génome humain ?",
+    "reponse": 21000,
+    "complement": "Source : Université de Genève"
+  },
+  {
+    "id": "303",
+    "theme": "SCIENCES",
+    "question": "Quelle est la pression en bars au centre de la Terre ?",
+    "reponse": 3600000,
+    "complement": "Source : ens-lyon.fr"
+  },
+  {
+    "id": "304",
+    "theme": "IMPROBABLE",
+    "question": "Quel est le poids en kilogrammes d'une pierre de curling ?",
+    "reponse": 19.96,
+    "complement": "Source : sport.gouv.fr"
+  },
+  {
+    "id": "305",
+    "theme": "IMPROBABLE",
+    "question": "Combien existe-t-il de parties d'échecs différentes possibles (exprimé en puissances de 10) ?",
+    "reponse": 120,
+    "complement": "Le nombre Shanon, soit 10^41 fois plus que d'atomes observables dans l'univers. Source : Wikipedia"
+  },
+  {
+    "id": "306",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien y a-t-il d'épisodes de One Piece (02/2025) ?",
+    "reponse": 1122,
+    "complement": "Source : onepiece.fandom.com"
+  },
+  {
+    "id": "307",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien existe-t-il de pokémons dans les neufs premières générations (2024) ?",
+    "reponse": 1025,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "308",
+    "theme": "RECORDS",
+    "question": "Sur quelle distance en kilomètres s'étend le plus grand terrain de golf du monde (en discontinu) ?",
+    "reponse": 1365,
+    "complement": "Le Nullarbor Links, sur la côte sud australienne, en par 72 ! Source : Wikipedia"
+  },
+  {
+    "id": "309",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de clubs de golf différents un golfeur est-il autorisé à transporter lors d'une partie professionnelle ?",
+    "reponse": 14,
+    "complement": "Parmis la vingtaine existante selon les portées de tir. Source : lequipe.fr"
+  },
+  {
+    "id": "310",
+    "theme": "SCIENCES",
+    "question": "Combien de téléscopes composent le système ATLAS de la NASA (Asteroid Terrestrial-impact Last Alert System) en 2024 ?",
+    "reponse": 4,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "311",
+    "theme": "SCIENCES",
+    "question": "Combien de niveaux comporte l'echelle de Turin, caractérisant les risques d'impact d'astéroïdes (2024) ?",
+    "reponse": 10,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "312",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la longueur du Grand Canyon en kilomètres ?",
+    "reponse": 445,
+    "complement": "Source : unesco.org"
+  },
+  {
+    "id": "313",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien y a-t-il de geysers au parc du Yellowstone ?",
+    "reponse": 300,
+    "complement": "Soit plus de la moitiés des geysers mondiaux. Source : unesco.org"
+  },
+  {
+    "id": "314",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien y a-t-il de villes de plus de 1000 habitants au Groenland (2024) ?",
+    "reponse": 13,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "315",
+    "theme": "MONDE VIVANT",
+    "question": "Combien existe-t-il d'espèces de fougères recensées (2024) ?",
+    "reponse": 13000,
+    "complement": "Source : Wikipedia et rayon-de-serre.fr"
+  },
+  {
+    "id": "316",
+    "theme": "SCIENCES",
+    "question": "Combien de mètres mesurent les plus grands cristaux du monde, dans la caverne de Naica au Mexique ?",
+    "reponse": 11,
+    "complement": "Source : odysseedelaterre.fr"
+  },
+  {
+    "id": "317",
+    "theme": "IMPROBABLE",
+    "question": "Combien y avait-il de véhicules à moteur pour mille habitants en Tanzanie en 2015 ?",
+    "reponse": 7,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "318",
+    "theme": "IMPROBABLE",
+    "question": "Combien y avait-il de véhicules à moteur pour mille habitantsaux Etats-unis en 2019 ?",
+    "reponse": 816,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "319",
+    "theme": "DIVERTISSEMENT",
+    "question": "Quelle est la hauteur des paniers de basket en NBA adulte (en centimètres) ?",
+    "reponse": 305,
+    "complement": "Source : Panierbasket.fr"
+  },
+  {
+    "id": "320",
+    "theme": "MONDE VIVANT",
+    "question": "Combien y a-t-il de marmottes en France ?",
+    "reponse": 16000,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "321",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de départements français sont traversés par la Loire ?",
+    "reponse": 12,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "322",
+    "theme": "MONDE VIVANT",
+    "question": "Quelle est la surface moyenne totale de peau chez l'Homme adulte ?",
+    "reponse": 2,
+    "complement": "Source : Dermato-info.fr"
+  },
+  {
+    "id": "323",
+    "theme": "IMPROBABLE",
+    "question": "Combien de personnes sont décédées en France des suites de la Covid-19 (au 24/11/2024) ?",
+    "reponse": 168118,
+    "complement": "Source : statista"
+  },
+  {
+    "id": "324",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de Grammy Awards Beyoncé a-t-elle remporté (02/2025)",
+    "reponse": 35,
+    "complement": "L'artiste la plus titrée. Source : Wikipedia"
+  },
+  {
+    "id": "325",
+    "theme": "IMPROBABLE",
+    "question": "Combien de personnes ont reçu le prix Nobel de la paix depuis sa création (jusqu'en 2024 inclus) ?",
+    "reponse": 110,
+    "complement": "Et 29 fois attribué à des organisations. Source : Wikipedia"
+  },
+  {
+    "id": "326",
+    "theme": "IMPROBABLE",
+    "question": "Combien de types de prix Nobel différents sont décernés chaque année (2024) ?",
+    "reponse": 6,
+    "complement": "Physique, chimie, littérature, paix, médecine et économie. Source : Wikipedia"
+  },
+  {
+    "id": "327",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien d'entrées au cinéma ont été comptabilisées en France en 2024 ?",
+    "reponse": 181300000,
+    "complement": "Source : Ministère de la culture"
+  },
+  {
+    "id": "328",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de joueurs ont participé à l'événement concert sur Fortnite de 2019 avec le DJ Marshmello ?",
+    "reponse": 10700000,
+    "complement": "Source : leparisien.fr"
+  },
+  {
+    "id": "329",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de fois a été écouté le titre \"Blinding lights\" de The Weeknd sur Spotify (04/02/2025) ?",
+    "reponse": 4680000000,
+    "complement": "La chanson la plus écoutée de la plateforme. Source : chartsinfrance.net"
+  },
+  {
+    "id": "330",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de cordes possède une harpe de concert standard au maximum (ou grande harpe diatonique) ?",
+    "reponse": 47,
+    "complement": "Entre 40 et 47. Source : Wikipedia"
+  },
+  {
+    "id": "331",
+    "theme": "RECORDS",
+    "question": "Combien de caractères comporte le plus long roman jamais écrit (2024) ?",
+    "reponse": 9609000,
+    "complement": "Marcel Proust, \"A la recherche du temps perdu\". Source : Guinness world records"
+  },
+  {
+    "id": "332",
+    "theme": "DIVERTISSEMENT",
+    "question": "Quel est le nombre total d’épisodes de l’anime \"Naruto\" (y compris Naruto Shippuden, à fin 2023) ?",
+    "reponse": 720,
+    "complement": "220 dans la série originale, 500 Naruto Shippuden. Source : Allocine.fr"
+  },
+  {
+    "id": "333",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de Schtroumpfs différents existe-t-il (2024) ?",
+    "reponse": 105,
+    "complement": "99 de base, grand schtroumpf, schtroumpfette, bébé schtroumpf, Sasette, vieux vieux et mémé "
+  },
+  {
+    "id": "334",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien d'albums d'Astérix ont été publiés (2024) ?",
+    "reponse": 40,
+    "complement": "Le dernier en date est l'Iris blanc. Source : Wikipedia"
+  },
+  {
+    "id": "335",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de jeux de la licence Battlefield sont sortis (2022) ?",
+    "reponse": 18,
+    "complement": "9 principaux et 9 spin offs, dont un jeu mobile. Source : leclaireur.fnac.com"
+  },
+  {
+    "id": "336",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de biomes différents existe-t-il dans Minecraft (2024) ?",
+    "reponse": 64,
+    "complement": "50 de surface, 3 souterrains, 5 dans le nether, 5 dans l'end et 1 void. Source : minecraft.fandom.com"
+  },
+  {
+    "id": "337",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la densité de population à Monaco début 2025 (en nombre d'habitants par kilomètres carrés) ?",
+    "reponse": 18822,
+    "complement": "Le payse le plus densément peuplé. Source : Wikipedia"
+  },
+  {
+    "id": "338",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de lacs de plus de 0,05 hectares y a-t-il en Finlande ?",
+    "reponse": 187888,
+    "complement": "Dont 56 000 de plus d'un hectare. Source : Wikipedia"
+  },
+  {
+    "id": "339",
+    "theme": "GEOGRAPHIE",
+    "question": "Quel est la hauteur en mètres du point culminant en Afrique ?",
+    "reponse": 5895,
+    "complement": "Le Kilimandjaro en Tanzanie. Source : Wikipedia"
+  },
+  {
+    "id": "340",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de kilomètres séparent le point le plus éloigné de la mer (pôle d’inaccessibilité continental) de l’océan ?",
+    "reponse": 2645,
+    "complement": "Dans le désert du Xinjiang, en Chine. Source : Wikipedia"
+  },
+  {
+    "id": "341",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la superficie de la Terre Adélie en kilomètres carrés ?",
+    "reponse": 432000,
+    "complement": "Le secteur angulaire entre le 136ème et le 142ème méridien de longitude est. Source : TAAF.fr"
+  },
+  {
+    "id": "342",
+    "theme": "RECORDS",
+    "question": "Quel est le record du plus grand excès de vitesse flashé sur autoroute belge, après déduction de marge en km/h, (2024) ?",
+    "reponse": 388,
+    "complement": "En 2022, une Bugatti Chiron. Source : autoplus.fr"
+  },
+  {
+    "id": "343",
+    "theme": "IMPROBABLE",
+    "question": "Combien de villas identiques en forme de chateaux font parti du projet immobilier de Burj Al Babas en Turquie (2019) ?",
+    "reponse": 732,
+    "complement": "L'entreprise a fait faillite, seules 587 (non habitées) sont visibles. Source : Wikipedia"
+  },
+  {
+    "id": "344",
+    "theme": "IMPROBABLE",
+    "question": "Combien de Bitcoins sont coincés sur la clé USB de Stefan Thomas, dont il a oublié le mot de passe (2024) ?",
+    "reponse": 7002,
+    "complement": "Soit environ 620 millions de dollars au 25/02/2025. Source : Le figaro"
+  },
+  {
+    "id": "345",
+    "theme": "RECORDS",
+    "question": "Quel est le record de pluie en un mois dans une ville du monde (en millimètres) ?",
+    "reponse": 9296.4,
+    "complement": "Juillet 1861 à Cherrapunji en Inde, 15 fois la moyenne annuelle parisienne. Source : Wikipedia"
+  },
+  {
+    "id": "346",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la longueur en kilomètres de la frontière entre Corée du Nord et Corée du Sud ?",
+    "reponse": 248,
+    "complement": "Sur une largeur démilitarisée de 4km de large. Source : Wikipedia"
+  },
+  {
+    "id": "347",
+    "theme": "SCIENCES",
+    "question": "A compter du 1er Janvier 2025, combien de vaccins sont obligatoires en France chez le nourrisson ?",
+    "reponse": 12,
+    "complement": "Méningocoque B s'ajoute au 11 depuis 2018. Source : Ministère de la santé"
+  },
+  {
+    "id": "348",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien d'épisodes de South Park ont été produits à fin 2024 ?",
+    "reponse": 328,
+    "complement": "Sur 26 saisons et 7 épisodes hors série. Source : Wikipedia"
+  },
+  {
+    "id": "349",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien d'attractions y a-t-il au parc Disneyland Paris à fin 2024 ?",
+    "reponse": 54,
+    "complement": "41 au parc Disneyland et 13 à Walt Disney studios. Source : Disneyland-pratique.fr"
+  },
+  {
+    "id": "350",
+    "theme": "IMPROBABLE",
+    "question": "Combien y a-t-il de collèges en France (2022) ?",
+    "reponse": 6980,
+    "complement": "Source : Education.gouv.fr"
+  },
+  {
+    "id": "351",
+    "theme": "IMPROBABLE",
+    "question": "En 2023, combien y avait-il en moyenne d'élèves par classes en France au lycée (générale et formation technologique, public et privé) ?",
+    "reponse": 30.3,
+    "complement": "Source : Education.gouv.fr"
+  },
+  {
+    "id": "352",
+    "theme": "MONDE VIVANT",
+    "question": "Combien y a-t-il d'ours bruns en liberté en France (2022) ?",
+    "reponse": 76,
+    "complement": "Source : Office français de la biodiversité"
+  },
+  {
+    "id": "353",
+    "theme": "MONDE VIVANT",
+    "question": "Combien d'espèces animales (hors humain) sont connues pour être capables de reconnaître leur reflet dans un miroir ?",
+    "reponse": 13,
+    "complement": "9 mammifères, perroquet, pie, labre nettoyeur et raie manta. Source : Wikipedia"
+  },
+  {
+    "id": "354",
+    "theme": "MONDE VIVANT",
+    "question": "Combien de piquants en moyenne possède un hérisson adulte ?",
+    "reponse": 6000,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "355",
+    "theme": "MONDE VIVANT",
+    "question": "Quelle est la longueur de la grande barrière de corail en kilomètres (2024) ?",
+    "reponse": 2300,
+    "complement": "Superficie totale de 344 400 kilomètres carrés. Source : Wikipedia"
+  },
+  {
+    "id": "356",
+    "theme": "RECORDS",
+    "question": "Quel est le record en mètres de la hauteur du plus haut panier de basket réussi (distance séparant le lanceur et le panier) (2016) ?",
+    "reponse": 180.68,
+    "complement": "Derek Herron pour la chaine youtube \"How ridiculous\", lancé depuis le haut d'un barrage en Suisse."
+  },
+  {
+    "id": "357",
+    "theme": "IMPROBABLE",
+    "question": "Combien de renards ont été lancés au concours de lancés de Dresde, organisé par Auguste II de pologne (XVIIe siècle) ?",
+    "reponse": 647,
+    "complement": "Mais aussi 533 lièvres, 34 blaireaux, 21 chats, 34 marcassins et 3 loups. Source : Wikipedia"
+  },
+  {
+    "id": "358",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la longueur en mètres du pont de l'Oresund, reliant Malmö en Suède et Copenhague au Danemark ?",
+    "reponse": 7845,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "359",
+    "theme": "DATES",
+    "question": "En quelle année a eu lieu la première édition des 24 heures du Mans ?",
+    "reponse": 1923,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "360",
+    "theme": "RECORDS",
+    "question": "Quelle est la vitesse maximale enregistrée lors d'une édition des 24 heures du Mans ?",
+    "reponse": 407,
+    "complement": "La WM P88 par Roger Dorchy, passé à 405km/h pour promouvoir la peugeot 405. Source : 24h-lemans"
+  },
+  {
+    "id": "361",
+    "theme": "RECORDS",
+    "question": "Quelle est la hauteur en mètre du pont routier le plus haut du monde (hauteur sous tablier entre sol et chaussée, en 2024) ?",
+    "reponse": 565,
+    "complement": "Pont du Beipanjiang en Chine, de 1341 mètres de long. Source : Wikipedia"
+  },
+  {
+    "id": "362",
+    "theme": "DATES",
+    "question": "En quelle année Cuba est-il devenu un état indépendant ?",
+    "reponse": 1902,
+    "complement": "Le 20 mai, après 3 ans et demi de régime militaire des Etats-unis. Source : Wikipedia"
+  },
+  {
+    "id": "363",
+    "theme": "DATES",
+    "question": "En quelle année a été inventé le tube à dentifrice ?",
+    "reponse": 1892,
+    "complement": "Le 22 mai, par le dentiste Washington Sheffield. Source : Histoiredesinventions.com"
+  },
+  {
+    "id": "364",
+    "theme": "DATES",
+    "question": "En quelle année a été prise la photo des Beatles sur le passage piéton de Abbey Road ?",
+    "reponse": 1969,
+    "complement": "Le 8 aout. Source : lexpress.fr"
+  },
+  {
+    "id": "365",
+    "theme": "RECORDS",
+    "question": "Quelle est la longueur en mètres du plus grand paquebot du monde (2024) ?",
+    "reponse": 364.75,
+    "complement": "Icon of the seas, 2805 cabines. Source : Wikipedia"
+  },
+  {
+    "id": "366",
+    "theme": "RECORDS",
+    "question": "Quel est le record de vitesse atteinte par un bateau en kilomètres par heures (2024) ?",
+    "reponse": 511,
+    "complement": "Spirit of Australia, par Ken Warby en 1978. Source : Wikipedia"
+  },
+  {
+    "id": "367",
+    "theme": "IMPROBABLE",
+    "question": "Quel est le record du nombre de panneaux stop sur une seule rue en France ?",
+    "reponse": 14,
+    "complement": "Deux rues détenaient ce record, l'une d'elle a vu 3/4 de ses panneaux volés en un jour. Source : BFMTV"
+  },
+  {
+    "id": "368",
+    "theme": "ECONOMIE",
+    "question": "Quelle somme en euros Jérôme Kerviel devait-il à la Société générale en dommages et intérêts suite à son premier procès (2010) ?",
+    "reponse": 4915610154,
+    "complement": "Il a également eu 5 ans d'emprisonnement, dont 3 fermes. Source : Wikipedia"
+  },
+  {
+    "id": "369",
+    "theme": "IMPROBABLE",
+    "question": "Combien y a-t-il d'articles Wikipedia anglophones (mars 2025) ?",
+    "reponse": 6966280,
+    "complement": "Soit 10,8% de tous les articles. Source : Wikipedia"
+  },
+  {
+    "id": "370",
+    "theme": "ECONOMIE",
+    "question": "Quel est le prix en euros du timbre pour une lettre classique (lettre verte de moins de 20 grammes, en janvier 2025) ?",
+    "reponse": 1.39,
+    "complement": "Source : Service-public.fr"
+  },
+  {
+    "id": "371",
+    "theme": "ECONOMIE",
+    "question": "Combien de pays membres de l'union européenne n'utilisent pas l'euro comme monnaie (2024) ?",
+    "reponse": 7,
+    "complement": "Bulgarie, Danemark, Hongrie, Pologne, Tchéquie, Roumanie, Suède. Source : Wikipedia"
+  },
+  {
+    "id": "372",
+    "theme": "DATES",
+    "question": "En quelle année a eu lieu la première cotation du CAC 40 ?",
+    "reponse": 1987,
+    "complement": "Le 31 décembre. Source : economie.gouv.fr"
+  },
+  {
+    "id": "373",
+    "theme": "DATES",
+    "question": "En quelle année est né Michel Drucker ?",
+    "reponse": 1942,
+    "complement": "Le 12 septembre à Vire. Source : Wikipedia"
+  },
+  {
+    "id": "374",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de pulls ont été nécessaire durant une race to world first de World of Warcraft pour vaincre le boss ayant le plus resisté en mythique (mars 2025) ?",
+    "reponse": 731,
+    "complement": "Uu'nat au creuset des tempêtes. Source : Icy veins"
+  },
+  {
+    "id": "375",
+    "theme": "DATES",
+    "question": "En quelle année ont eu lieu les premières fêtes de Bayonne ?",
+    "reponse": 1932,
+    "complement": "Le 13 juillet, par les rugbymen de l'aviron bayonnais. Source : Wikipedia"
+  },
+  {
+    "id": "376",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien y a-t-il eu d'emissions d'Intervilles (2024) ?",
+    "reponse": 344,
+    "complement": "Devrait reprendre en 2025 mais sans vachettes pour le droit animal. Source : Wikipedia"
+  },
+  {
+    "id": "377",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien y a-t-il d'habitants au Vatican (2021) ?",
+    "reponse": 511,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "378",
+    "theme": "DATES",
+    "question": "En quelle année a été votée la loi autorisant les femmes françaises à ouvrir un compte bancaire sans le consentement de leur mari ?",
+    "reponse": 1965,
+    "complement": "Le 13 juillet. Source : Info.gouv.fr"
+  },
+  {
+    "id": "379",
+    "theme": "DATES",
+    "question": "En quelle année à débuté la guerre de Cent Ans ?",
+    "reponse": 1337,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "380",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la longueur en mètres de la plus petite frontière totale terrestre entre deux pays ?",
+    "reponse": 156,
+    "complement": "Entre le Botswana et la Zambie. Source : Wikipedia"
+  },
+  {
+    "id": "381",
+    "theme": "IMPROBABLE",
+    "question": "Combien y a-t-il eu de papes catholiques avant le pape François ?",
+    "reponse": 265,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "382",
+    "theme": "SONDAGES",
+    "question": "Sur 100 américains, combien estiment pouvoir gagner un combat à mains nues contre un kangourou (2024) ?",
+    "reponse": 14,
+    "complement": "Et 8 pensent vaincre des éléphants. Source : Aubedigitale.com"
+  },
+  {
+    "id": "383",
+    "theme": "GEOGRAPHIE",
+    "question": "Par combien doit-on multiplier la superficie de la Corse pour obtenir la superficie de la Sardaigne ?",
+    "reponse": 2.76,
+    "complement": "8722 km² pour la Corse / 24090 km² pour la Sardaigne. Source : Wikipedia"
+  },
+  {
+    "id": "384",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la largeur minimale en kilomètres du détroit de Gibraltar ?",
+    "reponse": 14,
+    "complement": "Source : CNES.fr"
+  },
+  {
+    "id": "385",
+    "theme": "DATES",
+    "question": "En quelle année a été fondée l'Académie française ?",
+    "reponse": 1634,
+    "complement": "Et officialisée en 1635 par Richelieu. Source : Wikipedia"
+  },
+  {
+    "id": "386",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de mètres carrés mesure l'île habitée la plus petite au monde ?",
+    "reponse": 310,
+    "complement": "Just room enough. Source : Wikipedia"
+  },
+  {
+    "id": "387",
+    "theme": "IMPROBABLE",
+    "question": "Combien de personne ont été condamnées à la peine de mort et exécutées en France sous la Vème république ?",
+    "reponse": 45,
+    "complement": "Le dernier en 1977 à Marseille. Source : Wikipedia"
+  },
+  {
+    "id": "388",
+    "theme": "GEOGRAPHIE",
+    "question": "Combien de sommets principaux de montagne font plus de 8000m de haut dans le monde ?",
+    "reponse": 14,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "389",
+    "theme": "ECONOMIE",
+    "question": "Combien de grèves ou mouvements sociaux ont été menés par la SNCF sur l'année 2024 ?",
+    "reponse": 34,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "390",
+    "theme": "SCIENCES",
+    "question": "A quelle vitesse en km/h vole le Lockheed SR-71 Blackbird, un des avions les plus rapides du monde ?",
+    "reponse": 3540,
+    "complement": "Soit Mach 3,32. Source : Wikipedia"
+  },
+  {
+    "id": "391",
+    "theme": "DIVERTISSEMENT",
+    "question": "Combien de matchs de boxe professionnels Mohamed Ali a-t-il remporté ?",
+    "reponse": 56,
+    "complement": "Pour seulement 5 défaites. Source : Wikipedia"
+  },
+  {
+    "id": "392",
+    "theme": "ECONOMIE",
+    "question": "Quel est en euros le SMIC mensuel brut en Roumanie (deuxième trimestre 2025) ?",
+    "reponse": 797,
+    "complement": "Source : Trading economics"
+  },
+  {
+    "id": "393",
+    "theme": "GEOGRAPHIE",
+    "question": "Quelle est la longueur en mètres de l'avenue des Champs-Elysées à Paris ?",
+    "reponse": 1910,
+    "complement": "Source : Wikipedia"
+  },
+  {
+    "id": "394",
+    "theme": "SCIENCES",
+    "question": "Combien existe-t-il de constellations ?",
+    "reponse": 88,
+    "complement": "Source : Cité des sciences"
   }
 ]
