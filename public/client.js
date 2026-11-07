@@ -888,12 +888,28 @@ socket.on('afficher_revelation', ({ reponse, complement, classement }) => {
 
       scoreManche.textContent = joueurClassement.scoreManche;
 
-      if (score > 0) {
+      // Réinitialiser les effets visuels par défaut.
+      scoreManche.style.color = '';
+      scoreManche.style.fontWeight = '';
+      scoreManche.style.fontSize = '';
+      scoreManche.style.textShadow = '';
+      scoreManche.style.webkitTextStroke = '';
+
+      if (joueurClassement.toutPile) {
+        // Tout pile : effet doré spectaculaire.
+        scoreManche.style.color = '#ffd700';
+        scoreManche.style.fontWeight = '1000';
+        scoreManche.style.fontSize = '1.15em';
+        scoreManche.style.webkitTextStroke = '0.7px #8a5a00';
+        scoreManche.style.textShadow = `
+          1px 1px 0 #8a5a00,
+          2px 2px 0 #8a5a00,
+          0 0 8px rgba(255, 215, 0, 0.65)
+        `;
+      } else if (score > 0) {
         scoreManche.style.color = '#45d483';
       } else if (score < 0) {
         scoreManche.style.color = '#ff5c5c';
-      } else {
-        scoreManche.style.color = '';
       }
 
       const avatar = ligne.querySelector('.avatar-maitre');

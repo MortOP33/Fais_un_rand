@@ -237,7 +237,12 @@ function calculerScoresManche(lobby, reponseCorrecte) {
     }
 
     // Le groupe reçoit le score correspondant à sa première position.
-    const score = scorePourRang(nbJoueurs, debutGroupe);
+    // Une réponse exacte bénéficie du double du score maximal.
+    const toutPile = valides[debutGroupe].ecart < 1e-9;
+
+    const score = toutPile
+      ? scorePourRang(nbJoueurs, 0) * 2
+      : scorePourRang(nbJoueurs, debutGroupe);
 
     for (let i = debutGroupe; i <= finGroupe; i++) {
       scores[valides[i].joueur.socketId] = score;
@@ -798,11 +803,23 @@ io.on('connection', (socket) => {
         }
       }
 
+      const reponseJoueur = lobby.manche.reponses[joueur.socketId];
+
+      const valeurJoueur = reponseJoueur && reponseJoueur.valide
+        ? convertirEnNombre(reponseJoueur.reponse)
+        : null;
+
+      const valeurCorrecte = convertirEnNombre(question.reponse);
+
+      const toutPile = valeurJoueur !== null &&
+        Math.abs(valeurJoueur - valeurCorrecte) < 1e-9;
+
       return {
         pseudo: joueur.pseudo,
         scoreManche: lobby.scoresManche[joueur.socketId] ?? 0,
         scoreTotal: lobby.scoresTotaux[joueur.socketId] ?? 0,
-        evolution
+        evolution,
+        toutPile
       };
     });
 
