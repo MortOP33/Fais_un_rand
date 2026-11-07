@@ -886,7 +886,9 @@ socket.on('afficher_revelation', ({ reponse, complement, classement }) => {
     if (scoreManche) {
       const score = Number(joueurClassement.scoreManche);
 
-      scoreManche.textContent = joueurClassement.scoreManche;
+      scoreManche.textContent = score > 0
+        ? `+${score}`
+        : score;
 
       // Réinitialiser les effets visuels par défaut.
       scoreManche.style.color = '';
