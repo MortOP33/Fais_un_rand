@@ -2,989 +2,989 @@
   {
     "id": "1",
     "theme": "DATES",
-    "question": "En quelle année a été découvert le ciment artificiel ?",
-    "reponse": 1818,
-    "complement": "Louis Vicat, un ingénieur français. Source : Wikipedia"
+    "question": "En quelle année a été formulé la découverte du ciment artificiel ?",
+    "reponse": 1817,
+    "complement": "Louis Vicat, un ingénieur français. Source : <a href=\"https://www.vicat.com/a-propos-de-nous/vision/l-histoire-de-louis-vicat\" target=\"_blank\" rel=\"noopener noreferrer\">Histoire de louis Vicat</a>"
   },
   {
     "id": "2",
     "theme": "DATES",
     "question": "En quelle année est né Jules Cesar ?",
     "reponse": -100,
-    "complement": "A Subure, en Italie — Source : <a href=\"https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Recherche?search=En%20quelle%20ann%C3%A9e%20est%20n%C3%A9%20Jules%20Cesar%20%3F\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipédia</a>"
+    "complement": "A Subure, en Italie — Source : <a href=\"https://fr.wikipedia.org/wiki/Jules_César\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipédia</a>"
   },
   {
     "id": "3",
     "theme": "MONDE VIVANT",
-    "question": "A fin 2024, Combien d'espèces d'insectes ont été identifiées et décrites ?",
-    "reponse": 1300000,
-    "complement": "Source : Museum national d'histoire naturelle"
+    "question": "Combien d'espèces vivantes tout règnes confondus ont été identifiées sur le territoire français (Septembre 2026) ?",
+    "reponse": 160612,
+    "complement": "Source : <a href=\"https://www.actu-alt-plus.com/nature-science-planete/compteur-vivant-especes-decrites-catalogue-of-life/34907/\" target=\"_blank\" rel=\"noopener noreferrer\">Actu-alk-plus</a>"
   },
   {
     "id": "4",
     "theme": "MONDE VIVANT",
     "question": "Combien de mètres mesure le plus grand arbre du monde ?",
     "reponse": 116,
-    "complement": "Un sequoia géant, nommé Hyperion. Source : Wikipedia"
+    "complement": "Un sequoia géant, nommé Hyperion. Source : <a href=\"https://fr.wikipedia.org/wiki/Liste_des_plus_grands_arbres\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipédia</a>"
   },
   {
     "id": "5",
     "theme": "ECONOMIE",
-    "question": "Quel est le prix moyen en euros au mètre carré de l'immobilier à Paris (Novembre 2024) ?",
-    "reponse": 9282,
-    "complement": "Source : Se loger"
+    "question": "Quel est le prix moyen en euros au mètre carré de l'immobilier à Paris (Novembre 2026) ?",
+    "reponse": 9633,
+    "complement": "Source : <a href=\"https://www.meilleursagents.com/prix-immobilier/paris-75000/\" target=\"_blank\" rel=\"noopener noreferrer\">Meilleurs agents</a>"
   },
   {
     "id": "6",
     "theme": "GEOGRAPHIE",
-    "question": "Combien de villes françaises comportent plus de 100 000 habitants (au 1er janvier 2020)",
-    "reponse": 62,
-    "complement": "Source : Insee"
+    "question": "Combien de villes françaises comportent plus de 100 000 habitants (2023)",
+    "reponse": 42,
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Liste_des_communes_de_France_les_plus_peuplées\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipédia</a>"
   },
   {
     "id": "7",
     "theme": "GEOGRAPHIE",
     "question": "Quelle est la distance en kilomètres à vol d'oiseau entre Londres et Paris ?",
     "reponse": 342.76,
-    "complement": "Contre 457,72 en voiture. Source : Distance calculator"
+    "complement": "Contre 455,42 en voiture. Source : <a href=\"https://fr.distance.to/Londres/Paris\" target=\"_blank\" rel=\"noopener noreferrer\">Distance.to</a>"
   },
   {
     "id": "8",
     "theme": "SCIENCES",
-    "question": "Combien d'exoplanètes sont référencées et connues (au 1er février 2023) ?",
-    "reponse": 5307,
-    "complement": "Source : Wikipédia"
+    "question": "Combien d'exoplanètes sont référencées et connues (au 17 Septembre 2025) ?",
+    "reponse": 6007,
+    "complement": "Source : <a href=\"https://www.cite-espace.com/actualites-spatiales/la-nasa-repertorie-desormais-plus-de-6000-exoplanetes/\" target=\"_blank\" rel=\"noopener noreferrer\">Cité de l'espace</a>"
   },
   {
     "id": "9",
     "theme": "SCIENCES",
     "question": "Combien d'éléments comporte le tableau périodique ?",
     "reponse": 118,
-    "complement": "Le dernier élément étant l'Oganesson"
+    "complement": "Le dernier élément étant l'Oganesson. Source : <a href=\"https://fr.wikipedia.org/wiki/Tableau_périodique_des_éléments\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "10",
     "theme": "DIVERTISSEMENT",
     "question": "Combien y a-t-il de boss de raid instanciés dans World of Warcraft jusqu'à la fin de Dragonflight (inclus) ?",
     "reponse": 396,
-    "complement": "Source : Judgehype"
+    "complement": "Source : <a href=\"https://worldofwarcraft.judgehype.com/news/nombre-de-boss-pour-les-extensions-de-wow-178189/\" target=\"_blank\" rel=\"noopener noreferrer\">Judgehype</a>"
   },
   {
     "id": "11",
     "theme": "DIVERTISSEMENT",
     "question": "Combien de fois est répété \"Around the world\" dans la chanson éponyme des Daft Punk (dans la version album) ?",
     "reponse": 144,
-    "complement": "Sur une durée totale de 7min 07"
+    "complement": "Sur une durée totale de 7min 07. Source : <a href=\"https://fr.wikipedia.org/wiki/Around_the_World_(chanson_de_Daft_Punk)\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "12",
     "theme": "SONDAGES",
-    "question": "Quel est le budget moyen français en euros pour les cadeaux de Noël en 2024 ?",
-    "reponse": 497,
-    "complement": "Source : Enquête CSA"
+    "question": "Quel est le budget moyen français en euros pour les cadeaux de Noël en 2026 ?",
+    "reponse": 252,
+    "complement": "Source : <a href=\"https://www.tf1info.fr/economie/cadeaux-de-noel-les-francais-veulent-preserver-la-magie-des-fetes-le-budget-augmente-de-3-2473444.html\" target=\"_blank\" rel=\"noopener noreferrer\">TF1 info</a>"
   },
   {
     "id": "13",
     "theme": "SONDAGES",
     "question": "Sur 100 français, combien possèdent un chat ou un chien ?",
     "reponse": 55,
-    "complement": "Source : Icad"
+    "complement": "Source : <a href=\"https://goodflair.com/statistiques/\" target=\"_blank\" rel=\"noopener noreferrer\">GoodFlair</a>"
   },
   {
     "id": "14",
     "theme": "IMPROBABLE",
     "question": "Combien y a-t-il de rivets dans la tour Eiffel ?",
     "reponse": 2500000,
-    "complement": "…pour assembler 12 000 pièces ! Source : Toureiffel.paris"
+    "complement": "…pour assembler 12 000 pièces ! Source : <a href=\"https://www.toureiffel.paris/fr/le-monument/chiffres-cle\" target=\"_blank\" rel=\"noopener noreferrer\">TourEiffel.Paris</a>"
   },
   {
     "id": "15",
     "theme": "IMPROBABLE",
     "question": "Combien y a-t-il de pièces dans le château de Versailles ?",
     "reponse": 2300,
-    "complement": "Source : Wikipédia"
+    "complement": "Source : <a href=\"https://www.chateauversailles.fr/decouvrir/domaine/chateau\" target=\"_blank\" rel=\"noopener noreferrer\">ChateauVersailles.fr</a>"
   },
   {
     "id": "16",
     "theme": "SONDAGES",
-    "question": "Sur 100 personnes dans le monde, combien avaient accès à Internet en janvier 2024 ?",
-    "reponse": 66.2,
-    "complement": "Source : Statista"
+    "question": "Sur 100 personnes dans le monde, combien utilisent Internet en 2024 ?",
+    "reponse": 67.6,
+    "complement": "Source : <a href=\"https://www.inegalites.fr/inegalites-acces-internet-monde\" target=\"_blank\" rel=\"noopener noreferrer\">Inegalités.fr</a>"
   },
   {
     "id": "17",
     "theme": "GEOGRAPHIE",
     "question": "Quelle est la superficie du désert du Sahara en kilomètres carrés ?",
     "reponse": 8600000,
-    "complement": "Source : Encyclopedia Universalis"
+    "complement": "Source : <a href=\"https://odysway.com/blog/sahara-plus-grand-desert-du-monde\" target=\"_blank\" rel=\"noopener noreferrer\">OdysWay.com</a>"
   },
   {
     "id": "18",
     "theme": "ECONOMIE",
-    "question": "Quel est le produit intérieur brut (PIB) de la France en milliards d'euros en 2023 ?",
-    "reponse": 2565.3,
-    "complement": "Source : Insee"
+    "question": "Quel est le produit intérieur brut (PIB) de la France en milliards d'euros en 2025 ?",
+    "reponse": 2917.4,
+    "complement": "Source : <a href=\"https://formation-civique.interieur.gouv.fr/fiches-par-thematiques/histoire-geographie-et-culture/atlas-de-la-france/l-economie-francaise/\" target=\"_blank\" rel=\"noopener noreferrer\">Formation-civique</a>"
   },
   {
     "id": "19",
     "theme": "DATES",
     "question": "En quelle année a eu lieu la première transmission télévisée en couleur en France ?",
     "reponse": 1967,
-    "complement": "Un 1er octobre, sur la deuxième chaine"
+    "complement": "Un 1er octobre, sur la deuxième chaine. Source : <a href=\"https://theconversation.com/addicts-a-nos-ecrans-et-si-tout-avait-commence-avec-la-tele-en-couleurs-274170\" target=\"_blank\" rel=\"noopener noreferrer\">TheConversation</a>"
   },
   {
     "id": "20",
     "theme": "GEOGRAPHIE",
     "question": "Quelle est la longueur totale du fleuve Amazone en kilomètres ?",
-    "reponse": 6400,
-    "complement": "Prend sa source au sud du Pérou"
+    "reponse": 7025,
+    "complement": "Prend sa source au sud du Pérou. Source : <a href=\"https://science-et-vie-junior.fr/article-magazine/svt/7-025-kilometres-cest-la-longueur-du-fleuve-amazone-2/\" target=\"_blank\" rel=\"noopener noreferrer\">Science et vie Junior</a>"
   },
   {
     "id": "21",
     "theme": "DIVERTISSEMENT",
-    "question": "Au 29 Septembre 2024, combien de saisons comporte la série \"Les Simpsons\" ?",
-    "reponse": 36,
-    "complement": "Source : Wikipedia"
+    "question": "Au 27 Septembre 2026, combien de saisons comporte la série \"Les Simpsons\" ?",
+    "reponse": 38,
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Liste_des_épisodes_des_Simpson\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "22",
     "theme": "SONDAGES",
-    "question": "A mi 2024, sur 100 français de 15 ans et plus, combien déclarent pratiquer une activité physique au moins une fois par semaine ?",
-    "reponse": 58,
-    "complement": "Source : Injep"
+    "question": "En 2022, sur 100 français de 15 ans et plus, combien déclarent pratiquer une activité physique au moins une fois par semaine ?",
+    "reponse": 60,
+    "complement": "Source : <a href=\"https://injep.fr/tableau_bord/les-chiffres-cles-du-sport-2023-pratiques-sportives-des-francais/\" target=\"_blank\" rel=\"noopener noreferrer\">Injep</a>"
   },
   {
     "id": "23",
     "theme": "RECORDS",
     "question": "Combien de temps, en minutes, a duré le plus long match de tennis de l'histoire (du moins jusqu'en 2024) ?",
     "reponse": 665,
-    "complement": "Le match entre John Isner et Nicolas Mahut à Wimbledon, réparti sur 3 jours. En 980 points !"
+    "complement": "Le match entre John Isner et Nicolas Mahut à Wimbledon, réparti sur 3 jours. En 980 points !. Source : <a href=\"https://fr.wikipedia.org/wiki/Match_Isner_-_Mahut_lors_du_tournoi_de_Wimbledon_2010\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "24",
     "theme": "DATES",
     "question": "En quelle année a été breveté le premier distributeur automatique de billets (DAB) ?",
     "reponse": 1966,
-    "complement": "Puis installé en 1967, au nord de Londres à Enfield Town par M. De la Rue"
+    "complement": "Puis installé en 1967, au nord de Londres à Enfield Town par M. De la Rue. Source : <a href=\"https://www.ivsfrance.com/nouvelles/un-peu-d-histoire-le-distributeur-automatique-en-france/\" target=\"_blank\" rel=\"noopener noreferrer\">IVS France</a>"
   },
   {
     "id": "25",
     "theme": "MONDE VIVANT",
     "question": "Combien de litres de salive un humain produit-il en moyenne au cours de sa vie ?",
     "reponse": 40000,
-    "complement": "Sur une estimation moyenne de 1L par jour, sur 80 ans. Source : Cnews ou Science.lu"
+    "complement": "Sur une estimation moyenne de 1L par jour, sur 80 ans. Source : <a href=\"https://www.science.lu/fr/saliver/pourquoi-combien-litres-salive-sont-produits-en-une-vie\" target=\"_blank\" rel=\"noopener noreferrer\">Science.lu</a>"
   },
   {
     "id": "26",
     "theme": "ECONOMIE",
     "question": "Au 1er janvier 2021, combien y avait-il de pièces de 1 centime d'euros en circulation au sein de la zone euro ?",
     "reponse": 37421979853,
-    "complement": "Source : European central banque, rien que ça !"
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Pièce_de_1_centime_d%27euro\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "27",
     "theme": "GEOGRAPHIE",
     "question": "Quelle est la longueur totale de cables sous marins installés dans le monde en 2023 (en kilomètres)",
     "reponse": 1300000,
-    "complement": "Principalement pour véhiculer internet, 33 fois le tour de la Terre installés en 35 ans ! Source : Ouest France"
+    "complement": "Principalement pour véhiculer internet, 33 fois le tour de la Terre installés en 35 ans ! Source : <a href=\"https://www.ouest-france.fr/leditiondusoir/2023-06-05/l-internet-mondial-surfe-dans-l-ocean-grace-a-13-million-de-kilometres-de-cables-sous-marins-4a7ce74f-86f7-4240-93b1-bd5f923c3ba8\" target=\"_blank\" rel=\"noopener noreferrer\">Ouest France</a>"
   },
   {
     "id": "28",
     "theme": "SCIENCES",
     "question": "Quelle est la température la plus froide jamais enregistrée sur Terre, en degrés Celsius ?",
     "reponse": -98,
-    "complement": "Dans l'Inlandsis Est-Antarctique, sur le glacier Langhovde. Source : National Geographic"
+    "complement": "Dans l'Inlandsis Est-Antarctique, sur le glacier Langhovde. Source : <a href=\"https://www.nationalgeographic.fr/environnement/98degc-le-point-le-plus-froid-sur-terre-a-ete-decouvert\" target=\"_blank\" rel=\"noopener noreferrer\">National Geographic</a>"
   },
   {
     "id": "29",
     "theme": "DIVERTISSEMENT",
-    "question": "Combien de briques LEGO sont produites chaque année ?",
-    "reponse": 20000000000,
-    "complement": "Source : Planetoscope"
+    "question": "Combien de millions de briques LEGO sont produites chaque année (référence année 2020) ?",
+    "reponse": 72000,
+    "complement": "Source : <a href=\"https://www.lhommetendance.fr/lego-briques-legende/\" target=\"_blank\" rel=\"noopener noreferrer\">L'Homme tendance</a>"
   },
   {
     "id": "30",
     "theme": "IMPROBABLE",
-    "question": "En moyenne, combien de trajets en ascenseur sont réalisés en France chaque jour ?",
-    "reponse": 100000000,
-    "complement": "D'après la très sérieuse étude Ipsos \"Les français et l'ascenceur\" ! Source : Federation des ascenceurs"
+    "question": "Combien existe-t-il d'ascenseurs en service en France (2025) ?",
+    "reponse": 661000,
+    "complement": "Source : <a href=\"https://www.ascenseurs.fr/notre-federation/les-chiffres-cles/\" target=\"_blank\" rel=\"noopener noreferrer\">Fédération des ascenceurs</a>"
   },
   {
     "id": "31",
     "theme": "MONDE VIVANT",
-    "question": "Combien de litres d’eau un baobab peut-il stocker dans son tronc ?",
+    "question": "Combien de litres d’eau les plus grands baobabs peuvent-ils stocker dans leurs troncs ?",
     "reponse": 14000,
-    "complement": "Pour les plus grands, Source : Oneheart.fr"
+    "complement": "Source : <a href=\"https://www.oneheart.fr/actualites/a-madagascar-les-baobabs-se-transforment-en-citernes\" target=\"_blank\" rel=\"noopener noreferrer\">OnHeart</a>"
   },
   {
     "id": "32",
     "theme": "DATES",
     "question": "En quelle année a été inventé le système de chasse d'eau ?",
     "reponse": 1596,
-    "complement": "Par Sir John Harington, qui a inventé par la même occasion les toilettes modernes"
+    "complement": "Par Sir John Harington, qui a inventé par la même occasion les toilettes modernes. Source : <a href=\"https://fr.wikipedia.org/wiki/Chasse_d%27eau\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "33",
     "theme": "MONDE VIVANT",
     "question": "Combien de litres de sang un coeur humain pompe-t-il chaque jour ?",
     "reponse": 8000,
-    "complement": "Source : Service de cardiologie CHUV.ch"
+    "complement": "Source : <a href=\"https://www.chuv.ch/fr/cardiologie/car-home/patients-et-famille/fonctionnement-du-coeur\" target=\"_blank\" rel=\"noopener noreferrer\">CHUV</a>"
   },
   {
     "id": "34",
     "theme": "DIVERTISSEMENT",
-    "question": "Combien de visiteurs ont été comptabilisés au Louvre en 2023 ?",
-    "reponse": 8900000,
-    "complement": "Source : Presse.louvre.fr"
+    "question": "Combien de visiteurs ont été comptabilisés au Louvre en 2024 ?",
+    "reponse": 8700000,
+    "complement": "Source : <a href=\"https://presse.louvre.fr/8-7-millions-de-visiteurs-au-louvre-en-2024/?lang=fr\" target=\"_blank\" rel=\"noopener noreferrer\">Louvre</a>"
   },
   {
     "id": "35",
     "theme": "MONDE VIVANT",
     "question": "Combien de fois par secondes une abeille bat-elle des ailes en moyenne ?",
     "reponse": 200,
-    "complement": "Et va à environ 25km/h. Source : Rucher ecole Enchenberg"
+    "complement": "Et va à environ 24km/h. Source : <a href=\"https://catoire-fantasque.be/ailes-abeille/\" target=\"_blank\" rel=\"noopener noreferrer\">Catoire-fantasque</a>"
   },
   {
     "id": "36",
     "theme": "SCIENCES",
     "question": "À quelle température en degrés Celsius l’eau bout-elle au sommet de l’Everest ?",
     "reponse": 70,
-    "complement": "Source : Université de technologie de Compiègne"
+    "complement": "Source : <a href=\"https://www.geniesdessciences.com/derriere-le-quiz/eau-bout-everest/\" target=\"_blank\" rel=\"noopener noreferrer\">Génie des sciences</a>"
   },
   {
     "id": "37",
     "theme": "SCIENCES",
     "question": "Quelle est la durée de révolution de Vénus autour du soleil en jours terrestres ?",
-    "reponse": 224,
-    "complement": "Source : CNES"
+    "reponse": 224.7,
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Vénus_(planète)\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "38",
     "theme": "SCIENCES",
-    "question": "Quelle est la durée de rotation de Vénus sur elle même en jours terrestres ?",
-    "reponse": 117,
-    "complement": "Source : CNES"
+    "question": "Quelle est la température moyenne sur Vénus en °C ?",
+    "reponse": 462,
+    "complement": "Source : <a href=\"https://www.cite-espace.com/centre_ressources/sur-venus-la-temperature-moyenne-est-de-462-degres/\" target=\"_blank\" rel=\"noopener noreferrer\">Cité de l'espace</a>"
   },
   {
     "id": "39",
     "theme": "SONDAGES",
     "question": "Combien de minutes un utilisateur de tik tok passe-t-il en moyenne par jour sur l'application (mars 2024) ?",
     "reponse": 95,
-    "complement": "Source : Meltwater.com"
+    "complement": "Sur 1.9 milliard d'utilisateurs estimés en 2026. Source : <a href=\"https://www.kolsquare.com/fr/blog/les-statistiques-tiktok-a-connaitre\" target=\"_blank\" rel=\"noopener noreferrer\">KolSquare</a>"
   },
   {
     "id": "40",
     "theme": "ECONOMIE",
     "question": "En 2022, combien de facteurs et factrices étaient employés par la poste en France ?",
     "reponse": 62000,
-    "complement": "Source : La poste"
+    "complement": "Source : <a href=\"https://www.lapostegroupe.com/fr/actualite/le-groupe-la-poste-soutient-plus-de-446-000-emplois-en-france\" target=\"_blank\" rel=\"noopener noreferrer\">La Poste</a>"
   },
   {
     "id": "41",
     "theme": "DATES",
     "question": "En quelle année a été envoyé le premier SMS ?",
     "reponse": 1992,
-    "complement": "Le 3 décembre, Neil Papworth à envoyé \"Merry Christmas\". Source : Ouest France"
+    "complement": "Le 3 décembre, Neil Papworth à envoyé \"Merry Christmas\". Source : <a href=\"https://www.ouest-france.fr/high-tech/telephonie/que-disait-le-premier-sms-de-l-histoire-envoye-il-y-a-trente-ans-tout-juste-5f207db6-7312-11ed-92fa-74885fd94854\" target=\"_blank\" rel=\"noopener noreferrer\">Ouest France</a>"
   },
   {
     "id": "42",
     "theme": "IMPROBABLE",
     "question": "Combien de touches comporte un piano standard ?",
     "reponse": 88,
-    "complement": "52 blanches et 36 noires"
+    "complement": "52 blanches et 36 noires. Source : <a href=\"https://fr.yamaha.com/fr/musical-instruments/pianos/explore/musical-instrument-guide/piano/trivia/trivia007.html\" target=\"_blank\" rel=\"noopener noreferrer\">Yamaha</a>"
   },
   {
     "id": "43",
     "theme": "MONDE VIVANT",
     "question": "Quel est le record de nombre d'enfants simultanés en un seul accouchement par césarienne (2024) ?",
     "reponse": 9,
-    "complement": "Halima Cissé, une malienne (5 filles et 4 garçons). Source : Lesenfantsdevitry.com"
+    "complement": "Halima Cissé, une malienne (5 filles et 4 garçons). Source : <a href=\"https://www.frequencemedicale.com/onco-genito-uro/patient/22537-Grossesse-multiple-une-femme-accouche-de-neuf-bebes-a-la-fois\" target=\"_blank\" rel=\"noopener noreferrer\">Fréquence médicale</a>"
   },
   {
     "id": "44",
     "theme": "MONDE VIVANT",
     "question": "Quel est le record en nombre de jours de la plus longue grossesse référencée chez la femme ?",
     "reponse": 398,
-    "complement": "Soit 13 mois et 1 semaine. Source : Lesenfantsdevitry.com"
+    "complement": "Soit 13 mois et 1 semaine. Source : <a href=\"https://www.frequencemedicale.com/20/patient/26870-Grossesse-elle-est-enceinte-pendant-13-mois\" target=\"_blank\" rel=\"noopener noreferrer\">Fréquence médicale</a>"
   },
   {
     "id": "45",
     "theme": "SONDAGES",
     "question": "Combien de tasses de café un français consomme-t-il en moyenne chaque années (2024) ?",
     "reponse": 500,
-    "complement": "Source : Statista"
+    "complement": "Source : <a href=\"https://fr.news.yahoo.com/voici-la-quantite-de-cafe-que-vous-ne-devriez-pas-depasser-au-quotidien-selon-un-expert-122636441.html\" target=\"_blank\" rel=\"noopener noreferrer\">Yahoo (Statista)</a>"
   },
   {
     "id": "46",
     "theme": "SONDAGES",
     "question": "Sur 100 français, combien croîent aux OVNIS (extraterrestres) ?",
     "reponse": 28,
-    "complement": "Contre 43% chez les Américains. Source : Enquête Ifop - Americain VS Français"
+    "complement": "Contre 43% chez les Américains. Source : <a href=\"https://www.amb-usa.fr/presse/enquete-ifop/\" target=\"_blank\" rel=\"noopener noreferrer\">Enquête Ifop Américains VS Français</a>"
   },
   {
     "id": "47",
     "theme": "MONDE VIVANT",
     "question": "A quelle vitesse moyenne (en millimètres par jours) pousse un cheveu humain ?",
     "reponse": 0.3,
-    "complement": "Source : Santé magazine"
+    "complement": "Source : <a href=\"https://www.santemagazine.fr/beaute-forme/soins-cheveux/a-quelle-vitesse-nos-cheveux-poussent-ils-1046871\" target=\"_blank\" rel=\"noopener noreferrer\">Santé magazine</a>"
   },
   {
     "id": "48",
     "theme": "GEOGRAPHIE",
     "question": "A quelle distance d'un sol émergé se situe le Point Nemo en kilomètres (le point sur la Terre le plus éloigné de toute terre émergée) ?",
-    "reponse": 2688.22,
-    "complement": "Source : Wikipedia"
+    "reponse": 2688,
+    "complement": "Source : <a href=\"https://www.vendeeglobe.org/article/tout-savoir-sur-le-point-nemo\" target=\"_blank\" rel=\"noopener noreferrer\">VendéeGlobe</a>"
   },
   {
     "id": "49",
     "theme": "GEOGRAPHIE",
     "question": "Combien de kilomètres mesure la plus longue ligne droite de chemin de fer au monde ?",
     "reponse": 478,
-    "complement": "En Australie. Source : Midnight trains"
+    "complement": "En Australie. Source : <a href=\"https://fr.wikipedia.org/wiki/Trans-Australian_Railway\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "50",
     "theme": "IMPROBABLE",
     "question": "Combien existe-t-il de stations de métro à Paris (18 janvier 2025) ?",
     "reponse": 321,
-    "complement": "Source : Wikipedia"
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Liste_des_stations_du_métro_de_Paris\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "51",
     "theme": "DATES",
     "question": "En quelle année le premier code-barres a-t-il été scanné en caisse ?",
     "reponse": 1974,
-    "complement": "Créé par Georges Laurer 4 ans plus tôt. Source : Imprimerie Pierotti"
+    "complement": "Créé par Georges Laurer 4 ans plus tôt. Premier scan dans un supermarché Marsh en Ohio. Source : <a href=\"https://www.ubscode.com/fr/apprendre-avec-nous/lhistoire-du-code-barres/\" target=\"_blank\" rel=\"noopener noreferrer\">UBS Code</a>"
   },
   {
     "id": "52",
     "theme": "MONDE VIVANT",
     "question": "Combien de dents possède un escargot commun ?",
     "reponse": 14000,
-    "complement": "Sur sa radula, une espèce de langue. Source : Science-et-vie"
+    "complement": "Sur sa radula, une espèce de langue. Source : <a href=\"https://www.lesdentsdelait.com/animaux-avec-le-plus-de-dents/\" target=\"_blank\" rel=\"noopener noreferrer\">La petite souris</a>"
   },
   {
     "id": "53",
     "theme": "GEOGRAPHIE",
     "question": "Que représente en pourcentage la superficie de la Russie par rapport à la superficie totale de tous les pays ?",
     "reponse": 11.5,
-    "complement": "Source : Wikipedia"
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Liste_des_pays_et_territoires_par_superficie\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "54",
     "theme": "GEOGRAPHIE",
     "question": "De combien d'îles de plus de 100 mètres carrés est constitué le Japon ?",
     "reponse": 14125,
-    "complement": "Source : Japan National Tourism Organization"
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Liste_des_îles_du_Japon\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "55",
     "theme": "GEOGRAPHIE",
     "question": "De combien d'îles sont constituées les îles Cook ?",
     "reponse": 15,
-    "complement": "Source : Cookislands.travel"
+    "complement": "Source : <a href=\"https://cookislands.travel/fr/iles\" target=\"_blank\" rel=\"noopener noreferrer\">Cook Islands Travels</a>"
   },
   {
     "id": "56",
     "theme": "SCIENCES",
     "question": "Combien de secondes faut-il à la lumière pour parcourir la distance Terre-Lune ?",
     "reponse": 1.28,
-    "complement": "Source : Nosdevoirs.fr"
+    "complement": "Source : <a href=\"https://www.nasa-shop.fr/blogs/blog-nasa/combien-temps-aller-lune\" target=\"_blank\" rel=\"noopener noreferrer\">NASA</a>"
   },
   {
     "id": "57",
     "theme": "DIVERTISSEMENT",
     "question": "Combien de films James Bond ont été officiellement produits (Octobre 2021) ?",
     "reponse": 25,
-    "complement": "Source : Wikipedia"
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Liste_des_films_de_James_Bond\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "58",
     "theme": "IMPROBABLE",
     "question": "Combien de pages sont reliées dans l'édition française du Seigneur des Anneaux (édition intégrale), avec ses 50 illustrations ?",
     "reponse": 1360,
-    "complement": "Source : Tolkien Collector's guide"
+    "complement": "Source : <a href=\"https://www.millepages.fr/livre/9782267050356-le-seigneur-des-anneaux-integrale-j-r-r-tolkien/\" target=\"_blank\" rel=\"noopener noreferrer\">Mille pages</a>"
   },
   {
     "id": "59",
     "theme": "IMPROBABLE",
     "question": "Combien de rescapés sont recensés au naufrage du Titanic en 1912 ?",
-    "reponse": 711,
-    "complement": "Source : Cité des sciences"
+    "reponse": 712,
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Naufrage_du_Titanic\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "60",
     "theme": "SONDAGES",
-    "question": "Sur 100 français en 2022, combien ont utilisé au moins une plateforme de vidéo à la demande ?",
-    "reponse": 53.2,
-    "complement": "Source : Ministère de la culture"
+    "question": "Sur 100 français utilisateurs de plateforme de vidéo à la demande en 2024, combien ont utilisé Netflix ?",
+    "reponse": 67,
+    "complement": "Source : <a href=\"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwizncSD__WXAxUihP0HHdiJFsAQFnoECBkQAQ&url=https%3A%2F%2Fwww.culture.gouv.fr%2Fen%2Fmc%2Fcontent%2Fdownload%2F391076%2Ffile%2FChiffres%2520cl%25C3%25A9s%25202025_DEPS_Vid%25C3%25A9o_Fiche.pdf%3Fversion%3D1&usg=AOvVaw0ips_EgWSFMIGOgUvqbD0N&opi=89978449\" target=\"_blank\" rel=\"noopener noreferrer\">Ministère de la culture</a>"
   },
   {
     "id": "61",
     "theme": "RECORDS",
     "question": "Quel est le record de vitesse de résolution d'un Rubik's cube en secondes (2023) ?",
     "reponse": 3.13,
-    "complement": "Max Park. Source : Le parisien"
+    "complement": "Max Park. Source : <a href=\"https://www.leparisien.fr/societe/rubiks-cube-lincroyable-nouveau-record-du-monde-realise-en-a-peine-3-secondes-15-06-2023-JQFD6YX7RZBMRLHTTQRIJQNCWA.php\" target=\"_blank\" rel=\"noopener noreferrer\">Le Parisien</a>"
   },
   {
     "id": "62",
     "theme": "ECONOMIE",
-    "question": "De quel pourcentage à grimpé le marché de la vente de puzzles en France en l'année 2020 par rapport à 2019 ?",
-    "reponse": 63,
-    "complement": "Source : Ouest France"
+    "question": "Quel est le poids en millions de dollars USD du marché du puzzle dans le monde (2025) ?",
+    "reponse": 2230,
+    "complement": "Source : <a href=\"https://www.fortunebusinessinsights.com/fr/jigsaw-puzzle-market-110601\" target=\"_blank\" rel=\"noopener noreferrer\">Business insights</a>"
   },
   {
     "id": "63",
     "theme": "GEOGRAPHIE",
-    "question": "Combien de ports maritimes sont recensés en France (2015) ?",
-    "reponse": 473,
-    "complement": "Source : Ecologie.gouv.fr"
+    "question": "Combien de ports de plaisance maritimes sont recensés en France métropolitaine (2026) ?",
+    "reponse": 488,
+    "complement": "Source : <a href=\"https://www.geolittoral.developpement-durable.gouv.fr/observatoire-des-ports-de-plaisance-a1733.html\" target=\"_blank\" rel=\"noopener noreferrer\">Géo littoral</a>"
   },
   {
     "id": "64",
     "theme": "RECORDS",
     "question": "Combien de mètres mesure la vague la plus haute jamais surfée (2020) ?",
-    "reponse": 26,
-    "complement": "Source : Geo.fr"
+    "reponse": 26.21,
+    "complement": "Par Sebastian Steudtner (Allemand) à Nazaré (Portugal). Source : <a href=\"https://www.welcomesurfshop.com/blogs/news/top-10-plus-grosses-vagues-monde?srsltid=AYCX9vJgKc2kYCwWgACCYd8C4HL3pGkyStg9KK1FEKT-emI0nbF2tHHl\" target=\"_blank\" rel=\"noopener noreferrer\">Welcome surf shop</a>"
   },
   {
     "id": "65",
     "theme": "IMPROBABLE",
     "question": "Combien de litres de bière sont consommés dans le monde chaque secondes ?",
     "reponse": 5600,
-    "complement": "Source : Globometer.com"
+    "complement": "Soit 177 milliards chaque années. Source : <a href=\"https://globometer.com/boissons-biere-monde.php\" target=\"_blank\" rel=\"noopener noreferrer\">Globe Meter</a>"
   },
   {
     "id": "66",
     "theme": "SONDAGES",
-    "question": "Sur 100 français entre 18 et 24 ans, combien déclarent parler anglais couramment ?",
-    "reponse": 14,
-    "complement": "Source : Ifop"
+    "question": "Sur 100 français entre 18 et 24 ans, combien déclarent comprendre et pouvoir parler anglais ?",
+    "reponse": 48,
+    "complement": "Contre 15% des 65 ans et plus. Source : <a href=\"https://www.ifopgroup.com/article/les-francais-et-leur-rapport-a-la-langue-anglaise/\" target=\"_blank\" rel=\"noopener noreferrer\">Ifop</a>"
   },
   {
     "id": "67",
     "theme": "IMPROBABLE",
-    "question": "Combien de restaurants Mc Donald sont référencés en France à fin 2021 ?",
-    "reponse": 1517,
-    "complement": "Source : Statista"
+    "question": "Combien de restaurants Mc Donald sont référencés en France (2025) ?",
+    "reponse": 1629,
+    "complement": "Depuis 1979 en France. Source : <a href=\"https://www.mcdonalds.fr/nos-engagements/au-coeur-de-nos-territoires\" target=\"_blank\" rel=\"noopener noreferrer\">McDonalds France</a>"
   },
   {
     "id": "68",
     "theme": "SONDAGES",
     "question": "Sur 100 personnes dans le monde, combien peuvent résoudre un Rubik's cube (2023) ?",
     "reponse": 5.8,
-    "complement": "Source : Rubiks.com"
+    "complement": "Source : <a href=\"https://web.archive.org/web/20180309125149/https://www.rubiks.com/about/cube-facts\" target=\"_blank\" rel=\"noopener noreferrer\">Rubiks facts</a>"
   },
   {
     "id": "69",
     "theme": "SONDAGES",
     "question": "Sur 100 français, combien déclarent aller au restaurant au moins une fois par mois dans le cadre privé (janvier 2020) ?",
     "reponse": 65,
-    "complement": "Source : Snacking.fr"
+    "complement": "Source : <a href=\"https://www.snacking.fr/actualites/4593-Les-habitudes-des-Francais-au-restaurant-en-15-chiffres-cles/?news_id=4593\" target=\"_blank\" rel=\"noopener noreferrer\">Snackings.fr</a>"
   },
   {
     "id": "70",
     "theme": "RECORDS",
     "question": "A combien de décibels a été enregistré le record du plus fort cri humain (2024) ?",
     "reponse": 129,
-    "complement": "Jill Drake en 2000. Source : Wikipedia"
+    "complement": "Jill Drake en 2000. Source : <a href=\"https://fr.wikipedia.org/wiki/Cri_(voix)\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "71",
     "theme": "GEOGRAPHIE",
     "question": "Combien de kilomètres mesure la plus longue plage du monde ?",
     "reponse": 254,
-    "complement": "Paraia do Cassino au Brésil. Source : Topito.com"
+    "complement": "Paraia do Cassino au Brésil. Source : <a href=\"https://www.aquitaineonline.com/actualites-en-aquitaine/sud-ouest/la-plus-grande-plage-du-monde-serait-en-france-sur-la-facade-atlantique-mais-elle-est-contestee-par-le-bresil-et-la-praia-do-cassino.html\" target=\"_blank\" rel=\"noopener noreferrer\">Aquitaine Online</a>"
   },
   {
     "id": "72",
     "theme": "ECONOMIE",
-    "question": "Combien de centimes d'euros coûte la fabrication d'une pièce d'un centime d'euro ?",
-    "reponse": 1.2,
-    "complement": "Source : L'union.fr"
+    "question": "Combien de centimes d'euros coûte la fabrication d'une pièce d'un centime d'euro (2025) ?",
+    "reponse": 1.65,
+    "complement": "Source : <a href=\"https://www.ouest-france.fr/economie/budget/arret-des-pieces-d1-et-2-centimes-deuro-quelles-seraient-les-consequences-pour-les-francais-fe8b4228-e944-11ef-9a7b-e9dff01c2f19\" target=\"_blank\" rel=\"noopener noreferrer\">Sud Ouest</a>"
   },
   {
     "id": "73",
     "theme": "MONDE VIVANT",
-    "question": "Jusqu'à combien d'oeufs par an une poule est-elle capable de pondre ?",
+    "question": "Jusqu'à combien d'oeufs au maximum par an une poule est-elle capable de pondre ?",
     "reponse": 300,
-    "complement": "Source : Le mag des animaux"
+    "complement": "Source : <a href=\"https://lemagdesanimaux.ouest-france.fr/dossier-1714-combien-oeufs-par-jour-an-peut-pondre-poule.html\" target=\"_blank\" rel=\"noopener noreferrer\">Le mag des animaux</a>"
   },
   {
     "id": "74",
     "theme": "DATES",
     "question": "En quelle année le premier email a-t-il été envoyé ?",
     "reponse": 1971,
-    "complement": "Par Ray Tomlinson, entre deux machines adjacentes. Source : Mondedumail.com"
+    "complement": "Par Ray Tomlinson, entre deux machines adjacentes. Source : <a href=\"https://dolist.com/articles/strategie-digital/infographie-sur-lhistoire-de-lemail-evolution-dates-cles/\" target=\"_blank\" rel=\"noopener noreferrer\">DoList</a>"
   },
   {
     "id": "75",
     "theme": "DATES",
     "question": "En quelle année à eu lieu la première coupe du monde de football ?",
     "reponse": 1930,
-    "complement": "En Uruguay. Source : FIFA"
+    "complement": "En Uruguay. Source : <a href=\"https://fr.wikipedia.org/wiki/Coupe_du_monde_de_football_1930\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "76",
     "theme": "RECORDS",
     "question": "Quel est le poids en kilogrammes du plus gros hamburger (2011) ?",
     "reponse": 352,
-    "complement": "Source : 20 Minutes"
+    "complement": "Pour seulement 1 375 000 Calories. Source : <a href=\"https://www.lexpress.fr/styles/plaisirs/saveurs/le-plus-gros-burger-du-monde-pese-352-kilos_1009415.html?cmp_redirect=true\" target=\"_blank\" rel=\"noopener noreferrer\">L'Express</a>"
   },
   {
     "id": "77",
     "theme": "SCIENCES",
     "question": "Combien d'étoiles naissent en moyenne par an dans la Voie lactée ?",
     "reponse": 7,
-    "complement": "Source : Sciencepost.fr"
+    "complement": "Source : <a href=\"https://www.planetoscope.com/astronomie/1702-naissances-d-etoiles-dans-notre-galaxie-la-voie-lactee.html\" target=\"_blank\" rel=\"noopener noreferrer\">Planetoscope</a>"
   },
   {
     "id": "78",
     "theme": "MONDE VIVANT",
     "question": "Quelle est la durée moyenne en secondes de la nictation, soit le clignement de l'oeil ?",
     "reponse": 0.15,
-    "complement": "Source : Planetoscope"
+    "complement": "Source : <a href=\"https://horus-x.com/blogs/infos/combien-de-fois-cligne-t-on-des-yeux-par-jour\" target=\"_blank\" rel=\"noopener noreferrer\">Horus X</a>"
   },
   {
     "id": "79",
     "theme": "MONDE VIVANT",
     "question": "Combien de litres d'air en moyenne un être humain inspire-t-il par jour ?",
-    "reponse": 12000,
-    "complement": "Source : Ligue pulmonaire"
+    "reponse": 13000,
+    "complement": "Soit environ 15kg. Source : <a href=\"https://www.airandme.fr/blog/analyse-et-purification-de-lair/quelle-quantite-dair-respirons-nous/?srsltid=AYCX9vLJBzEgAeOL1SC8xFLYYvumeapLwQT4xAox7RVSTQOLzJwp5gWS\" target=\"_blank\" rel=\"noopener noreferrer\">Air and Me</a>"
   },
   {
     "id": "80",
     "theme": "GEOGRAPHIE",
     "question": "Combien de mètres de haut mesure la plus haute cascade de France ?",
     "reponse": 422,
-    "complement": "Gavarnie. Source : Wikipedia"
+    "complement": "Gavarnie. Source : <a href=\"https://fr.wikipedia.org/wiki/Cascade_de_Gavarnie\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "81",
     "theme": "GEOGRAPHIE",
     "question": "Combien de kilomètres mesure la frontière entre la France et l'Espagne ?",
     "reponse": 623,
-    "complement": "Source : Revue-pouvoirs.fr"
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Frontières_de_la_France\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "82",
     "theme": "MONDE VIVANT",
     "question": "Combien d'heures au minimum par jour un koala dort-il ?",
     "reponse": 18,
-    "complement": "Source : Australian Koala foundation"
+    "complement": "Entre 18H et 22H. Source : <a href=\"https://savethekoala.com/french/faits-interessants/\" target=\"_blank\" rel=\"noopener noreferrer\">Australian Koala Foundation</a>"
   },
   {
     "id": "83",
     "theme": "MONDE VIVANT",
     "question": "Combien de centimètres mesure en moyenne la langue d'une girafe ?",
     "reponse": 50,
-    "complement": "Source : Instinct-animal.fr"
+    "complement": "Source : <a href=\"https://www.sciencesetavenir.fr/nature-environnement/pour-mieux-comprendre-la-girafe_109185\" target=\"_blank\" rel=\"noopener noreferrer\">Science et Avenir</a>"
   },
   {
     "id": "84",
     "theme": "DATES",
     "question": "En quel année a été publié le premier album de Tintin ?",
     "reponse": 1929,
-    "complement": "Le 10 janvier. Source : Site officiel de Tintin"
+    "complement": "Parution le 10 janvier de \"Tintin au pays des Soviets\" dans le journal \"Le petit Vingtième\". Source : <a href=\"https://fr.wikipedia.org/wiki/Tintin_au_pays_des_Soviets\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "85",
     "theme": "SONDAGES",
     "question": "Sur 100 français, combien déclarent chanter sous la douche ?",
     "reponse": 28,
-    "complement": "Source : L'internaute.com"
+    "complement": "Source : <a href=\"https://www.caminteresse.fr/sante/pourquoi-aime-t-on-autant-chanter-sous-la-douche-11199584/\" target=\"_blank\" rel=\"noopener noreferrer\">Ca m'interesse</a>"
   },
   {
     "id": "86",
     "theme": "MONDE VIVANT",
     "question": "Combien de muscles sont activés chez l'Homme pour sourire ?",
     "reponse": 17,
-    "complement": "Source : Wikipedia"
+    "complement": "Source : <a href=\"https://lemuscle.fr/faq/\" target=\"_blank\" rel=\"noopener noreferrer\">LeMuscle.fr</a>"
   },
   {
     "id": "87",
     "theme": "GEOGRAPHIE",
     "question": "Combien d'Etats sont enclavés dans le monde (ne possèdent pas d'accès à une mer ouverte ou un océan) ?",
-    "reponse": 42,
-    "complement": "Source : defense.gouv.fr"
+    "reponse": 44,
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Enclave_et_exclave\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "88",
     "theme": "DIVERTISSEMENT",
-    "question": "Combien de places possède le Stade de France en configuration standard (2024) ?",
+    "question": "Combien de places possède le Stade de France en configuration standard pour le football (2024) ?",
     "reponse": 80698,
-    "complement": "Source : Wikipedia"
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Stade_de_France\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "89",
     "theme": "IMPROBABLE",
     "question": "En Lozère en 2016, par combien fallait-il multiplier le nombre d'habitants pour obtenir le nombre de bovins du département ?",
     "reponse": 1.96,
-    "complement": "76 390 habitants pour environ 150 000 bovins. Source : France 3 région (franceTVinfo)"
+    "complement": "76 390 habitants pour environ 150 000 bovins. Source : <a href=\"https://france3-regions.franceinfo.fr/occitanie/larzac/aveyron/rodez/il-y-plus-betes-que-habitants-lozere-surtout-aveyron-938152.html\" target=\"_blank\" rel=\"noopener noreferrer\">France 3 TV Régions</a>"
   },
   {
     "id": "90",
     "theme": "RECORDS",
     "question": "Combien d'années à duré le record du hoquet le plus long sans interruption ?",
     "reponse": 68,
-    "complement": "Charles Osborne. Source : Le parisien"
+    "complement": "Charles Osborne. Source : <a href=\"https://fr.wikipedia.org/wiki/Charles_Osborne_(cas_médical)\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "91",
     "theme": "SCIENCES",
-    "question": "Combien d’années un chewing-gum met-il en moyenne à se dégrader dans la nature ?",
+    "question": "Combien d’années un chewing-gum met-il en moyenne à se dégrader dans la nature (sur la terre ferme) ?",
     "reponse": 5,
-    "complement": "Source : Jeunes reporters pour l'environnement"
+    "complement": "25 ans s'il est dans l'eau. Source : <a href=\"https://www.siedmto.fr/tri-et-prevention-des-dechets/duree-de-vie-des-dechets/\" target=\"_blank\" rel=\"noopener noreferrer\">Siedmto</a>"
   },
   {
     "id": "92",
     "theme": "DATES",
     "question": "En quelle année a été fondée l'entreprise Google ?",
     "reponse": 1998,
-    "complement": "Dans la SiliconValley par Larry Page et Sergey Brin. Source : Wikipedia"
+    "complement": "Dans la SiliconValley par Larry Page et Sergey Brin. Source : <a href=\"https://fr.wikipedia.org/wiki/Google\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "93",
     "theme": "DATES",
     "question": "En quelle année a été créé Youtube ?",
     "reponse": 2005,
-    "complement": "En Californie, par Steve Chen, Chad Hurley et Jawed Karim. Source : Wikipedia"
+    "complement": "En Californie, par Steve Chen, Chad Hurley et Jawed Karim. Source : <a href=\"https://fr.wikipedia.org/wiki/YouTube\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "94",
     "theme": "SCIENCES",
     "question": "Quelle est la température en degrés Celsius au centre de la Terre ?",
     "reponse": 5500,
-    "complement": "Source : Futura-science"
+    "complement": "Source : <a href=\"https://www.futura-sciences.com/planete/questions-reponses/globe-terrestre-temperature-fait-il-centre-terre-19292/\" target=\"_blank\" rel=\"noopener noreferrer\">Futura-Science</a>"
   },
   {
     "id": "95",
     "theme": "DIVERTISSEMENT",
-    "question": "Combien de films Pixar ont été produits jusqu’en 2024 ?",
-    "reponse": 28,
-    "complement": "Source : Wikipedia"
+    "question": "Combien de films Pixar ont été produits jusqu’en Toy Story 5 inclus en 2026 ?",
+    "reponse": 31,
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Liste_des_films_Pixar\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "96",
     "theme": "IMPROBABLE",
     "question": "Combien de types sont définis dans l'echelle de Bristol ?",
     "reponse": 7,
-    "complement": "Source : Wikipedia"
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Échelle_de_Bristol\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "97",
     "theme": "SCIENCES",
     "question": "Combien de forces de vents sont définis dans l'echelle de Beaufort ?",
-    "reponse": 12,
-    "complement": "Source : Wikipedia"
+    "reponse": 13,
+    "complement": "De 0 à 12. Source : <a href=\"https://fr.wikipedia.org/wiki/Échelle_de_Beaufort\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "98",
     "theme": "MONDE VIVANT",
     "question": "Quelle est la vitesse de pointe en km/h sur la terre ferme d'un crocodile du Nil ?",
     "reponse": 17,
-    "complement": "Source : Wikipedia"
+    "complement": "Contre 35Km/h en pointe à la nage. Source : <a href=\"https://www.monde-animal.fr/fiches-animaux/crocodylus-niloticus/\" target=\"_blank\" rel=\"noopener noreferrer\">Monde animal</a>"
   },
   {
     "id": "99",
     "theme": "MONDE VIVANT",
     "question": "Combien d'espèces d'arbres existent au total dans le monde ?",
     "reponse": 73000,
-    "complement": "Dont 9200 restent à découvrir. Source : Lemonde.fr"
+    "complement": "Dont 9200 restent à découvrir. Source : <a href=\"https://ur-forets-societes.cirad.fr/actualites/combien-d-especes-d-arbres-notre-planete-abrite-t-elle\" target=\"_blank\" rel=\"noopener noreferrer\">Forêt et société</a>"
   },
   {
     "id": "100",
     "theme": "SONDAGES",
-    "question": "Quelle est la durée moyenne en France du trajet aller-retour quotidien entre le domicile et le travail (en minutes) ?",
+    "question": "Quelle est la durée moyenne en France du trajet aller-retour quotidien entre le domicile et le travail en minutes (2015) ?",
     "reponse": 50,
-    "complement": "Source : Ministère du travail"
+    "complement": "Source : <a href=\"https://dares.travail-emploi.gouv.fr/publications/les-temps-de-deplacement-entre-domicile-et-travail-des-disparites-selon-l\" target=\"_blank\" rel=\"noopener noreferrer\">Ministère du travail</a>"
   },
   {
     "id": "101",
     "theme": "IMPROBABLE",
     "question": "En 2020, combien de divorces ou ruptures de corps ont été demandés officiellement en France ?",
-    "reponse": 78100,
-    "complement": " Durée moyenne des mariages de 16,5 ans. Source : Justice.gouv.fr"
+    "reponse": 78095,
+    "complement": " Durée moyenne des mariages de 16,5 ans. Source : <a href=\"https://www.justice.gouv.fr/sites/default/files/2025-01/RSJ2024%20Chapitre%205.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">Justice.gouv</a>"
   },
   {
     "id": "102",
     "theme": "GEOGRAPHIE",
-    "question": "Combien de villes de la Creuse comportent plus de 2000 habitants ?",
+    "question": "Combien de villes de la Creuse comportent plus de 2000 habitants (2023) ?",
     "reponse": 5,
-    "complement": "Guéret, La Souterraine, Aubusson, Sainte-Feyre, Bourganeuf. Source : Bien-dans-ma-ville.fr"
+    "complement": "Guéret, La Souterraine, Aubusson, Sainte-Feyre, Bourganeuf. Source : <a href=\"https://www.bien-dans-ma-ville.fr/classement-ville/creuse/nb-habitant.html\" target=\"_blank\" rel=\"noopener noreferrer\">Bien dans ma ville</a>"
   },
   {
     "id": "103",
     "theme": "GEOGRAPHIE",
     "question": "Quelle est la superficie de la France métropolitaine en kilomètres carrés ?",
     "reponse": 551695,
-    "complement": "Source : Wikipedia"
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Superficie_de_la_France\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "104",
     "theme": "GEOGRAPHIE",
     "question": "Quelle est la superficie du lac Léman en kilomètres carrés ?",
-    "reponse": 582,
-    "complement": "Source : Wikipedia"
+    "reponse": 580.1,
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Léman\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "105",
     "theme": "GEOGRAPHIE",
-    "question": "Quelle est la longueur en kilomètres de la ligne féroviaire du Shinkansen ?",
-    "reponse": 515.4,
-    "complement": "La ligne Shinkansen Tokaido, en service depuis 1964. Source : Wikipedia"
+    "question": "Quelle est la longueur en kilomètres de la ligne féroviaire du Shinkansen entre Tokyo et Shin-Osaka ?",
+    "reponse": 552.6,
+    "complement": "La ligne Shinkansen Tokaido, en service depuis 1964. Source : <a href=\"https://www.nippon.com/fr/articles/-/34774\" target=\"_blank\" rel=\"noopener noreferrer\">Nippon.com</a>"
   },
   {
     "id": "106",
     "theme": "GEOGRAPHIE",
-    "question": "Quelle est la longueur en kilomètres du réseau autoroutier total de France métropolitaine (fin 2021)",
-    "reponse": 11664,
-    "complement": "Dont 9102km concédés a des sociétés privées. Source : statistiques.developpement-durable.gouv.fr"
+    "question": "Quelle est la longueur en kilomètres du réseau autoroutier total de France métropolitaine (2023) ?",
+    "reponse": 11751,
+    "complement": "Dont 9102km concédés a des sociétés privées. Source : <a href=\"https://www.insee.fr/fr/statistiques/serie/001771390\" target=\"_blank\" rel=\"noopener noreferrer\">Insee</a>"
   },
   {
     "id": "107",
     "theme": "SCIENCES",
     "question": "A quelle température le fer pur fond-il (en degrés Celsius) ?",
     "reponse": 1538,
-    "complement": "Source : Air liquide France industrie"
+    "complement": "Source : <a href=\"https://fr.airliquide.com/solutions/soudage-industriel/temperature-de-fusion-dun-metal\" target=\"_blank\" rel=\"noopener noreferrer\">Air liquide France industries</a>"
   },
   {
     "id": "108",
     "theme": "ECONOMIE",
     "question": "Quel est le budget investi estimé pour le film Warcraft : Le commencement (en millions de dollars) ?",
     "reponse": 160,
-    "complement": "Source : Allo ciné"
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Warcraft_:_Le_Commencement\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "109",
     "theme": "DIVERTISSEMENT",
-    "question": "Combien d'épisodes de \"Rendez-vous en terre inconnue\" ont été diffusés (au 26 Novembre 2024)",
-    "reponse": 34,
-    "complement": "Le dernier parti étant Tomer Sisley. Source : Wikipedia"
+    "question": "Combien d'épisodes de \"Rendez-vous en terre inconnue\" ont été diffusés (au 29 Septembre 2026)",
+    "reponse": 38,
+    "complement": "Le dernier parti étant Tony Parker. Source : <a href=\"https://fr.wikipedia.org/wiki/Rendez-vous_en_terre_inconnue\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "110",
     "theme": "RECORDS",
     "question": "Combien de bisounours contient la plus grande collection inscrite au Guinness des records (2024) ?",
     "reponse": 1234,
-    "complement": "Nicholas Cherrywood. Source : Caminteresse.com"
+    "complement": "Nicholas Cherrywood. Source : <a href=\"https://www.entrenous.fr/actualite/il-possede-1-234-bisounours-44118.html\" target=\"_blank\" rel=\"noopener noreferrer\">Entre Nous</a>"
   },
   {
     "id": "111",
     "theme": "RECORDS",
     "question": "Quel est le record du monde homologué du nombre de ricochets (2013) ?",
     "reponse": 88,
-    "complement": "Kurt Steiner, au championnats du monde de ricochets en Ecosse. Source : Wikipedia"
+    "complement": "Kurt Steiner, au championnats du monde de ricochets en Ecosse. Source : <a href=\"https://fr.wikipedia.org/wiki/Championnats_du_monde_de_ricochet\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "112",
     "theme": "RECORDS",
     "question": "Combien d'étages comporte le château de carte le plus haut jamais réalisé sur une machine à laver en marche (2024) ?",
     "reponse": 48,
-    "complement": "Bryan Berg, pour promouvoir la stabilité de la machine. Source : recordsdumonde.fr"
+    "complement": "Bryan Berg, pour promouvoir la stabilité de la machine. Source : <a href=\"https://www.lg.com/fr/tout-sur-lg/presse-et-media/un-chteau-de-cartes-construit-sur-un-lave-linge-lg-en-marche-bat-le-record-guiness/\" target=\"_blank\" rel=\"noopener noreferrer\">LG</a>"
   },
   {
     "id": "113",
     "theme": "RECORDS",
-    "question": "Combien de kilos de sucreries contenait la plus grande pinata jamais conçue (2024) ?",
+    "question": "Combien de kilos de sucreries contenait la plus grande pinata jamais conçue (2025) ?",
     "reponse": 3600,
-    "complement": "Dans une pinata de 19 mètres de haut tout de même. Source : Wordpress.com"
+    "complement": "Dans une pinata de 19 mètres de haut. Source : <a href=\"https://www.entrenous.fr/actualite/la-plus-grosse-pinata-du-monde-explose-avec-3-600-kg-de-bonbons-44192.html\" target=\"_blank\" rel=\"noopener noreferrer\">Entre nous</a>"
   },
   {
     "id": "114",
     "theme": "RECORDS",
-    "question": "Quel est le record du monde de la partie la plus longue disputée au Monopoly en jours consécutifs (2024) ?",
+    "question": "Quel est le record du monde de la partie la plus longue disputée au Monopoly en jours consécutifs (2025) ?",
     "reponse": 70,
-    "complement": "Source : Monopolypedia"
+    "complement": "Source : <a href=\"https://www.entrenous.fr/actualite/monopoly-record-du-monde-de-la-plus-grande-partie-44223.html\" target=\"_blank\" rel=\"noopener noreferrer\">Entre nous</a>"
   },
   {
     "id": "115",
     "theme": "RECORDS",
-    "question": "De combien de cases est constituée la plus grande marelle du monde (2024) ?",
+    "question": "De combien de cases est constituée la plus grande marelle du monde (2025) ?",
     "reponse": 21871,
-    "complement": "Sur 7km, prévoir environ 2 heures. Source : Guinnessworldrecords.com"
+    "complement": "Sur 7km, prévoir environ 2 heures. Source : <a href=\"https://www.entrenous.fr/actualite/la-plus-longue-marelle-du-monde-setale-sur-44209.html\" target=\"_blank\" rel=\"noopener noreferrer\">Entre nous</a>"
   },
   {
     "id": "116",
     "theme": "DIVERTISSEMENT",
-    "question": "Combien de cases y a-t-il dans le jeu des petits chevaux (version française) ?",
-    "reponse": 81,
-    "complement": "4 joueurs ont 14 cases, 6 cases en plus par joueur vers le centre, et le centre. Source : Ribambel.com"
+    "question": "Combien de cases y a-t-il dans le jeu de l'oie ?",
+    "reponse": 63,
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Jeu_de_l%27oie_(jeu_de_société)\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "117",
     "theme": "DATES",
     "question": "En quelle année à eu lieu le printemps de Prague ?",
     "reponse": 1968,
-    "complement": "Source : Wikipedia"
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Printemps_de_Prague\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "118",
     "theme": "DATES",
     "question": "En quelle année à débuter la première guerre des Boers en Afrique du Sud ?",
     "reponse": 1880,
-    "complement": "Source : Wikipedia"
+    "complement": "Source : <a href=\"https://fr.wikipedia.org/wiki/Première_guerre_des_Boers\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "119",
     "theme": "DATES",
     "question": "De quelle année date l'utilisation des confettis modernes ?",
     "reponse": 1875,
-    "complement": "Enrico Mangili, a Milan, en remplacement de billes de platre !  Source : Wikipedia"
+    "complement": "Enrico Mangili, a Milan, en remplacement de billes de platre !  Source : <a href=\"https://fr.wikipedia.org/wiki/Confetti\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "120",
     "theme": "DATES",
     "question": "En quelle année à eu lieu le premier carnaval de Rio ?",
     "reponse": 1840,
-    "complement": "Mais on y dansait pas encore la samba. Source : Wikipedia"
+    "complement": "Mais on y dansait pas encore la samba. Source : <a href=\"https://www.riocarnaval.org/fr/carnaval-de-rio/histoire\" target=\"_blank\" rel=\"noopener noreferrer\">Rio Carnaval</a>"
   },
   {
     "id": "121",
     "theme": "DATES",
     "question": "En quelle année le dodo a-t-il disparu ?",
     "reponse": 1681,
-    "complement": "Source : Ile-maurice.fr"
+    "complement": "Source : <a href=\"https://www.ile-maurice.fr/typiquement-mauricien/le-dodo.html\" target=\"_blank\" rel=\"noopener noreferrer\">IleMaurice.fr</a>"
   },
   {
     "id": "122",
     "theme": "DATES",
     "question": "En quelle année a été diffusée la première publicité à la télévision française ?",
     "reponse": 1968,
-    "complement": "Un 1er octobre. Source : Ladepeche.fr"
+    "complement": "Un 1er octobre sur la première chaine de l'ORTF, juste avant le journal de 20H. Source : <a href=\"https://fr.wikipedia.org/wiki/Publicité_à_la_télévision_française\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "123",
     "theme": "DIVERTISSEMENT",
-    "question": "Combien existe-t-il de champions jouables dans League of Legends (6 Novembre 2024)",
+    "question": "Combien existe-t-il de champions jouables dans League of Legends (jusqu'à la sortie d'Ambessa le 6 Novembre 2024)",
     "reponse": 169,
-    "complement": "Date de sortie d'Ambessa. Source : Leagueoflegends.fandom.com"
+    "complement": "Source : <a href=\"https://leagueoflegends.fandom.com/fr/wiki/Liste_des_champions\" target=\"_blank\" rel=\"noopener noreferrer\">LeagueOfLegends.fandom.com</a>"
   },
   {
     "id": "124",
     "theme": "DATES",
     "question": "De quelle année date la baguette tradition en France ?",
     "reponse": 1993,
-    "complement": "Le \"décret pain\" de Septembre. Source : Les echos"
+    "complement": "Le \"décret pain\" de Septembre. Source : <a href=\"https://www.lesechos.fr/2013/09/la-baguette-tradition-fete-ses-20-ans-343917\" target=\"_blank\" rel=\"noopener noreferrer\">Les echos</a>"
   },
   {
     "id": "125",
     "theme": "DATES",
     "question": "En quelle année le premier brevet pour une machine à laver le linge a-t-il été déposé ?",
     "reponse": 1797,
-    "complement": "Le 28 mars, par l'Américain Nathaniel Briggs. Source : Radiofrance"
+    "complement": "Le 31 mars, par l'Américain Nathaniel Briggs. Source : <a href=\"https://www.flash-depannage.fr/histoire-de-la-machine-a-laver.php\" target=\"_blank\" rel=\"noopener noreferrer\">Flash Depannage</a>"
   },
   {
     "id": "126",
     "theme": "DATES",
     "question": "En quelle année a été breveté le stylo à bille jetable ?",
     "reponse": 1938,
-    "complement": "Par les frères Biro. Source : Wikipedia"
+    "complement": "Par les frères Biro, numéro 853002. Source : <a href=\"https://pibd.inpi.fr/article/petite-incursion-dans-les-archives-de-linpi-le-stylo-bille-des-kilometres-decriture\" target=\"_blank\" rel=\"noopener noreferrer\">Inpi</a>"
   },
   {
     "id": "127",
     "theme": "DATES",
     "question": "En quelle année le premier radar fixe de contrôle routier a-t-il été installé en France ?",
     "reponse": 2003,
-    "complement": "Le 27 octobre, à la Ville du Bois dans l'Essone (RN20). Source : Securité-routière.gouv.fr"
+    "complement": "Le 27 octobre, à la Ville du Bois dans l'Essone (RN20). Source : <a href=\"https://www.securite-routiere.gouv.fr/radars/chiffres-radars/historique-des-radars\" target=\"_blank\" rel=\"noopener noreferrer\">Sécurité-routière.gouv.fr</a>"
   },
   {
     "id": "128",
     "theme": "DATES",
     "question": "En quelle année le premier restaurant végétarien a-t-il ouvert en Europe ?",
     "reponse": 1898,
-    "complement": "A Zurich, le \"Hiltl\". Source : Ledevoir.com"
+    "complement": "A Zurich, le \"Hiltl\". Source : <a href=\"https://guide.en-vols.com/adresse/haus-hiltl-une-institution-depuis-1898/#/search@36.9941404,-6.2569606,2.00\" target=\"_blank\" rel=\"noopener noreferrer\">LeDevoir</a>"
   },
   {
     "id": "129",
     "theme": "DATES",
     "question": "En quelle année le premier journal télévisé a-t-il été diffusé en France ?",
     "reponse": 1949,
-    "complement": "Sur la RTF, alors que un pour cent des foyers disposent d'un téléviseur. Source : Le dauphiné libéré"
+    "complement": "Le 29 juin sur la RTF, alors que un pour cent des foyers disposent d'un téléviseur. Source : <a href=\"https://www.ledauphine.com/culture-loisirs/2021/06/29/29-juin-1949-le-premier-jt-francais-provoque-un-incendie-en-montgolfiere\" target=\"_blank\" rel=\"noopener noreferrer\">Le Dauphiné Libéré</a>"
   },
   {
     "id": "130",
     "theme": "DATES",
     "question": "En quelle année la prise de courant murale a-t-elle été brevetée ?",
     "reponse": 1903,
-    "complement": "Par Harvey Hubbell. Source : Wikipedia"
+    "complement": "Par Harvey Hubbell. Source : <a href=\"https://fr.wikipedia.org/wiki/Harvey_Hubbell\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "131",
     "theme": "DIVERTISSEMENT",
-    "question": "En moyenne, combien de livres les français déclarent-ils avoir lu en un an (papier et numérique, en 2023) ?",
-    "reponse": 22,
-    "complement": "Source : Centre national du livre"
+    "question": "En moyenne, combien de livres les français déclarent-ils avoir lu en un an (papier et numérique, en 2025) ?",
+    "reponse": 18,
+    "complement": "Source : <a href=\"https://www.livreshebdo.fr/article/les-francais-lisent-de-moins-en-moins-selon-le-barometre-2025-les-francais-et-la-lecture\" target=\"_blank\" rel=\"noopener noreferrer\">Livre Hebdo</a>"
   },
   {
     "id": "132",
     "theme": "SONDAGES",
     "question": "Sur 100 Français, combien ont déjà tapé leur propre nom sur Google ?",
     "reponse": 71,
-    "complement": "Source : Le nouvel Obs"
+    "complement": "Source : <a href=\"https://www.nouvelobs.com/les-internets/20141126.OBS6115/71-des-francais-ont-deja-tape-leur-nom-dans-les-moteurs-de-recherche.html\" target=\"_blank\" rel=\"noopener noreferrer\">Le Nouvel Obs</a>"
   },
   {
     "id": "133",
     "theme": "DIVERTISSEMENT",
     "question": "Combien existe-t-il de danses de salon (standard et latines) ?",
     "reponse": 10,
-    "complement": "2 Valses, Tango, Quickstep, Slow fox, Samba, Cha-cha, Rumba, Paso doble, Jive. Source : Wikipedia"
+    "complement": "2 Valses, Tango, Quickstep, Slow fox, Samba, Cha-cha, Rumba, Paso doble, Jive. Source : <a href=\"https://hautlescours.fr/post/lumiere-sur-danses-de-salon/\" target=\"_blank\" rel=\"noopener noreferrer\">Haut les cours</a>"
   },
   {
     "id": "134",
     "theme": "DATES",
     "question": "En quelle année est né Robespierre ?",
     "reponse": 1758,
-    "complement": "Source : Wikipedia"
+    "complement": "le 6 mai à Arras. Source : <a href=\"https://fr.wikipedia.org/wiki/Maximilien_de_Robespierre\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "135",
     "theme": "IMPROBABLE",
     "question": "Quel est le pourcentage de noisettes dans la fabrication du Nutella (2024) ?",
     "reponse": 13,
-    "complement": "Source : Nutella.com"
+    "complement": "Contre 55% de sucre. Source : <a href=\"https://www.nutella.com/ma/fr/produits/nutella\" target=\"_blank\" rel=\"noopener noreferrer\">Nutella</a>"
   },
   {
     "id": "136",
     "theme": "ECONOMIE",
-    "question": "Combien y avait-il de demandeurs d'emploi inscrits à France travail en décembre 2024 ?",
-    "reponse": 5535100,
-    "complement": "Source : Ministère du travail"
+    "question": "Combien y avait-il de demandeurs d'emploi inscrits à France travail en décembre 2025 ?",
+    "reponse": 7632110,
+    "complement": "Source : <a href=\"https://statistiques.francetravail.org/stmt/geo?ss=1\" target=\"_blank\" rel=\"noopener noreferrer\">France Travail</a>"
   },
   {
     "id": "137",
     "theme": "ECONOMIE",
-    "question": "Combien d'entreprises françaises ont fait faillite en 2023 ?",
-    "reponse": 55492,
-    "complement": "Source : Libération"
+    "question": "Combien d'entreprises françaises ont fait faillite en 2024 ?",
+    "reponse": 65298,
+    "complement": "Source : <a href=\"https://www.banque-france.fr/fr/statistiques/entreprises/defaillances-dentreprises-2024-12\" target=\"_blank\" rel=\"noopener noreferrer\">Banque de France</a>"
   },
   {
     "id": "138",
     "theme": "MONDE VIVANT",
     "question": "En 2023, quel est le taux de fécondité le plus bas dans un pays en nombre d'enfants par femme ?",
-    "reponse": 0.72,
-    "complement": "En Corée du sud. Source : Wikipedia"
+    "reponse": 0.69,
+    "complement": "A Macao. Source : <a href=\"https://fr.wikipedia.org/wiki/Liste_des_pays_par_taux_de_fécondité\" target=\"_blank\" rel=\"noopener noreferrer\">Wikipedia</a>"
   },
   {
     "id": "139",
     "theme": "SONDAGES",
     "question": "Sur 100 français en couple, combien ont déjà fouillé dans le téléphone de leur partenaire ?",
     "reponse": 40,
-    "complement": "Qualifié de Snooping. Source : Elle.fr"
+    "complement": "Qualifié de Snooping. Source : <a href=\"https://www.lesnumeriques.com/societe-numerique/quatre-francais-sur-dix-espionneraient-le-smartphone-de-leur-conjoint-n209669.html\" target=\"_blank\" rel=\"noopener noreferrer\">Les numérique (Ifop)</a>"
   },
   {
     "id": "140",
     "theme": "SONDAGES",
     "question": "Sur 100 français entre 18 et 29 ans, combien vivaient encore chez leurs parents (2013) ?",
     "reponse": 46,
-    "complement": "Source : Insee"
+    "complement": "Source : <a href=\"https://www.insee.fr/fr/statistiques/3315412\" target=\"_blank\" rel=\"noopener noreferrer\">Insee</a>"
   },
   {
     "id": "141",
     "theme": "SONDAGES",
     "question": "Sur 100 français ayant un enfant, combien regrettent le nom qu'ils lui ont donné ?",
     "reponse": 14,
-    "complement": "Precisement une personne sur 7. Source : Cosmopolitan.fr"
+    "complement": "Precisement une personne sur 7. Les plus regréttés sont Issa, Chole, Aiden, Conner, Elliot, Michael, James, Isabella, Sophia, David. Source : <a href=\"https://www.cosmopolitan.fr/ces-10-prenoms-sont-les-plus-regrettes-par-les-parents,2060479.asp\" target=\"_blank\" rel=\"noopener noreferrer\">Cosmopolitan.fr</a>"
   },
   {
     "id": "142",
