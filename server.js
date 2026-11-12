@@ -720,7 +720,8 @@ io.on('connection', (socket) => {
       io.to(j.socketId).emit('afficher_saisie_joueur', {
         code,
         duree,
-        debutSaisie
+        debutSaisie,
+        jokersUtilises: j.jokersUtilises || []
       });
     });
 
@@ -736,6 +737,44 @@ io.on('connection', (socket) => {
     lobby.manche.timer = setTimeout(() => {
       arreterSaisie(code, 'chrono');
     }, 30000);
+  });
+
+    // --- Sélection et consommation d'un joker ---
+  socket.on('selectionner_joker', ({ code, joker }) => {
+    const lobby = lobbies[code];
+
+    // Vérifier que la partie et la saisie sont toujours actives.
+    if (!lobby || lobby.manche.phase !== 'saisie') return;
+
+    // Vérifier que le joueur appartient bien à ce lobby.
+    const joueur = lobby.joueurs.find(j => j.socketId === socket.id);
+    if (!joueur) return;
+
+    // Vérifier que le joker demandé existe.
+    const jokersDisponibles = ['chaudFroid', 'podium', 'espion'];
+
+    if (!jokersDisponibles.includes(joker)) return;
+
+    // Garantir la présence des données.
+    if (!Array.isArray(joueur.jokersUtilises)) {
+      joueur.jokersUtilises = [];
+    }
+
+    // Un seul joker peut être sélectionné par manche.
+    if (joueur.jokerManche !== null) return;
+
+    // Un joker consommé ne peut pas être réutilisé pendant la partie.
+    if (joueur.jokersUtilises.includes(joker)) return;
+
+    // Enregistrer définitivement la sélection.
+    joueur.jokerManche = joker;
+    joueur.jokersUtilises.push(joker);
+
+    // Confirmer au téléphone que le joker a bien été sélectionné.
+    io.to(socket.id).emit('joker_selectionne', {
+      joker,
+      jokersUtilises: joueur.jokersUtilises
+    });
   });
 
   socket.on('envoi_reponse_joueur', ({ code, reponse }) => {
@@ -853,7 +892,8 @@ io.on('connection', (socket) => {
         scoreManche: lobby.scoresManche[joueur.socketId] ?? 0,
         scoreTotal: lobby.scoresTotaux[joueur.socketId] ?? 0,
         evolution,
-        toutPile
+        toutPile,
+        joker: joueur.jokerManche
       };
     });
 
