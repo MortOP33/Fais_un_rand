@@ -704,7 +704,12 @@ styleJokers.textContent = `
 document.head.appendChild(styleJokers);
 
 // --- Partie joueur : affichage du champ de saisie pendant le timer ---
-socket.on('afficher_saisie_joueur', ({ code, duree, debutSaisie }) => {
+socket.on('afficher_saisie_joueur', ({
+  code,
+  duree,
+  debutSaisie,
+  jokersUtilises = []
+}) => {
   if (codeInput.value.trim().toUpperCase() === code && joueurAvatar && joueurPseudo) {
     avatarsContainer.innerHTML = `
       <div style="
@@ -873,6 +878,13 @@ socket.on('afficher_saisie_joueur', ({ code, duree, debutSaisie }) => {
       </div>
     `;
     displayTimerJoueur(debutSaisie, duree);
+    // Griser les jokers déjà consommés pendant cette partie.
+    const zoneJokers = document.getElementById('zoneJokers');
+
+    zoneJokers.querySelectorAll('.btn-joker').forEach(bouton => {
+      bouton.disabled = jokersUtilises.includes(bouton.dataset.joker);
+    });
+    
     document.getElementById('btnEnvoyerReponse').onclick = function() {
       const champReponse = document.getElementById('champReponseJoueur');
       let val = champReponse.value.trim().replace(',', '.');
@@ -893,69 +905,48 @@ socket.on('afficher_saisie_joueur', ({ code, duree, debutSaisie }) => {
       champReponse.focus();
     };
 
-    // --- Interactions graphiques provisoires des jokers ---
+    // --- Sélection des jokers ---
     const zoneJokers = document.getElementById('zoneJokers');
-    const infoJoker = document.getElementById('infoJoker');
-    const popupEspion = document.getElementById('popupEspion');
-    const listeCibles = document.getElementById('listeCiblesEspion');
-
-    function afficherInfoJoker(message) {
-      zoneJokers.style.display = 'none';
-      infoJoker.textContent = message;
-      infoJoker.style.display = 'flex';
-    }
 
     zoneJokers.querySelectorAll('.btn-joker').forEach(bouton => {
       bouton.onclick = () => {
         const joker = bouton.dataset.joker;
 
-        if (joker === 'chaudFroid') {
-          afficherInfoJoker('Attente saisie...');
-        }
-
-        if (joker === 'podium') {
-          afficherInfoJoker('Attente des réponses...');
-        }
-
-        if (joker === 'espion') {
-          // Cibles fictives pour valider la fenêtre graphique.
-          // La liste réelle viendra du serveur à l'étape 5.
-          const ciblesTest = ['Joueur A', 'Joueur B', 'Joueur C'];
-
-          listeCibles.innerHTML = '';
-
-          ciblesTest.forEach(pseudo => {
-            const boutonCible = document.createElement('button');
-            boutonCible.textContent = pseudo;
-
-            Object.assign(boutonCible.style, {
-              width: '100%',
-              padding: '12px',
-              border: 'none',
-              borderRadius: '8px',
-              background: '#399c85',
-              color: 'white',
-              fontSize: '1.1em',
-              cursor: 'pointer'
-            });
-
-            boutonCible.onclick = () => {
-              popupEspion.style.display = 'none';
-              afficherInfoJoker('Espionnage en cours...');
-            };
-
-            listeCibles.appendChild(boutonCible);
-          });
-
-          popupEspion.style.display = 'flex';
-        }
+        // Demander au serveur de valider et consommer le joker.
+        socket.emit('selectionner_joker', {
+          code,
+          joker
+        });
       };
     });
-
-    document.getElementById('fermerPopupEspion').onclick = () => {
-      popupEspion.style.display = 'none';
-    };
   }
+});
+
+// --- Confirmation de la sélection d'un joker par le serveur ---
+socket.on('joker_selectionne', ({ joker }) => {
+  const zoneJokers = document.getElementById('zoneJokers');
+  const infoJoker = document.getElementById('infoJoker');
+  const popupEspion = document.getElementById('popupEspion');
+
+  // Ne rien faire si la saisie n'est plus affichée.
+  if (!zoneJokers || !infoJoker) return;
+
+  // Masquer les trois boutons après validation.
+  zoneJokers.style.display = 'none';
+
+  // Masquer également une éventuelle fenêtre de sélection.
+  if (popupEspion) {
+    popupEspion.style.display = 'none';
+  }
+
+  const messages = {
+    chaudFroid: 'Attente saisie...',
+    podium: 'Attente des réponses...',
+    espion: 'Espionnage en cours...'
+  };
+
+  infoJoker.textContent = messages[joker] || '';
+  infoJoker.style.display = 'flex';
 });
 
 socket.on('changer_etat_avatar_joueur', ({ etat }) => {
