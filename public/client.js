@@ -99,7 +99,7 @@ window.onload = () => {
         margin-bottom:18px;
         color:#fff;
       ">
-        LOBBY : ${maitreCode || ''}
+        LOBBY : <span id="lobbyCodeParametres"></span>
       </div>
       <h2 style="text-align:center; margin-bottom:18px;">Paramètres de partie</h2>
       <div style="margin-bottom:22px; display:flex; align-items:center; gap:10px;">
@@ -308,7 +308,7 @@ function createPageJeuMaitre() {
       margin-bottom:18px;
       color:#fff;
     ">
-      LOBBY : <span id="lobbyCodeParametres"></span>
+      LOBBY : <span id="lobbyCodeJeu"></span>
     </div>
     <div id="jeuThemeImg" style="text-align:center; margin-bottom:24px;"></div>
     <div id="jeuQuestionLabel" style="font-size:1.5em; font-weight:700; text-align:center; margin-bottom:18px;"></div>
@@ -346,6 +346,11 @@ function createPageJeuMaitre() {
       <button id="btnSuivant" disabled style="flex:1;">Suivant</button>
     </div>
   `;
+  const lobbyCodeJeu = document.getElementById('lobbyCodeJeu');
+
+  if (lobbyCodeJeu) {
+    lobbyCodeJeu.textContent = maitreCode || '';
+  }
 }
 
 btnMaitre.onclick = () => {
@@ -368,10 +373,18 @@ socket.on('maitre_code', (code) => {
     codeLabel.innerText = "";
   }
 
+  // Mise à jour du code sur la page des paramètres.
   const lobbyCodeParametres = document.getElementById('lobbyCodeParametres');
 
   if (lobbyCodeParametres) {
     lobbyCodeParametres.textContent = code || '';
+  }
+
+  // Mise à jour du code sur la page de jeu, si elle existe déjà.
+  const lobbyCodeJeu = document.getElementById('lobbyCodeJeu');
+
+  if (lobbyCodeJeu) {
+    lobbyCodeJeu.textContent = code || '';
   }
 });
 
