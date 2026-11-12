@@ -945,6 +945,40 @@ socket.on('joker_selectionne', ({ joker }) => {
 
   infoJoker.textContent = messages[joker] || '';
   infoJoker.style.display = 'flex';
+
+  // Le joker Chaud / froid annule la saisie précédente.
+  if (joker === 'chaudFroid') {
+    const champReponse = document.getElementById('champReponseJoueur');
+
+    if (champReponse) {
+      champReponse.value = '';
+      champReponse.focus();
+    }
+
+    joueurResponseSent = '';
+  }
+});
+
+// --- Indice du joker Chaud / froid ---
+socket.on('indice_chaud_froid', ({ indice }) => {
+  const infoJoker = document.getElementById('infoJoker');
+  if (!infoJoker) return;
+
+  const messages = {
+    plus: 'C’est plus !',
+    moins: 'C’est moins !',
+    parfait: 'C’est parfait !'
+  };
+
+  infoJoker.textContent = messages[indice] || '';
+});
+
+// --- Confirmation de la troisième saisie du joker Chaud / froid ---
+socket.on('chaud_froid_reponse_finale', () => {
+  const infoJoker = document.getElementById('infoJoker');
+  if (!infoJoker) return;
+
+  infoJoker.textContent = 'Saisie prise en compte';
 });
 
 socket.on('changer_etat_avatar_joueur', ({ etat }) => {
