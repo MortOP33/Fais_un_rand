@@ -91,6 +91,16 @@ window.onload = () => {
     parametresPage.id = "parametresPage";
     parametresPage.style.display = "none";
     parametresPage.innerHTML = `
+      <div style="
+        text-align:center;
+        font-size:1.2em;
+        font-weight:900;
+        letter-spacing:3px;
+        margin-bottom:18px;
+        color:#fff;
+      ">
+        CODE : ${maitreCode || ''}
+      </div>
       <h2 style="text-align:center; margin-bottom:18px;">Paramètres de partie</h2>
       <div style="margin-bottom:22px; display:flex; align-items:center; gap:10px;">
         <label for="nbQuestions" style="font-size:1.2em; font-weight:bold;">Nombre de questions&nbsp;:</label>
@@ -290,6 +300,16 @@ function createPageJeuMaitre() {
     document.body.appendChild(pageJeuMaitre);
   }
   pageJeuMaitre.innerHTML = `
+    <div style="
+      text-align:center;
+      font-size:1.2em;
+      font-weight:900;
+      letter-spacing:3px;
+      margin-bottom:18px;
+      color:#fff;
+    ">
+      CODE : ${maitreCode || ''}
+    </div>
     <div id="jeuThemeImg" style="text-align:center; margin-bottom:24px;"></div>
     <div id="jeuQuestionLabel" style="font-size:1.5em; font-weight:700; text-align:center; margin-bottom:18px;"></div>
     <div id="jeuCadres" style="display:flex; width:100%; max-width:1000px; box-sizing:border-box; gap:0; align-items:center; justify-content:center; margin:0 auto 24px; padding:0 12px;">
