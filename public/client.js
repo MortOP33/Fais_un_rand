@@ -906,8 +906,6 @@ socket.on('afficher_saisie_joueur', ({
     };
 
     // --- Sélection des jokers ---
-    const zoneJokers = document.getElementById('zoneJokers');
-
     zoneJokers.querySelectorAll('.btn-joker').forEach(bouton => {
       bouton.onclick = () => {
         const joker = bouton.dataset.joker;
