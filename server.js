@@ -429,8 +429,23 @@ io.on('connection', (socket) => {
     if (joueur) {
       joueur.avatar = avatar;
       joueur.socketId = socket.id;
+
+      // Garantir la présence des données des jokers.
+      if (!Array.isArray(joueur.jokersUtilises)) {
+        joueur.jokersUtilises = [];
+      }
+
+      if (joueur.jokerManche === undefined) {
+        joueur.jokerManche = null;
+      }
     } else {
-      joueurs.push({pseudo, avatar, socketId: socket.id});
+      joueurs.push({
+        pseudo,
+        avatar,
+        socketId: socket.id,
+        jokersUtilises: [],
+        jokerManche: null
+      });
     }
     socketToLobby[socket.id] = code;
     io.to(lobbies[code].maitreId).emit('players', joueurs);
@@ -646,6 +661,11 @@ io.on('connection', (socket) => {
     lobby.scoresTotaux = {};
     lobby.scoresManche = {};
     lobby.scoresCategories = {};
+    // Réinitialiser les jokers de tous les joueurs.
+    lobby.joueurs.forEach(joueur => {
+      joueur.jokersUtilises = [];
+      joueur.jokerManche = null;
+    });
 
     lobby.manche = creerEtatManche();
     lobby.scoresTotauxAvantManche = null;
@@ -684,6 +704,11 @@ io.on('connection', (socket) => {
     if (lobby.manche.phase !== 'attente') return;
 
     lobby.manche = creerEtatManche();
+
+    // Chaque joueur peut choisir un nouveau joker pour cette manche.
+    lobby.joueurs.forEach(joueur => {
+      joueur.jokerManche = null;
+    });
 
     const duree = 30;
     const debutSaisie = Date.now();
