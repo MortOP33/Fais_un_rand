@@ -350,7 +350,8 @@ function arreterSaisie(code, raison) {
     reponses: lobby.joueurs.map(j => ({
       pseudo: j.pseudo,
       reponse: lobby.manche.reponses[j.socketId]?.reponse ?? null,
-      valide: lobby.manche.reponses[j.socketId]?.valide ?? false
+      valide: lobby.manche.reponses[j.socketId]?.valide ?? false,
+      joker: j.jokerManche
     }))
   });
 

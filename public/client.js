@@ -754,7 +754,7 @@ socket.on('afficher_saisie_joueur', ({
           <button class="btn-joker" data-joker="chaudFroid"
             title="Chaud / froid"
             style="background:#e49a29;">
-            +/-
+            🌡️
           </button>
 
           <button class="btn-joker" data-joker="podium"
@@ -1073,7 +1073,28 @@ socket.on('fin_saisie', ({ reponses }) => {
     }
 
     const statut = ligne.querySelector('.col-statut');
-    if (statut) statut.textContent = '';
+
+    if (statut) {
+      const iconesJokers = {
+        chaudFroid: '🌡️',
+        podium: '🏆',
+        espion: '🕵️'
+      };
+
+      statut.textContent = iconesJokers[item.joker] || '';
+
+      statut.style.fontSize = '1.6em';
+      statut.style.fontWeight = '900';
+      statut.style.lineHeight = '1';
+      statut.style.textAlign = 'center';
+      statut.style.padding = '4px 8px';
+      statut.style.color = '#fff';
+
+      statut.setAttribute(
+        'aria-label',
+        item.joker ? `Joker utilisé : ${item.joker}` : 'Aucun joker utilisé'
+      );
+    }
   });
 
   btnAfficher.textContent = 'Réponse';
@@ -1118,19 +1139,8 @@ socket.on('afficher_revelation', ({ reponse, complement, classement }) => {
     const scoreTotal = ligne.querySelector('.col-score-total');
 
     if (statut) {
-      // Associer une icône au joker éventuellement utilisé.
-      const iconesJokers = {
-        chaudFroid: '🌡️',
-        podium: '🏆',
-        espion: '🕵️'
-      };
-
-      const iconeJoker = iconesJokers[joueurClassement.joker] || '';
-
-      // Afficher l'évolution du classement et le joker utilisé.
-      statut.textContent = iconeJoker
-        ? `${joueurClassement.evolution} ${iconeJoker}`
-        : joueurClassement.evolution;
+      // À la révélation, afficher uniquement l'évolution du classement.
+      statut.textContent = joueurClassement.evolution;
 
       statut.style.fontSize = '1.6em';
       statut.style.fontWeight = '900';
