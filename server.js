@@ -972,6 +972,20 @@ io.on('connection', (socket) => {
       joker,
       jokersUtilises: joueur.jokersUtilises
     });
+
+    // Si la cible possède déjà une réponse valide,
+    // la transmettre immédiatement à l'Espion.
+    if (joker === 'espion') {
+      const reponseExistante = lobby.manche.reponses[cibleEspion.socketId];
+
+      if (reponseExistante && reponseExistante.valide) {
+        notifierEspion(
+          lobby,
+          cibleEspion.socketId,
+          reponseExistante.reponse
+        );
+      }
+    }
   });
 
   // --- Fournir la liste des cibles possibles pour le joker Espion ---
