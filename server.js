@@ -525,6 +525,19 @@ function creerEtatManche() {
   };
 }
 
+function notifierEspion(lobby, cibleSocketId, reponse) {
+  lobby.joueurs.forEach(joueur => {
+    if (
+      joueur.jokerManche === 'espion' &&
+      joueur.espionCibleManche === cibleSocketId
+    ) {
+      io.to(joueur.socketId).emit('mise_a_jour_espion', {
+        reponse
+      });
+    }
+  });
+}
+
 io.on('connection', (socket) => {
   socket.on('maitre_create', () => {
     let code;
@@ -894,7 +907,7 @@ io.on('connection', (socket) => {
   });
 
     // --- Sélection et consommation d'un joker ---
-  socket.on('selectionner_joker', ({ code, joker }) => {
+  socket.on('selectionner_joker', ({ code, joker, cibleSocketId }) => {
     const lobby = lobbies[code];
 
     // Vérifier que la partie et la saisie sont toujours actives.
@@ -908,6 +921,19 @@ io.on('connection', (socket) => {
     const jokersDisponibles = ['chaudFroid', 'podium', 'espion'];
 
     if (!jokersDisponibles.includes(joker)) return;
+
+    // Pour Espion, vérifier que la cible est un autre joueur du lobby.
+    let cibleEspion = null;
+
+    if (joker === 'espion') {
+      if (typeof cibleSocketId !== 'string') return;
+
+      cibleEspion = lobby.joueurs.find(
+        j => j.socketId === cibleSocketId
+      );
+
+      if (!cibleEspion || cibleEspion.socketId === socket.id) return;
+    }
 
     // Garantir la présence des données.
     if (!Array.isArray(joueur.jokersUtilises)) {
@@ -923,6 +949,11 @@ io.on('connection', (socket) => {
     // Enregistrer définitivement la sélection.
     joueur.jokerManche = joker;
     joueur.jokersUtilises.push(joker);
+
+    // Mémoriser la cible choisie pour le joker Espion.
+    if (joker === 'espion') {
+      joueur.espionCibleManche = cibleEspion.socketId;
+    }
 
     // Le joker Chaud / froid impose de repartir de zéro.
     if (joker === 'chaudFroid') {
@@ -941,6 +972,28 @@ io.on('connection', (socket) => {
       joker,
       jokersUtilises: joueur.jokersUtilises
     });
+  });
+
+  // --- Fournir la liste des cibles possibles pour le joker Espion ---
+  socket.on('demander_cibles_espion', ({ code }) => {
+    const lobby = lobbies[code];
+
+    // Vérifier que le lobby existe et que le joueur en fait partie.
+    if (!lobby) return;
+
+    const joueur = lobby.joueurs.find(j => j.socketId === socket.id);
+    if (!joueur) return;
+
+    // Renvoyer tous les autres joueurs de ce lobby uniquement.
+    const cibles = lobby.joueurs
+      .filter(j => j.socketId !== socket.id)
+      .map(j => ({
+        socketId: j.socketId,
+        pseudo: j.pseudo,
+        avatar: j.avatar
+      }));
+
+    socket.emit('liste_cibles_espion', cibles);
   });
 
   socket.on('envoi_reponse_joueur', ({ code, reponse }) => {
@@ -1012,6 +1065,12 @@ io.on('connection', (socket) => {
             valide: true
           };
 
+          notifierEspion(
+            lobby,
+            socket.id,
+            lobby.manche.reponses[socket.id].reponse
+          );
+
           delete lobby.manche.reponsesEnAttenteChaudFroid[socket.id];
 
           io.to(lobby.maitreId).emit('statut_reponse', {
@@ -1045,6 +1104,14 @@ io.on('connection', (socket) => {
       reponse: String(reponse).trim(),
       valide
     };
+
+    if (valide) {
+      notifierEspion(
+        lobby,
+        socket.id,
+        lobby.manche.reponses[socket.id].reponse
+      );
+    }
 
     io.to(lobby.maitreId).emit('statut_reponse', {
       pseudo: joueur.pseudo,

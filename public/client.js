@@ -982,14 +982,83 @@ socket.on('afficher_saisie_joueur', ({
       bouton.onclick = () => {
         const joker = bouton.dataset.joker;
 
-        // Demander au serveur de valider et consommer le joker.
+        // Pour Espion, demander d'abord la liste des cibles.
+        if (joker === 'espion') {
+          socket.emit('demander_cibles_espion', { code });
+          return;
+        }
+
+        // Pour les autres jokers, conserver le fonctionnement actuel.
         socket.emit('selectionner_joker', {
           code,
           joker
         });
       };
     });
+
+    // --- Annulation de la sélection d'une cible Espion ---
+    document.getElementById('fermerPopupEspion').onclick = () => {
+      document.getElementById('popupEspion').style.display = 'none';
+    };
   }
+});
+
+// --- Affichage de la liste des cibles possibles pour Espion ---
+socket.on('liste_cibles_espion', (cibles) => {
+  const popupEspion = document.getElementById('popupEspion');
+  const listeCibles = document.getElementById('listeCiblesEspion');
+
+  if (!popupEspion || !listeCibles) return;
+
+  listeCibles.innerHTML = '';
+
+  // Prévoir le cas où aucune cible n'est disponible.
+  if (!Array.isArray(cibles) || cibles.length === 0) {
+    listeCibles.textContent = 'Aucun autre joueur disponible.';
+  } else {
+    cibles.forEach(cible => {
+      const bouton = document.createElement('button');
+
+      bouton.type = 'button';
+      bouton.style.display = 'flex';
+      bouton.style.alignItems = 'center';
+      bouton.style.gap = '12px';
+      bouton.style.width = '100%';
+      bouton.style.padding = '10px';
+      bouton.style.background = '#383c48';
+      bouton.style.color = '#fff';
+      bouton.style.border = '1px solid #555965';
+      bouton.style.borderRadius = '8px';
+      bouton.style.cursor = 'pointer';
+
+      const avatar = document.createElement('img');
+      avatar.src = cible.avatar || '';
+      avatar.alt = '';
+      avatar.style.width = '42px';
+      avatar.style.height = '42px';
+      avatar.style.objectFit = 'cover';
+      avatar.style.borderRadius = '50%';
+
+      const pseudo = document.createElement('span');
+      pseudo.textContent = cible.pseudo;
+
+      bouton.appendChild(avatar);
+      bouton.appendChild(pseudo);
+
+      // Confirmer la cible choisie auprès du serveur.
+      bouton.onclick = () => {
+        socket.emit('selectionner_joker', {
+          code: codeInput.value.trim().toUpperCase(),
+          joker: 'espion',
+          cibleSocketId: cible.socketId
+        });
+      };
+
+      listeCibles.appendChild(bouton);
+    });
+  }
+
+  popupEspion.style.display = 'flex';
 });
 
 // --- Confirmation de la sélection d'un joker par le serveur ---
@@ -1029,6 +1098,15 @@ socket.on('joker_selectionne', ({ joker }) => {
 
     joueurResponseSent = '';
   }
+});
+
+// --- Mise à jour de la réponse espionnée ---
+socket.on('mise_a_jour_espion', ({ reponse }) => {
+  const infoJoker = document.getElementById('infoJoker');
+
+  if (!infoJoker) return;
+
+  infoJoker.textContent = `Réponse espionnée : ${reponse}`;
 });
 
 // --- Indice du joker Chaud / froid ---
