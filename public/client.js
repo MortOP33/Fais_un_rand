@@ -658,12 +658,54 @@ socket.on('afficher_saisie_joueur', ({ code, duree, debutSaisie }) => {
         </div>
 
         <div id="timerJoueur" style="
-          text-align:center;
-          font-size:2.5em;
-          font-weight:900;
-          color:#fff;
-          margin-top:4px;
-        ">${duree}</div>
+          width:100px;
+          height:100px;
+          position:relative;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          margin:4px auto 0;
+        ">
+          <svg width="100" height="100">
+            <circle
+              r="45"
+              cx="50"
+              cy="50"
+              fill="none"
+              stroke="#3855d6"
+              stroke-width="7"
+              stroke-dasharray="282"
+              stroke-dashoffset="0"
+              style="transform:rotate(-90deg);transform-origin:50% 50%;"
+            />
+            <circle
+              id="timerCircleJoueur"
+              r="45"
+              cx="50"
+              cy="50"
+              fill="none"
+              stroke="#3855d6"
+              stroke-width="7"
+              stroke-dasharray="282"
+              stroke-dashoffset="0"
+              style="transform:rotate(-90deg);transform-origin:50% 50%;"
+            />
+          </svg>
+
+          <div id="timerTextJoueur" style="
+            position:absolute;
+            left:0;
+            top:0;
+            width:100px;
+            height:100px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:2em;
+            font-weight:bold;
+            color:#fff;
+          ">${duree}</div>
+        </div>
 
         <div id="reponseForm" style="
           width:100%;
@@ -1102,9 +1144,12 @@ function displayTimerJoueur(debutSaisie, duree) {
     timerInterval = null;
   }
 
-  const timerText = document.getElementById('timerJoueur');
+  const timerDiv = document.getElementById('timerJoueur');
 
-  if (!timerText) return;
+  if (!timerDiv) return;
+
+  const circle = timerDiv.querySelector('#timerCircleJoueur');
+  const timerText = timerDiv.querySelector('#timerTextJoueur');
 
   const actualiserTimer = () => {
     const tempsRestant = Math.max(
@@ -1113,6 +1158,11 @@ function displayTimerJoueur(debutSaisie, duree) {
     );
 
     timerText.textContent = tempsRestant;
+
+    const progression = tempsRestant / duree;
+    const offset = 282 * (1 - progression);
+
+    circle.setAttribute('stroke-dashoffset', `${offset}`);
 
     if (tempsRestant <= 0) {
       clearInterval(timerInterval);
