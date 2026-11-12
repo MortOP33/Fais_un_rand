@@ -670,6 +670,39 @@ socket.on('debut_saisie', ({ duree }) => {
   });
 });
 
+// --- Style graphique provisoire des jokers ---
+const styleJokers = document.createElement('style');
+
+styleJokers.textContent = `
+  .btn-joker {
+    width:64px;
+    height:64px;
+    flex:0 0 64px;
+    border-radius:50%;
+    border:3px solid rgba(255,255,255,0.8);
+    color:white;
+    font-size:1.35em;
+    font-weight:900;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 3px 10px rgba(0,0,0,0.35);
+    touch-action:manipulation;
+  }
+
+  .btn-joker:disabled {
+    background:#777 !important;
+    color:#bbb;
+    border-color:#999;
+    box-shadow:none;
+    cursor:not-allowed;
+    opacity:0.65;
+  }
+`;
+
+document.head.appendChild(styleJokers);
+
 // --- Partie joueur : affichage du champ de saisie pendant le timer ---
 socket.on('afficher_saisie_joueur', ({ code, duree, debutSaisie }) => {
   if (codeInput.value.trim().toUpperCase() === code && joueurAvatar && joueurPseudo) {
@@ -704,6 +737,97 @@ socket.on('afficher_saisie_joueur', ({ code, duree, debutSaisie }) => {
           color:#fff;
           margin-top:4px;
         ">${duree}</div>
+
+        <!-- Zone des jokers -->
+        <div id="zoneJokers" style="
+          width:100%;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          gap:16px;
+        ">
+          <button class="btn-joker" data-joker="chaudFroid"
+            title="Chaud / froid"
+            style="background:#e49a29;">
+            +/-
+          </button>
+
+          <button class="btn-joker" data-joker="podium"
+            title="Podium"
+            style="background:#3855d6;">
+            🏆
+          </button>
+
+          <button class="btn-joker" data-joker="espion"
+            title="Espion"
+            style="background:#399c85;">
+            🕵
+          </button>
+        </div>
+
+        <!-- Label affiché après sélection -->
+        <div id="infoJoker" style="
+          display:none;
+          width:100%;
+          min-height:54px;
+          box-sizing:border-box;
+          align-items:center;
+          justify-content:center;
+          text-align:center;
+          font-size:1.1em;
+          font-weight:700;
+          color:#fff;
+        "></div>
+
+        <!-- Fenêtre de sélection de la cible -->
+        <div id="popupEspion" style="
+          display:none;
+          position:fixed;
+          inset:0;
+          z-index:1000;
+          background:rgba(0,0,0,0.75);
+          align-items:center;
+          justify-content:center;
+          padding:20px;
+          box-sizing:border-box;
+        ">
+          <div style="
+            width:100%;
+            max-width:340px;
+            max-height:75vh;
+            overflow-y:auto;
+            background:#292b34;
+            border:2px solid #399c85;
+            border-radius:16px;
+            padding:18px;
+            box-sizing:border-box;
+          ">
+            <div style="
+              color:white;
+              text-align:center;
+              font-size:1.2em;
+              font-weight:bold;
+              margin-bottom:16px;
+            ">Choisissez un joueur</div>
+
+            <div id="listeCiblesEspion" style="
+              display:flex;
+              flex-direction:column;
+              gap:10px;
+            "></div>
+
+            <button id="fermerPopupEspion" style="
+              display:block;
+              margin:16px auto 0;
+              padding:10px 18px;
+              background:#555965;
+              color:white;
+              border:none;
+              border-radius:8px;
+              cursor:pointer;
+            ">Annuler</button>
+          </div>
+        </div>
 
         <div id="reponseForm" style="
           width:100%;
@@ -765,10 +889,71 @@ socket.on('afficher_saisie_joueur', ({ code, duree, debutSaisie }) => {
         reponse: val
       });
 
-      // Effacer le champ pour confirmer visuellement l'envoi
-      // et permettre immédiatement une nouvelle saisie.
       champReponse.value = '';
       champReponse.focus();
+    };
+
+    // --- Interactions graphiques provisoires des jokers ---
+    const zoneJokers = document.getElementById('zoneJokers');
+    const infoJoker = document.getElementById('infoJoker');
+    const popupEspion = document.getElementById('popupEspion');
+    const listeCibles = document.getElementById('listeCiblesEspion');
+
+    function afficherInfoJoker(message) {
+      zoneJokers.style.display = 'none';
+      infoJoker.textContent = message;
+      infoJoker.style.display = 'flex';
+    }
+
+    zoneJokers.querySelectorAll('.btn-joker').forEach(bouton => {
+      bouton.onclick = () => {
+        const joker = bouton.dataset.joker;
+
+        if (joker === 'chaudFroid') {
+          afficherInfoJoker('Attente saisie...');
+        }
+
+        if (joker === 'podium') {
+          afficherInfoJoker('Attente des réponses...');
+        }
+
+        if (joker === 'espion') {
+          // Cibles fictives pour valider la fenêtre graphique.
+          // La liste réelle viendra du serveur à l'étape 5.
+          const ciblesTest = ['Joueur A', 'Joueur B', 'Joueur C'];
+
+          listeCibles.innerHTML = '';
+
+          ciblesTest.forEach(pseudo => {
+            const boutonCible = document.createElement('button');
+            boutonCible.textContent = pseudo;
+
+            Object.assign(boutonCible.style, {
+              width: '100%',
+              padding: '12px',
+              border: 'none',
+              borderRadius: '8px',
+              background: '#399c85',
+              color: 'white',
+              fontSize: '1.1em',
+              cursor: 'pointer'
+            });
+
+            boutonCible.onclick = () => {
+              popupEspion.style.display = 'none';
+              afficherInfoJoker('Espionnage en cours...');
+            };
+
+            listeCibles.appendChild(boutonCible);
+          });
+
+          popupEspion.style.display = 'flex';
+        }
+      };
+    });
+
+    document.getElementById('fermerPopupEspion').onclick = () => {
+      popupEspion.style.display = 'none';
     };
   }
 });
