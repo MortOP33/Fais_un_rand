@@ -631,7 +631,7 @@ socket.on('debut_saisie', ({ duree }) => {
 });
 
 // --- Partie joueur : affichage du champ de saisie pendant le timer ---
-socket.on('afficher_saisie_joueur', ({ code }) => {
+socket.on('afficher_saisie_joueur', ({ code, duree, debutSaisie }) => {
   if (codeInput.value.trim().toUpperCase() === code && joueurAvatar && joueurPseudo) {
     avatarsContainer.innerHTML = `
       <div style="
@@ -656,6 +656,14 @@ socket.on('afficher_saisie_joueur', ({ code }) => {
           <img src="${joueurAvatar}" class="avatar-maitre" alt="" />
           <span class="player-name">${joueurPseudo}</span>
         </div>
+
+        <div id="timerJoueur" style="
+          text-align:center;
+          font-size:2.5em;
+          font-weight:900;
+          color:#fff;
+          margin-top:4px;
+        ">${duree}</div>
 
         <div id="reponseForm" style="
           width:100%;
@@ -700,6 +708,7 @@ socket.on('afficher_saisie_joueur', ({ code }) => {
         </div>
       </div>
     `;
+    displayTimerJoueur(debutSaisie, duree);
     document.getElementById('btnEnvoyerReponse').onclick = function() {
       const champReponse = document.getElementById('champReponseJoueur');
       let val = champReponse.value.trim().replace(',', '.');
@@ -753,6 +762,17 @@ socket.on('reset_affichage_joueur', () => {
 });
 
 socket.on('fin_saisie_joueur', () => {
+  if (timerInterval !== null) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+
+  const timerJoueur = document.getElementById('timerJoueur');
+
+  if (timerJoueur) {
+    timerJoueur.remove();
+  }
+
   const formulaire = document.getElementById('reponseForm');
 
   if (formulaire) {
@@ -1074,6 +1094,35 @@ function displayTimer(seconds, onFinish) {
     }
   }, 1000);
   circle.setAttribute('stroke-dashoffset', `0`);
+}
+
+function displayTimerJoueur(debutSaisie, duree) {
+  if (timerInterval !== null) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+
+  const timerText = document.getElementById('timerJoueur');
+
+  if (!timerText) return;
+
+  const actualiserTimer = () => {
+    const tempsRestant = Math.max(
+      0,
+      Math.ceil((debutSaisie + duree * 1000 - Date.now()) / 1000)
+    );
+
+    timerText.textContent = tempsRestant;
+
+    if (tempsRestant <= 0) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+  };
+
+  actualiserTimer();
+
+  timerInterval = setInterval(actualiserTimer, 250);
 }
 
 document.addEventListener('click', function(e) {

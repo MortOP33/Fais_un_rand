@@ -684,15 +684,24 @@ io.on('connection', (socket) => {
     if (lobby.manche.phase !== 'attente') return;
 
     lobby.manche = creerEtatManche();
+
+    const duree = 30;
+    const debutSaisie = Date.now();
+
     lobby.manche.phase = 'saisie';
-    lobby.manche.debutSaisie = Date.now();
+    lobby.manche.debutSaisie = debutSaisie;
 
     lobby.joueurs.forEach(j => {
-      io.to(j.socketId).emit('afficher_saisie_joueur', { code });
+      io.to(j.socketId).emit('afficher_saisie_joueur', {
+        code,
+        duree,
+        debutSaisie
+      });
     });
 
     io.to(lobby.maitreId).emit('debut_saisie', {
-      duree: 30,
+      duree,
+      debutSaisie,
       joueurs: lobby.joueurs.map(j => ({
         pseudo: j.pseudo,
         avatar: j.avatar
