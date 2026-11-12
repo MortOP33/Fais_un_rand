@@ -1118,8 +1118,21 @@ socket.on('afficher_revelation', ({ reponse, complement, classement }) => {
     const scoreTotal = ligne.querySelector('.col-score-total');
 
     if (statut) {
-      statut.textContent = joueurClassement.evolution;
-      statut.style.fontSize = '2em';
+      // Associer une icône au joker éventuellement utilisé.
+      const iconesJokers = {
+        chaudFroid: '🌡️',
+        podium: '🏆',
+        espion: '🕵️'
+      };
+
+      const iconeJoker = iconesJokers[joueurClassement.joker] || '';
+
+      // Afficher l'évolution du classement et le joker utilisé.
+      statut.textContent = iconeJoker
+        ? `${joueurClassement.evolution} ${iconeJoker}`
+        : joueurClassement.evolution;
+
+      statut.style.fontSize = '1.6em';
       statut.style.fontWeight = '900';
       statut.style.lineHeight = '1';
       statut.style.textAlign = 'center';
