@@ -711,7 +711,7 @@ io.on('connection', (socket) => {
       joueur.jokerManche = null;
     });
 
-    const duree = 30;
+    const duree = 40;
     const debutSaisie = Date.now();
 
     lobby.manche.phase = 'saisie';
@@ -737,7 +737,7 @@ io.on('connection', (socket) => {
 
     lobby.manche.timer = setTimeout(() => {
       arreterSaisie(code, 'chrono');
-    }, 30000);
+    }, 40000);
   });
 
     // --- Sélection et consommation d'un joker ---
