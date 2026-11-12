@@ -367,6 +367,7 @@ function creerEtatManche() {
   return {
     phase: 'attente',
     reponses: {},
+    essaisChaudFroid: {},
     timer: null,
     debutSaisie: null
   };
@@ -771,6 +772,18 @@ io.on('connection', (socket) => {
     joueur.jokerManche = joker;
     joueur.jokersUtilises.push(joker);
 
+    // Le joker Chaud / froid impose de repartir de zéro.
+    if (joker === 'chaudFroid') {
+      delete lobby.manche.reponses[socket.id];
+      lobby.manche.essaisChaudFroid[socket.id] = 0;
+
+      // Actualiser le statut du joueur sur l'écran du maître.
+      io.to(lobby.maitreId).emit('statut_reponse', {
+        pseudo: joueur.pseudo,
+        valide: false
+      });
+    }
+
     // Confirmer au téléphone que le joker a bien été sélectionné.
     io.to(socket.id).emit('joker_selectionne', {
       joker,
@@ -788,6 +801,49 @@ io.on('connection', (socket) => {
 
     const valide = joueurEstValide(reponse);
 
+    // Traitement spécifique du joker Chaud / froid.
+    if (joueur.jokerManche === 'chaudFroid') {
+
+      // Une saisie invalide ne consomme aucun essai.
+      if (!valide) return;
+
+      const question = lobby.questions[lobby.questionIndex];
+      if (!question) return;
+
+      const valeurSaisie = convertirEnNombre(reponse);
+      const valeurCorrecte = convertirEnNombre(question.reponse);
+
+      if (valeurSaisie === null || valeurCorrecte === null) return;
+
+      const essais = lobby.manche.essaisChaudFroid[socket.id] ?? 0;
+
+      // Les deux premiers essais donnent un indice.
+      if (essais < 2) {
+        let indice;
+
+        if (valeurSaisie < valeurCorrecte) {
+          indice = 'plus';
+        } else if (valeurSaisie > valeurCorrecte) {
+          indice = 'moins';
+        } else {
+          indice = 'parfait';
+        }
+
+        lobby.manche.essaisChaudFroid[socket.id] = essais + 1;
+
+        io.to(socket.id).emit('indice_chaud_froid', {
+          indice,
+          essaisRestants: 1 - essais
+        });
+
+        return;
+      }
+
+      // Le troisième essai valide devient la réponse définitive.
+      io.to(socket.id).emit('chaud_froid_reponse_finale');
+    }
+
+    // Enregistrement normal de la réponse.
     lobby.manche.reponses[socket.id] = {
       reponse: String(reponse).trim(),
       valide
