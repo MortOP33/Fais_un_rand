@@ -1080,7 +1080,13 @@ socket.on('question_annulee', ({ classement }) => {
 
     if (scoreManche) {
       scoreManche.textContent = '0';
+
+      // Supprimer tous les effets visuels du bonus "Tout pile".
       scoreManche.style.color = '';
+      scoreManche.style.fontWeight = '';
+      scoreManche.style.fontSize = '';
+      scoreManche.style.textShadow = '';
+      scoreManche.style.webkitTextStroke = '';
     }
 
     const avatar = ligne.querySelector('.avatar-maitre');
