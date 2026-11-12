@@ -343,6 +343,18 @@ function arreterSaisie(code, raison) {
     lobby.manche.timer = null;
   }
 
+  // À la fin du chronomètre, récupérer les dernières saisies
+  // valides des joueurs n'ayant pas terminé leur joker Chaud / froid.
+  if (raison === 'chrono') {
+    Object.entries(lobby.manche.reponsesEnAttenteChaudFroid)
+      .forEach(([socketId, reponse]) => {
+        lobby.manche.reponses[socketId] = {
+          reponse,
+          valide: true
+        };
+      });
+  }
+
   lobby.manche.phase = 'comparaison';
 
   io.to(lobby.maitreId).emit('fin_saisie', {
@@ -368,6 +380,7 @@ function creerEtatManche() {
     phase: 'attente',
     reponses: {},
     essaisChaudFroid: {},
+    reponsesEnAttenteChaudFroid: {},
     timer: null,
     debutSaisie: null
   };
