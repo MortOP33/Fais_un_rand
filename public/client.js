@@ -99,7 +99,7 @@ window.onload = () => {
         margin-bottom:18px;
         color:#fff;
       ">
-        CODE : ${maitreCode || ''}
+        LOBBY : ${maitreCode || ''}
       </div>
       <h2 style="text-align:center; margin-bottom:18px;">Paramètres de partie</h2>
       <div style="margin-bottom:22px; display:flex; align-items:center; gap:10px;">
@@ -308,7 +308,7 @@ function createPageJeuMaitre() {
       margin-bottom:18px;
       color:#fff;
     ">
-      CODE : ${maitreCode || ''}
+      LOBBY : <span id="lobbyCodeParametres"></span>
     </div>
     <div id="jeuThemeImg" style="text-align:center; margin-bottom:24px;"></div>
     <div id="jeuQuestionLabel" style="font-size:1.5em; font-weight:700; text-align:center; margin-bottom:18px;"></div>
@@ -361,10 +361,17 @@ socket.on('theme_images', (mapping) => {
 
 socket.on('maitre_code', (code) => {
   maitreCode = code;
+
   if (code) {
     codeLabel.innerText = "CODE : " + code;
   } else {
     codeLabel.innerText = "";
+  }
+
+  const lobbyCodeParametres = document.getElementById('lobbyCodeParametres');
+
+  if (lobbyCodeParametres) {
+    lobbyCodeParametres.textContent = code || '';
   }
 });
 
