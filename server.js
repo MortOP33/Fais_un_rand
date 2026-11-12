@@ -849,11 +849,39 @@ io.on('connection', (socket) => {
           essaisRestants: 1 - essais
         });
 
+        // Une réponse parfaite devient immédiatement définitive.
+        if (indice === 'parfait') {
+          lobby.manche.reponses[socket.id] = {
+            reponse: String(reponse).trim(),
+            valide: true
+          };
+
+          delete lobby.manche.reponsesEnAttenteChaudFroid[socket.id];
+
+          io.to(lobby.maitreId).emit('statut_reponse', {
+            pseudo: joueur.pseudo,
+            valide: true
+          });
+
+          if (tousLesJoueursOntRepondu(lobby)) {
+            arreterSaisie(code, 'tous_repondus');
+          }
+
+          return;
+        }
+
+        // Sinon, conserver uniquement le dernier essai valide.
+        // Il ne sera comptabilisé que si le chronomètre expire.
+        lobby.manche.reponsesEnAttenteChaudFroid[socket.id] =
+          String(reponse).trim();
+
         return;
       }
 
       // Le troisième essai valide devient la réponse définitive.
       io.to(socket.id).emit('chaud_froid_reponse_finale');
+
+      delete lobby.manche.reponsesEnAttenteChaudFroid[socket.id];
     }
 
     // Enregistrement normal de la réponse.
