@@ -1004,6 +1004,23 @@ socket.on('fin_saisie_joueur', () => {
     formulaire.remove();
   }
 
+  // Masquer les éléments graphiques des jokers.
+  const zoneJokers = document.getElementById('zoneJokers');
+  const infoJoker = document.getElementById('infoJoker');
+  const popupEspion = document.getElementById('popupEspion');
+
+  if (zoneJokers) {
+    zoneJokers.remove();
+  }
+
+  if (infoJoker) {
+    infoJoker.remove();
+  }
+
+  if (popupEspion) {
+    popupEspion.remove();
+  }
+
   joueurResponseSent = "";
 });
 
