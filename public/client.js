@@ -670,6 +670,78 @@ socket.on('debut_saisie', ({ duree }) => {
   });
 });
 
+// --- Début de la seconde phase du joker Podium ---
+socket.on('debut_resaisie_podium', ({
+  duree,
+  debutResaisie,
+  autorise,
+  rang
+}) => {
+
+  // Cas du maître : lancer le chronomètre de 15 secondes.
+  if (autorise === undefined) {
+    displayTimer(duree, () => {
+      // Le serveur gère la clôture effective.
+    });
+    return;
+  }
+
+  // Cas d'un joueur sans le joker Podium :
+  // afficher uniquement son avatar et son pseudo.
+  if (!autorise) {
+    if (timerInterval !== null) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+
+    avatarsContainer.innerHTML = `
+      <div style="
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:28px;
+        width:max-content;
+        max-width:100%;
+        box-sizing:border-box;
+        margin:24px auto 0;
+      ">
+        <img src="${joueurAvatar || ''}" class="avatar-maitre" alt="" />
+        <span class="player-name">${joueurPseudo || ''}</span>
+      </div>
+    `;
+
+    joueurResponseSent = "";
+    return;
+  }
+
+  // Cas d'un joueur ayant choisi le joker Podium.
+  // Conserver le formulaire et afficher son rang initial.
+  const zoneJokers = document.getElementById('zoneJokers');
+  const infoJoker = document.getElementById('infoJoker');
+  const popupEspion = document.getElementById('popupEspion');
+  const champReponse = document.getElementById('champReponseJoueur');
+
+  if (zoneJokers) zoneJokers.remove();
+  if (popupEspion) popupEspion.remove();
+
+  if (infoJoker) {
+    const rangTexte = rang === 1 ? '1er' : `${rang}ème`;
+    infoJoker.textContent = `Vous étiez ${rangTexte}`;
+    infoJoker.style.display = 'flex';
+  }
+
+  if (champReponse) {
+    champReponse.value = '';
+    champReponse.focus();
+  }
+
+  joueurResponseSent = "";
+
+  // Remplacer le chronomètre initial par celui de 15 secondes.
+  displayTimerJoueur(debutResaisie, duree);
+});
+
+
 // --- Style graphique provisoire des jokers ---
 const styleJokers = document.createElement('style');
 

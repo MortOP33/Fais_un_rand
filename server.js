@@ -331,6 +331,151 @@ function tousLesJoueursOntRepondu(lobby) {
     });
 }
 
+
+function demarrerResaisiePodium(code) {
+  const lobby = lobbies[code];
+
+  if (!lobby) return false;
+
+  const joueursPodium = lobby.joueurs.filter(
+    joueur => joueur.jokerManche === 'podium'
+  );
+
+  if (joueursPodium.length === 0) return false;
+
+  const question = lobby.questions[lobby.questionIndex];
+  if (!question) return false;
+
+  const valeurCorrecte = convertirEnNombre(question.reponse);
+  if (valeurCorrecte === null) return false;
+
+  // Construire le classement à partir de TOUS les joueurs.
+  const reponsesValides = [];
+  const joueursSansReponse = [];
+
+  lobby.joueurs.forEach(joueur => {
+    const saisie = lobby.manche.reponses[joueur.socketId];
+
+    const valeur = saisie && saisie.valide
+      ? convertirEnNombre(saisie.reponse)
+      : null;
+
+    if (valeur === null) {
+      joueursSansReponse.push(joueur);
+    } else {
+      reponsesValides.push({
+        socketId: joueur.socketId,
+        ecart: Math.abs(valeur - valeurCorrecte)
+      });
+    }
+  });
+
+  // Classer les réponses valides de la plus proche à la plus éloignée.
+  reponsesValides.sort((a, b) => a.ecart - b.ecart);
+
+  const rangs = {};
+  let debutGroupe = 0;
+
+  // Attribuer les rangs en tenant compte des ex æquo.
+  while (debutGroupe < reponsesValides.length) {
+    let finGroupe = debutGroupe;
+
+    while (
+      finGroupe + 1 < reponsesValides.length &&
+      Math.abs(
+        reponsesValides[finGroupe + 1].ecart -
+        reponsesValides[debutGroupe].ecart
+      ) < 1e-9
+    ) {
+      finGroupe++;
+    }
+
+    const rang = debutGroupe + 1;
+
+    for (let i = debutGroupe; i <= finGroupe; i++) {
+      rangs[reponsesValides[i].socketId] = rang;
+    }
+
+    debutGroupe = finGroupe + 1;
+  }
+
+  // Les joueurs sans réponse valide sont tous derniers,
+  // et partagent le même rang.
+  if (joueursSansReponse.length > 0) {
+    const rangDernier = reponsesValides.length + 1;
+
+    joueursSansReponse.forEach(joueur => {
+      rangs[joueur.socketId] = rangDernier;
+    });
+  }
+
+  // Conserver les rangs calculés pour cette manche.
+  lobby.manche.rangsPodium = rangs;
+
+  // Lancer la seconde phase de 15 secondes.
+  const duree = 15;
+  const debutResaisie = Date.now();
+
+  lobby.manche.phase = 'resaisiePodium';
+  lobby.manche.debutResaisiePodium = debutResaisie;
+
+  // Informer chaque joueur, mais ne communiquer le rang
+  // qu'à ceux qui ont choisi le joker Podium.
+  lobby.joueurs.forEach(joueur => {
+    const autorise = joueur.jokerManche === 'podium';
+
+    io.to(joueur.socketId).emit('debut_resaisie_podium', {
+      duree,
+      debutResaisie,
+      autorise,
+      rang: autorise ? rangs[joueur.socketId] : null
+    });
+  });
+
+  io.to(lobby.maitreId).emit('debut_resaisie_podium', {
+    duree,
+    debutResaisie
+  });
+
+  lobby.manche.timer = setTimeout(() => {
+    terminerSaisie(code, 'podium');
+  }, duree * 1000);
+
+  return true;
+}
+
+function terminerSaisie(code, raison) {
+  const lobby = lobbies[code];
+
+  if (
+    !lobby ||
+    !['saisie', 'resaisiePodium'].includes(lobby.manche.phase)
+  ) {
+    return;
+  }
+
+  if (lobby.manche.timer) {
+    clearTimeout(lobby.manche.timer);
+    lobby.manche.timer = null;
+  }
+
+  lobby.manche.phase = 'comparaison';
+
+  io.to(lobby.maitreId).emit('fin_saisie', {
+    raison,
+    reponses: lobby.joueurs.map(j => ({
+      pseudo: j.pseudo,
+      reponse: lobby.manche.reponses[j.socketId]?.reponse ?? null,
+      valide: lobby.manche.reponses[j.socketId]?.valide ?? false,
+      joker: j.jokerManche
+    }))
+  });
+
+  lobby.joueurs.forEach(j => {
+    io.to(j.socketId).emit('fin_saisie_joueur');
+  });
+}
+
 function arreterSaisie(code, raison) {
   const lobby = lobbies[code];
 
@@ -355,21 +500,13 @@ function arreterSaisie(code, raison) {
       });
   }
 
-  lobby.manche.phase = 'comparaison';
+  // Si au moins un joueur a choisi Podium, ouvrir la resaisie.
+  if (demarrerResaisiePodium(code)) {
+    return;
+  }
 
-  io.to(lobby.maitreId).emit('fin_saisie', {
-    raison,
-    reponses: lobby.joueurs.map(j => ({
-      pseudo: j.pseudo,
-      reponse: lobby.manche.reponses[j.socketId]?.reponse ?? null,
-      valide: lobby.manche.reponses[j.socketId]?.valide ?? false,
-      joker: j.jokerManche
-    }))
-  });
-
-  lobby.joueurs.forEach(j => {
-    io.to(j.socketId).emit('fin_saisie_joueur');
-  });
+  // Sinon, terminer directement la saisie.
+  terminerSaisie(code, raison);
 }
 
 let lobbies = {}; // { code: { maitreId, joueurs: [{pseudo, avatar, socketId}] } }
@@ -381,6 +518,8 @@ function creerEtatManche() {
     reponses: {},
     essaisChaudFroid: {},
     reponsesEnAttenteChaudFroid: {},
+    rangsPodium: {},
+    debutResaisiePodium: null,
     timer: null,
     debutSaisie: null
   };
@@ -805,14 +944,31 @@ io.on('connection', (socket) => {
   });
 
   socket.on('envoi_reponse_joueur', ({ code, reponse }) => {
+
     const lobby = lobbies[code];
 
-    if (!lobby || lobby.manche.phase !== 'saisie') return;
+    if (
+      !lobby ||
+      !['saisie', 'resaisiePodium'].includes(lobby.manche.phase)
+    ) return;
 
     const joueur = lobby.joueurs.find(j => j.socketId === socket.id);
     if (!joueur) return;
 
     const valide = joueurEstValide(reponse);
+
+    // Pendant la seconde phase, seuls les joueurs Podium
+    // peuvent envoyer une nouvelle réponse valide.
+    if (lobby.manche.phase === 'resaisiePodium') {
+      if (joueur.jokerManche !== 'podium' || !valide) return;
+
+      lobby.manche.reponses[socket.id] = {
+        reponse: String(reponse).trim(),
+        valide: true
+      };
+
+      return;
+    }
 
     // Traitement spécifique du joker Chaud / froid.
     if (joueur.jokerManche === 'chaudFroid') {
