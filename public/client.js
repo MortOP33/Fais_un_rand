@@ -331,7 +331,7 @@ function createPageJeuMaitre() {
     <div id="jeuThemeImg" style="text-align:center; margin-bottom:24px;"></div>
     <div id="jeuQuestionLabel" style="font-size:1.5em; font-weight:700; text-align:center; margin-bottom:18px;"></div>
     <div id="jeuCadres" style="display:flex; width:100%; max-width:1000px; box-sizing:border-box; gap:0; align-items:center; justify-content:center; margin:0 auto 24px; padding:0 12px;">
-      <div id="jeuReponseCadre" style="display:none; flex:0 0 20%; width:20%; min-width:0; box-sizing:border-box; padding-right:12px;"></div>
+      <div id="jeuReponseCadre" style="display:none; flex:0 0 30%; width:30%; min-width:0; box-sizing:border-box; padding-right:12px;"></div>
       <div id="jeuComplementCadre" style="display:none; flex:1; min-width:0; box-sizing:border-box; padding-left:12px;"></div>
       <div id="jeuTimerCadre" style="width:100px; height:100px; position:relative; display:flex; align-items:center; justify-content:center;"></div>
     </div>
