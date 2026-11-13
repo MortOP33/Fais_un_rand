@@ -29,6 +29,24 @@ let timerInterval = null;
 let historiqueImporte = [];
 let derniereQuestionAffichee = false;
 
+// Formater un nombre avec des espaces entre les milliers.
+function formaterNombre(valeur) {
+  if (valeur === null || valeur === undefined || valeur === '') {
+    return valeur;
+  }
+
+  const nombre = Number(String(valeur).trim().replace(',', '.'));
+
+  if (!Number.isFinite(nombre)) {
+    return valeur;
+  }
+
+  return new Intl.NumberFormat('fr-FR', {
+    useGrouping: true,
+    maximumFractionDigits: 20
+  }).format(nombre);
+}
+
 function avatarAvecEtat(avatarNormal, etat) {
   if (!avatarNormal) return avatarNormal;
 
@@ -582,7 +600,7 @@ socket.on('afficher_question', ({ question, index, total, joueurs, themeImages }
   document.getElementById('jeuComplementCadre').style.display = "none";
 
   // Le contenu est prêt, mais invisible
-  document.getElementById('jeuReponseCadre').innerHTML = `<div style="background:#2b2c32;border-radius:16px;padding:18px 38px;font-size:2.2em;font-weight:bold;min-width:120px;text-align:center;box-shadow:0 2px 13px #0005;border:4px solid #3855d6;color:#fff;">${roundAnswer}</div>`;
+  document.getElementById('jeuReponseCadre').innerHTML = `<div style="background:#2b2c32;border-radius:16px;padding:18px 38px;font-size:2.2em;font-weight:bold;min-width:120px;text-align:center;box-shadow:0 2px 13px #0005;border:4px solid #3855d6;color:#fff;">${formaterNombre(roundAnswer)}</div>`;
   document.getElementById('jeuComplementCadre').innerHTML = `<div style="font-size:1.18em;font-weight:500;text-align:center;color:#ececec; margin-top:20px;">${roundComplement}</div>`;
 
   document.getElementById('jeuThemeImg').innerHTML = "";
@@ -956,10 +974,66 @@ socket.on('afficher_saisie_joueur', ({
     zoneJokers.querySelectorAll('.btn-joker').forEach(bouton => {
       bouton.disabled = jokersUtilises.includes(bouton.dataset.joker);
     });
-    
+
+    const champReponse = document.getElementById('champReponseJoueur');
+
+    // Formater la saisie au fil de la frappe, sans déplacer brutalement le curseur.
+    champReponse.addEventListener('input', () => {
+      const valeurInitiale = champReponse.value;
+      const positionCurseur = champReponse.selectionStart ?? valeurInitiale.length;
+
+      // Compter les caractères utiles avant le curseur, hors espaces de groupement.
+      const texteAvantCurseur = valeurInitiale
+        .slice(0, positionCurseur)
+        .replace(/[\s\u00A0\u202F]/g, '');
+
+      const caracteresAvantCurseur =
+        (texteAvantCurseur.match(/[0-9+\-.,]/g) || []).length;
+
+      const valeurBrute = valeurInitiale.replace(/[\s\u00A0\u202F]/g, '');
+      const valeurNormalisee = valeurBrute.replace(',', '.');
+
+      // Tolérer les saisies momentanément incomplètes (ex. "-" ou "1250,").
+      if (!/^[-+]?\d*\.?\d*$/.test(valeurNormalisee) || !/\d/.test(valeurNormalisee)) {
+        return;
+      }
+
+      const separateurFinal = /[.,]$/.test(valeurBrute);
+      let valeurFormatee = formaterNombre(valeurNormalisee);
+
+      // Conserver la virgule si le joueur est en train de saisir les décimales.
+      if (separateurFinal) {
+        valeurFormatee += ',';
+      }
+
+      if (valeurFormatee === valeurInitiale) return;
+
+      champReponse.value = valeurFormatee;
+
+      // Replacer le curseur après le même nombre de caractères utiles.
+      let nouvellePosition = 0;
+      let caracteresComptes = 0;
+
+      while (
+        nouvellePosition < valeurFormatee.length &&
+        caracteresComptes < caracteresAvantCurseur
+      ) {
+        if (/[0-9+\-.,]/.test(valeurFormatee[nouvellePosition])) {
+          caracteresComptes++;
+        }
+        nouvellePosition++;
+      }
+
+      champReponse.setSelectionRange(nouvellePosition, nouvellePosition);
+    });
+
     document.getElementById('btnEnvoyerReponse').onclick = function() {
-      const champReponse = document.getElementById('champReponseJoueur');
-      let val = champReponse.value.trim().replace(',', '.');
+      // Retirer les espaces de groupement avant validation et envoi au serveur.
+      let val = champReponse.value
+        .trim()
+        .replace(/[\s\u00A0\u202F]/g, '')
+        .replace(',', '.');
+
 
       if (!/^[-+]?\d*\.?\d+$/.test(val)) {
         alert("Réponse numérique attendue.");
@@ -1253,7 +1327,7 @@ socket.on('fin_saisie', ({ reponses }) => {
     const reponseCell = ligne.querySelector('.col-reponse');
     if (reponseCell) {
       reponseCell.textContent =
-        item.reponse === null ? '—' : item.reponse;
+        item.reponse === null ? '—' : formaterNombre(item.reponse);
     }
 
     const statut = ligne.querySelector('.col-statut');
@@ -1420,7 +1494,7 @@ socket.on('afficher_revelation', ({ reponse, complement, classement }) => {
       color:#fff;
       box-shadow:0 2px 13px #0005;
     ">
-      ${reponse}
+      ${formaterNombre(reponse)}
     </div>
   `;
 
